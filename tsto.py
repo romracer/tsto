@@ -56,10 +56,13 @@ class TSTO:
             r = requests.put(url=url, headers=headers, verify=False)
         # reading response
         data = r.content
-        if r.headers["Content-Type"] == "application/x-protobuf":
-            print(r.headers["Content-Type"])
+        if (len(data) == 0):
+            print("no content")
         else:
-            print(data)
+            if r.headers["Content-Type"] == "application/x-protobuf":
+                print(r.headers["Content-Type"])
+            else:
+                print(data)
         return data
 
     def protobufParse(self, msg, data):
@@ -84,6 +87,7 @@ class TSTO:
     def doAuthWithToken(self, token):
         self.mToken = token
         self.headers["nucleus_token"] = token
+        self.headers["AuthToken"] = token
 
         data = self.doRequest("GET", "application/json", "auth.tnt-ea.com"
             , "/rest/oauth/origin/%s/Simpsons-Tapped-Out/" % self.mToken)
@@ -159,11 +163,6 @@ class TSTO:
         fdresp.ParseFromString(data)
         return fdresp
 
-    def doDropFriend(self, friendId):
-        data = self.doRequest("GET", "application/json", "m.friends.dm.origin.com"
-            , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, friendId)
-            , true)
-
     def doUploadExtraLandMessage(self):
         msg = self.mExtraLandMessage
         if msg == None:
@@ -195,26 +194,59 @@ class TSTO:
         data = self.doRequest("POST", "application/xaml+xml", "prod.simpsons-ea.com"
             , "/mh/games/bg_gameserver_plugin/usernotificationstatus/?type=reset_time", True)
 
+    # show sorted friends list
+
     def showFriends(self):
         self.checkLogined()
-        crit = time.mktime(time.localtime()) - (24 * 60 * 60 * 60 * 7 * 3)
         friends = self.doDownloadFriendsData()
+        fds = []
         for fd in friends.friendData:
             f = fd.friendData
-            if f.lastPlayedTime > crit:
-                continue
-            raw_input("Drop this (y/N) ").lower() == 'y'
-            print("%s:%d:%s" % (time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)), f.level, f.name))
-            self.doDropFriend(f.externalId)
+            fds.append("%s:%s:%d:%s" % (time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)), fd.friendId, f.level, f.name))
+        fds.sort()
+        for f in fds:
+            print(f)
 
-    def dropFriends(self):
+    # drop friends that not playing more (moths*30) days
+
+    def dropFriends(self, months):
         self.checkLogined()
-        crit = time.mktime(time.localtime()) - (24 * 60 * 60 * 60 * 7 * 3)
+        ts = time.mktime(time.localtime())
+        crit = (30 * 24 * 60 * 60 * months)
         friends = self.doDownloadFriendsData()
+
+#        for key, value in self.headers.items():
+#            print (key, value)
+
+#        self.doRequest("GET", "application/json", "m.friends.dm.origin.com"
+#            , "//friends/user/%s/pendingfriends" % (self.mUserId)
+#            , True)
+#        self.doRequest("GET", "application/json", "m.friends.dm.origin.com"
+#            , "//friends/user/%s/globalgroup/friendIds" % (self.mUserId)
+#            , True)
+        
+        # find what don't need to delete
+        notDel=[]
         for fd in friends.friendData:
             f = fd.friendData
-            if f.lastPlayedTime <= crit:
-                print("%s:%d:%s" % (time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)), f.level, f.name))
+            if (ts - f.lastPlayedTime) < crit:
+                notDel.append(fd.friendId)
+                continue
+            print("%s:%s:%d:%s" % (time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)), fd.friendId, f.level, f.name))
+            if raw_input("Drop this friend (y/N) ").lower() == 'y':
+                self.doRequest("GET", "application/json", "m.friends.dm.origin.com"
+                    , "//friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, fd.externalId)
+                    , True)
+        # get indexes for deletion
+        forDel=[]
+        for i in range(len(self.mLandMessage.friendListData)):
+            f = self.mLandMessage.friendListData[i]
+            if f.friendID not in notDel:
+                forDel.insert(0, i)
+        # delete by indexes
+        for i in forDel:
+            del self.mLandMessage.friendListData[i]
+        self.mLandMessage.innerLandData.numSavedFriends = len(self.mLandMessage.friendListData)
 
     def showTimes(self):
         tm = time.gmtime(self.mLandMessage.innerLandData.timeSpentPlaying)
@@ -339,6 +371,15 @@ innerLandData.creationTime: %s""" % (
         for i in range(len(qst.objectiveData)):
             del qst.objectiveData[i]
 
+    def cleanR(self):
+        self.mLandMessage.innerLandData.landBlocks = "0000000000000000000001100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        self.mLandMessage.roadsData.mapDataSize = 32
+        self.mLandMessage.roadsData.mapData = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+        self.mLandMessage.riversData.mapDataSize = 32
+        self.mLandMessage.riversData.mapData = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+        self.mLandMessage.oceanData.mapDataSize = 0
+        self.mLandMessage.oceanData.mapData = ""
+
     def cleanDebris(self):
         idx2del = []
         for idx, b in enumerate(self.mLandMessage.buildingData):
@@ -446,6 +487,11 @@ while True :
             tsto.showTimes()
         elif (cmds[0] == "friends"):
             tsto.showFriends()
+        elif (cmds[0] == "friendsdrop"):
+            if cmds_count >= 2:
+                tsto.dropFriends(int(cmds[1]))
+            else:
+                tsto.dropFriends(3)
         elif (cmds[0] == "donuts"):
             tsto.donutsAdd(int(cmds[1]))
         elif (cmds[0] == "setlevel"):
@@ -459,38 +505,42 @@ while True :
             tsto.varChange(cmds[1], int(cmds[2]))
         elif (cmds[0] == "cleandebris"):
             tsto.cleanDebris()
+        elif (cmds[0] == "cleanr"):
+            tsto.cleanR()
         elif (cmds[0] == "quit"):
             sys.exit(0)
         elif (cmds[0] == "help"):
             print("""
-login email pass   - login origin account
-download           - download LandMessage
-showtimes          - show some times variables from LandMessage
-friends            - show friends info
-resetnotif         - clear neighbor handshakes
-protocurrency      - show ProtoCurrency information
-upload             - upload current LandMessage to mayhem server
-uploadextra        - upload current ExtraLandMessage to mayhem server
+login email pass     - login origin account
+download             - download LandMessage
+showtimes            - show some times variables from LandMessage
+friends              - show friends info
+friendsdrop months=3 - drop friends who not playing more then 3 months
+resetnotif           - clear neighbor handshakes
+protocurrency        - show ProtoCurrency information
+upload               - upload current LandMessage to mayhem server
+uploadextra          - upload current ExtraLandMessage to mayhem server
 
-load filepath      - load LandMessage from local filepath
-save filepath      - save LandMessage to local filepath
-astext             - save LandMessage text representation into file
+load filepath        - load LandMessage from local filepath
+save filepath        - save LandMessage to local filepath
+astext               - save LandMessage text representation into file
 
-vs name value      - variable set
-donuts count       - set donuts for logined acc to count
-ia id type count=1 - add item with id and type into inventory
-ic id type count   - set count item with id and type
-spendable id count - set count spendable with id
-money count        - set money count
-skins 1,2,3        - set skins to (see: skinsmasterlist.xml)
-setlevel level     - set current level (be careful)
-qc id              - complete quest with id
-hurry              - done all jobs and rewards
-bm id x y flip     - set positions for all buildings with id
-cleandebris        - clean debris in subland 1 and 2
-std email pass     - execute std routines for acc
-help               - this message
-quit               - exit""")
+vs name value        - variable set
+donuts count         - set donuts for logined acc to count
+ia id type count=1   - add item with id and type into inventory
+ic id type count     - set count item with id and type
+spendable id count   - set count spendable with id
+money count          - set money count
+skins 1,2,3          - set skins to (see: skinsmasterlist.xml)
+setlevel level       - set current level (be careful)
+qc id                - complete quest with id
+hurry                - done all jobs and rewards
+bm id x y flip       - set positions for all buildings with id
+cleanr               - clear roads, rivers, broadwalk
+cleandebris          - clean debris in subland 1 and 2
+std email pass       - execute std routines for acc
+help                 - this message
+quit                 - exit""")
         else:
             print("WARN: unknown command")
     except Exception as e:
