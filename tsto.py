@@ -23,14 +23,14 @@ class TSTO:
         self.headers                       = dict()
         self.headers["Accept"]             = "*/*"
         self.headers["Accept-Encoding"]    = "gzip"
-        self.headers["client_version"]     = "4.11.0"
+        self.headers["client_version"]     = "4.12.0"
         self.headers["server_api_version"] = "4.0.0"
         self.headers["EA-SELL-ID"]         = "857120"
         self.headers["platform"]           = "android"
         self.headers["os_version"]         = "15.0.0"
         self.headers["hw_model_id"]        = "0 0.0"
         self.headers["data_param_1"]       = "2633815347"
-        self.mMhClientVersion              = "Android.4.11.0"
+        self.mMhClientVersion              = "Android.4.12.0"
 
 ### Network ###
 
@@ -207,12 +207,12 @@ class TSTO:
         for f in fds:
             print(f)
 
-    # drop friends that not playing more (moths*30) days
+    # drop friends that not playing more given days
 
-    def dropFriends(self, months):
+    def dropFriends(self, days):
         self.checkLogined()
         ts = time.mktime(time.localtime())
-        crit = (30 * 24 * 60 * 60 * months)
+        crit = (24 * 60 * 60 * days)
         friends = self.doDownloadFriendsData()
 
 #        for key, value in self.headers.items():
@@ -263,20 +263,27 @@ innerLandData.creationTime: %s""" % (
 
 ### In-game items ###
 
-    def inventoryAdd(self, itemid, itemtype=0, count=1):
-        for item in self.mLandMessage.inventoryItemData:
-            if item.itemID == itemid and item.itemType == itemtype:
-                raise TypeError("ERR: inventoryItem %d:%d" % (itemid, itemtype))
-        t = self.mLandMessage.inventoryItemData.add()
-        t.header.id = self.mLandMessage.innerLandData.nextInstanceID
-        t.itemID = itemid
-        t.itemType = itemtype
-        t.count  = count
-        t.isOwnerList = False
-        t.fromLand = 0
-        t.sourceLen = 0
-        self.mLandMessage.innerLandData.nextInstanceID    = t.header.id + 1
-        self.mLandMessage.innerLandData.numInventoryItems = len(self.mLandMessage.inventoryItemData)
+    def inventoryAdd(self, itemsid, itemtype=0, count=1):
+        items = itemsid.split(',')
+        # check if present
+        for it in items:
+            it = int(it)
+            for item in self.mLandMessage.inventoryItemData:
+                if item.itemID == it and item.itemType == itemtype:
+                    raise TypeError("ERR: inventoryItem %d:%d" % (it, itemtype))
+        # now add
+        for it in items:
+            it = int(it)
+            t = self.mLandMessage.inventoryItemData.add()
+            t.header.id = self.mLandMessage.innerLandData.nextInstanceID
+            t.itemID = it
+            t.itemType = itemtype
+            t.count  = count
+            t.isOwnerList = False
+            t.fromLand = 0
+            t.sourceLen = 0
+            self.mLandMessage.innerLandData.nextInstanceID    = t.header.id + 1
+            self.mLandMessage.innerLandData.numInventoryItems = len(self.mLandMessage.inventoryItemData)
 
     def inventoryCount(self, itemid, itemtype, count):
         it = -1
@@ -293,7 +300,7 @@ innerLandData.creationTime: %s""" % (
             if it != -1:
                 self.mLandMessage.inventoryItemData[it].count = count
             else:
-                self.inventoryAdd(itemid, itemtype, count)
+                self.inventoryAdd(str(itemid), itemtype, count)
 
     def donutsAdd(self, amount):
         elm = self.mExtraLandMessage;
@@ -372,13 +379,27 @@ innerLandData.creationTime: %s""" % (
             del qst.objectiveData[i]
 
     def cleanR(self):
-        self.mLandMessage.innerLandData.landBlocks = "0000000000000000000001100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        self.mLandMessage.roadsData.mapDataSize = 32
-        self.mLandMessage.roadsData.mapData = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
-        self.mLandMessage.riversData.mapDataSize = 32
-        self.mLandMessage.riversData.mapData = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
-        self.mLandMessage.oceanData.mapDataSize = 0
-        self.mLandMessage.oceanData.mapData = ""
+        self.mLandMessage.friendData.dataVersion = 14
+        self.mLandMessage.innerLandData.landBlocks = "1111111111111111111111111111111111111111111111111111111111111111111111111111111100111111111111110011111111111111001111111111111100111111111111110011111111111111001111111111111100111111111111110011111111111111000000000000000000000000000000000000000000000000"
+        self.mLandMessage.friendData.boardwalkTileCount = 0
+
+        data=''
+        for i in range(14 * 13):
+            for j in range(16):
+                data += 'G'
+
+        self.mLandMessage.roadsData.mapDataSize = len(data)
+        self.mLandMessage.roadsData.mapData = data
+        self.mLandMessage.riversData.mapDataSize = len(data)
+        self.mLandMessage.riversData.mapData = data
+
+        data=''
+        for i in range(2 * 5):
+            for j in range(16):
+                data += 'G'
+
+        self.mLandMessage.oceanData.mapDataSize = len(data)
+        self.mLandMessage.oceanData.mapData = data
 
     def cleanDebris(self):
         idx2del = []
@@ -401,13 +422,13 @@ innerLandData.creationTime: %s""" % (
     def standard(self, email, password):
         self.doAuth(email, password)
         self.doLandDownload()
-        self.inventoryAdd(3704, 0, 15)  # 15 CubicZirconia
-        self.inventoryAdd(1039, 0, 50)  # 50 special trees
-        self.inventoryAdd(1040, 0, 50)  # 50 another special trees
-        self.inventoryAdd(1217, 0, 200) # 200 IChochoseYou trains
-        self.inventoryAdd(9, 2, 999)    # 999 Buddah
-        self.inventoryAdd(44, 2, 999)   # 999 Golden scratchers
-        self.inventoryAdd(5000, 2, 100) # 200 squidport tiles
+        self.inventoryAdd("3704", 0, 15)  # 15 CubicZirconia
+        self.inventoryAdd("1039", 0, 50)  # 50 special trees
+        self.inventoryAdd("1040", 0, 50)  # 50 another special trees
+        self.inventoryAdd("1217", 0, 200) # 200 IChochoseYou trains
+        self.inventoryAdd("9", 2, 999)    # 999 Buddah (9)
+        self.inventoryAdd("44", 2, 999)   # 999 Golden scratchers (44)
+        self.inventoryAdd("5000", 2, 100) # 200 squidport tiles (5000)
         self.spendablesAllSet(987654321)
         self.donutsAdd(5432)
         self.doLandUpload()
@@ -446,11 +467,11 @@ while True :
     try:
         if (cmds[0] == "ia"):
             if cmds_count >= 4:
-                tsto.inventoryAdd(int(cmds[1]), int(cmds[2]), int(cmds[3]))
+                tsto.inventoryAdd(cmds[1], int(cmds[2]), int(cmds[3]))
             elif cmds_count == 3:
-                tsto.inventoryAdd(int(cmds[1]), int(cmds[2]))
+                tsto.inventoryAdd(cmds[1], int(cmds[2]))
             elif cmds_count == 2:
-                tsto.inventoryAdd(int(cmds[1]))
+                tsto.inventoryAdd(cmds[1])
         elif (cmds[0] == "ic"):
             tsto.inventoryCount(int(cmds[1]), int(cmds[2]), int(cmds[3]))
         elif (cmds[0] == "money"):
@@ -491,7 +512,7 @@ while True :
             if cmds_count >= 2:
                 tsto.dropFriends(int(cmds[1]))
             else:
-                tsto.dropFriends(3)
+                tsto.dropFriends(90)
         elif (cmds[0] == "donuts"):
             tsto.donutsAdd(int(cmds[1]))
         elif (cmds[0] == "setlevel"):
@@ -515,7 +536,7 @@ login email pass     - login origin account
 download             - download LandMessage
 showtimes            - show some times variables from LandMessage
 friends              - show friends info
-friendsdrop months=3 - drop friends who not playing more then 3 months
+friendsdrop days=90  - drop friends who not playing more then given amount
 resetnotif           - clear neighbor handshakes
 protocurrency        - show ProtoCurrency information
 upload               - upload current LandMessage to mayhem server
@@ -527,7 +548,7 @@ astext               - save LandMessage text representation into file
 
 vs name value        - variable set
 donuts count         - set donuts for logined acc to count
-ia id type count=1   - add item with id and type into inventory
+ia ids type count=1  - add item(s) with id and type into inventory
 ic id type count     - set count item with id and type
 spendable id count   - set count spendable with id
 money count          - set money count
