@@ -14,11 +14,13 @@ Prepare LandData_pb2.py
 Usage examples
 
 List of supported commands:
+
     python tsto.py
     help
     quit
 
 Add 1000 donuts to your account email@host.com:
+
     python tsto.py
     login email@host.com password
     download
@@ -27,6 +29,7 @@ Add 1000 donuts to your account email@host.com:
     quit
 
 Store your town status into ./land.backup file:
+
     python tsto.py
     login email@host.com password
     download
@@ -34,6 +37,7 @@ Store your town status into ./land.backup file:
     quit
 
 Add 100 squidport tiles(5000), 999 golden scratchers (44), 999 buddah (9):
+
     python tsto.py
     login email@host.com password
     download
