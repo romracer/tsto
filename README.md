@@ -9,16 +9,16 @@ Installation
 
 Prepare LandData_pb2.py
 
-   protoc --python_out=. LandData.proto
+    protoc --python_out=. LandData.proto
 
 Usage examples
 
+List of supported commands:
     python tsto.py
     help
     quit
 
-* list of supported commands
-
+Add 1000 donuts to your account email@host.com:
     python tsto.py
     login email@host.com password
     download
@@ -26,16 +26,14 @@ Usage examples
     upload
     quit
 
-* add 1000 donuts to your account email@host.com
-
+Store your town status into ./land.backup file:
     python tsto.py
     login email@host.com password
     download
     save land.backup
     quit
 
-* store your town status into ./land.backup file
-
+Add 100 squidport tiles(5000), 999 golden scratchers (44), 999 buddah (9):
     python tsto.py
     login email@host.com password
     download
@@ -44,5 +42,3 @@ Usage examples
     ia 9 2 999
     upload
     quit
-
-* add 100 squidport tiles(5000), 999 golden scratchers (44), 999 buddah (9)
