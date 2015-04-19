@@ -707,6 +707,51 @@ message LandMessage {
   optional string productId = 1;
  }
 
+ message AdvancedVariableSet {
+  message AdvancedVariable {
+   optional string name = 1;
+   optional string value = 2;
+   optional int64 createdTime = 3;
+   optional int64 ttl = 4;
+   optional uint32 objectClass = 5;
+   optional uint32 serverID = 6;
+   optional uint32 objectTypeID = 7;
+   optional bool orphaned = 8;
+   optional bool canBeOrphaned = 9;
+   optional int32 scope = 10;
+   optional uint32 sublandID = 11;
+   optional uint32 flags = 12;
+   optional uint32 uuid = 13;
+  }
+  repeated AdvancedVariable variable = 1;
+ }
+
+ message ObjectVariables {
+  optional AdvancedVariableSet variables = 1;
+ }
+
+ message SavedRecommendations {
+  optional int32 reccomendationType = 1;
+  optional string entryName = 2;
+  optional int32 sublandID = 3;
+  optional int64 time = 4;
+  optional string characterName = 5;
+  optional int32 number = 6;
+  optional string extraName = 7;
+  optional float popularityTime = 8;
+ }
+
+ message AmazonDimension {
+  enum AmazonDimensionType {
+   AMAZON_DIMENSION_TYPE_STRING = 1;
+   AMAZON_DIMENSION_TYPE_NUMBER = 2;
+  }
+
+  optional AmazonDimensionType amazonDimensionType = 1;
+  optional string amazonDimensionName = 2;
+  optional string amazonDimensionValue = 3;
+ }
+
  optional string id = 1;
  optional FriendData friendData = 2;
  optional UserData userData = 3;
@@ -749,6 +794,9 @@ message LandMessage {
  repeated FriendListData friendListData = 40;
  optional FriendActionCount allFriendActionsCount = 41;
  optional bool friendListDataIsCreatedAndSaved = 42;
+ optional ObjectVariables objectVariables = 43;
+ repeated SavedRecommendations recommendations = 44;
+ repeated AmazonDimension amazonDimensionSet = 45;
 }
 
 // //////////////////////////////////////////////////////////////////////////////////////// //
@@ -900,10 +948,21 @@ message ExtraLandMessage {
   optional int64 amount = 2;
  }
 
+ message NameValue {
+  optional string name = 1;
+  optional string value = 2;
+ }
+
+ message MatchmakingRegistration {
+  optional string category = 1;
+  repeated NameValue params = 2;
+ }
+
  repeated CurrencyDelta currencyDelta = 1;
  repeated EventMessage event = 2;
  repeated PushNotification pushNotification = 3;
  repeated CommunityGoalDelta communityGoalDelta = 4;
+ repeated MatchmakingRegistration matchmakingRegistration = 5;
 }
 
 message ExtraLandResponse {
