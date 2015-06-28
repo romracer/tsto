@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-#
-# (c) jsbot@ya.ru, 2013 - 2014
-#
+"""TSTO tool."""
+
+__author__ = 'jsbot@ya.ru (Oleg Polivets)'
 
 import urllib2
 import json
@@ -23,19 +23,19 @@ class TSTO:
         self.headers                       = dict()
         self.headers["Accept"]             = "*/*"
         self.headers["Accept-Encoding"]    = "gzip"
-        self.headers["client_version"]     = "4.12.0"
+        self.headers["client_version"]     = "4.15.0"
         self.headers["server_api_version"] = "4.0.0"
         self.headers["EA-SELL-ID"]         = "857120"
         self.headers["platform"]           = "android"
         self.headers["os_version"]         = "15.0.0"
         self.headers["hw_model_id"]        = "0 0.0"
         self.headers["data_param_1"]       = "2633815347"
-        self.mMhClientVersion              = "Android.4.12.0"
+        self.mMhClientVersion              = "Android.4.15.0"
 
 ### Network ###
 
     def doRequest(self, method, content_type, host, path, keep_alive=False, body=[], uncomressedLen=-1):
-        url = "https://%s%s" % (host, path)
+        url = ("https://%s%s" % (host, path)).encode('utf-8')
         print(url)
 
         # filling headers for this request
@@ -43,6 +43,7 @@ class TSTO:
         if uncomressedLen > -1:
             headers["Content-Encoding"]    = "gzip"
             headers["Uncompressed-Length"] = uncomressedLen
+            headers["Content-Length"]      = len(body)
         if keep_alive == True:
             headers["Connection"] = "Keep-Alive"
         else:
@@ -55,14 +56,16 @@ class TSTO:
         response = urllib2.urlopen(request)
 
         # reading response
-        data = response.read()
+        if response.info().get('Content-Encoding') != 'gzip':
+            data = response.read()
+        else:
+            buf = StringIO.StringIO(response.read())
+            f = gzip.GzipFile(fileobj=buf)
+            data = f.read()
+
         if (len(data) == 0):
             print("no content")
         else:
-            if response.info().get('Content-Encoding') == 'gzip':
-                buf = StringIO.StringIO(data)
-                f = gzip.GzipFile(fileobj=buf)
-                data = f.read()
             if response.info().get("Content-Type") == 'application/x-protobuf':
                 print(response.info().get("Content-Type"))
             else:
