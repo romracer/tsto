@@ -120,6 +120,8 @@ message LandMessage {
   optional uint32 pendingConsumable = 24;
   optional uint32 visualLevel = 25;
   optional int32 timezoneOffset = 26;
+  optional uint32 userPreferences = 27;
+  optional bool shouldAnalyze = 28;
  }
 
  message InnerLandData {
@@ -155,6 +157,8 @@ message LandMessage {
   repeated string versions = 30;
   optional bool buildingsSorted = 31;
   optional uint32 numSavedFriends = 32;
+  optional uint32 landBlockWidth = 33;
+  optional uint32 landBlockHeight = 34;
  }
 
  message TerrainData {
@@ -200,6 +204,7 @@ message LandMessage {
   optional int32 skin = 6;
   optional int32 skinBackup = 7;
   optional uint32 subLandID = 8;
+  optional uint32 flags = 9;
  }
 
  message ConsumableData {
@@ -351,6 +356,7 @@ message LandMessage {
    optional uint32 rewardConsumableID = 13;
    optional int32 floatTextLength = 14;
    optional string floatText = 15;
+   optional int32 flags = 16;
   }
 
   optional EntityHeader header = 1;
@@ -668,6 +674,8 @@ message LandMessage {
   optional string landBlocks = 3;
   repeated TerrainData terrainData = 4;
   optional bool buildingsSorted = 5;
+  optional uint32 landBlockWidth = 6;
+  optional uint32 landBlockHeight = 7;
  }
 
  message MinigameData {
@@ -741,17 +749,6 @@ message LandMessage {
   optional float popularityTime = 8;
  }
 
- message AmazonDimension {
-  enum AmazonDimensionType {
-   AMAZON_DIMENSION_TYPE_STRING = 1;
-   AMAZON_DIMENSION_TYPE_NUMBER = 2;
-  }
-
-  optional AmazonDimensionType amazonDimensionType = 1;
-  optional string amazonDimensionName = 2;
-  optional string amazonDimensionValue = 3;
- }
-
  optional string id = 1;
  optional FriendData friendData = 2;
  optional UserData userData = 3;
@@ -796,7 +793,6 @@ message LandMessage {
  optional bool friendListDataIsCreatedAndSaved = 42;
  optional ObjectVariables objectVariables = 43;
  repeated SavedRecommendations recommendations = 44;
- repeated AmazonDimension amazonDimensionSet = 45;
 }
 
 // //////////////////////////////////////////////////////////////////////////////////////// //
