@@ -4,7 +4,7 @@
 # (c) jsbot@ya.ru, 2013 - 2014
 #
 
-import requests
+import urllib2
 import json
 import gzip
 import StringIO
@@ -37,6 +37,7 @@ class TSTO:
     def doRequest(self, method, content_type, host, path, keep_alive=False, body=[], uncomressedLen=-1):
         url = "https://%s%s" % (host, path)
         print(url)
+
         # filling headers for this request
         headers = self.headers.copy()
         if uncomressedLen > -1:
@@ -47,20 +48,23 @@ class TSTO:
         else:
             headers["Connection"] = "Close"
         headers["Content-Type"] = content_type
+
         # do request
-        if method == "POST":
-            r = requests.post(url=url, headers=headers, verify=False, data=body)
-        elif method == "GET":
-            r = requests.get(url=url, headers=headers, verify=False)
-        elif method == "PUT":
-            r = requests.put(url=url, headers=headers, verify=False)
+        request = urllib2.Request(url=url, data=body, headers=headers)
+        request.get_method = lambda: method
+        response = urllib2.urlopen(request)
+
         # reading response
-        data = r.content
+        data = response.read()
         if (len(data) == 0):
             print("no content")
         else:
-            if r.headers["Content-Type"] == "application/x-protobuf":
-                print(r.headers["Content-Type"])
+            if response.info().get('Content-Encoding') == 'gzip':
+                buf = StringIO.StringIO(data)
+                f = gzip.GzipFile(fileobj=buf)
+                data = f.read()
+            if response.info().get("Content-Type") == 'application/x-protobuf':
+                print(response.info().get("Content-Type"))
             else:
                 print(data)
         return data
