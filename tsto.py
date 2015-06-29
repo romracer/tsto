@@ -386,14 +386,21 @@ innerLandData.creationTime: %s""" % (
             del qst.objectiveData[i]
 
     def cleanR(self):
-        self.mLandMessage.friendData.dataVersion = 14
-        self.mLandMessage.innerLandData.landBlocks = "1111111111111111111111111111111111111111111111111111111111111111111111111111111100111111111111110011111111111111001111111111111100111111111111110011111111111111001111111111111100111111111111110011111111111111000000000000000000000000000000000000000000000000"
+        data=''
+        for i in range(16 * 13):
+            data += '1'
+        for i in range(16 *  3):
+            data += '0'
+
+        self.mLandMessage.friendData.dataVersion = 26
+        self.mLandMessage.innerLandData.landBlocks = data
         self.mLandMessage.friendData.boardwalkTileCount = 0
+        self.mLandMessage.innerLandData.landBlockWidth  = 16
+        self.mLandMessage.innerLandData.landBlockHeight = 16
 
         data=''
-        for i in range(14 * 13):
-            for j in range(16):
-                data += 'G'
+        for i in range(14 * 13 * 16):
+            data += 'G'
 
         self.mLandMessage.roadsData.mapDataSize = len(data)
         self.mLandMessage.roadsData.mapData = data
@@ -401,9 +408,8 @@ innerLandData.creationTime: %s""" % (
         self.mLandMessage.riversData.mapData = data
 
         data=''
-        for i in range(2 * 5):
-            for j in range(16):
-                data += 'G'
+        for i in range(2 * 13 * 16):
+            data += 'G'
 
         self.mLandMessage.oceanData.mapDataSize = len(data)
         self.mLandMessage.oceanData.mapData = data
