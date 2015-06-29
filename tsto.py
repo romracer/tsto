@@ -416,15 +416,16 @@ innerLandData.creationTime: %s""" % (
         for idx in idx2del:
             del self.mLandMessage.buildingData[idx]
 
-    def varChange(self, name, value):
-        found = False
-        for e in self.mLandMessage.specialEventsData.specialEvent:
-            for v in e.variables.variable:
-                if v.name == name:
-                    found = True
-                    v.value = value
-        if found == False:
-            raise ValueError("ERR: can't found variable with name='%s'" % name)
+    def varChange(self, vars, value):
+        for name in vars.split(','):
+            found = False
+            for e in self.mLandMessage.specialEventsData.specialEvent:
+                for v in e.variables.variable:
+                    if v.name == name:
+                        found = True
+                        v.value = value
+            if found == False:
+                raise ValueError("ERR: can't found variable with name='%s'" % name)
 
     def standard(self, email, password):
         self.doAuth(email, password)
@@ -553,7 +554,7 @@ load filepath        - load LandMessage from local filepath
 save filepath        - save LandMessage to local filepath
 astext               - save LandMessage text representation into file
 
-vs name value        - variable set
+vs name[,name] val   - set variable(s) to value
 donuts count         - set donuts for logined acc to count
 ia ids type count=1  - add item(s) with id and type into inventory
 ic id type count     - set count item with id and type
