@@ -433,6 +433,14 @@ innerLandData.creationTime: %s""" % (
             if found == False:
                 raise ValueError("ERR: can't found variable with name='%s'" % name)
 
+    def varsPrint(self, names):
+        printAll = names == None
+        if printAll == False: ns = names.split(',')
+        for e in self.mLandMessage.specialEventsData.specialEvent:
+            for v in e.variables.variable:
+                if printAll == False and ns.count(v.name) == 0: continue
+                print("%s=%s" % (v.name, v.value))
+
     def standard(self, email, password):
         self.doAuth(email, password)
         self.doLandDownload()
@@ -538,6 +546,11 @@ while True :
                 tsto.doAuthWithToken(cmds[1])
         elif (cmds[0] == "vs"):
             tsto.varChange(cmds[1], int(cmds[2]))
+        elif (cmds[0] == "vars"):
+            if cmds_count >= 2:
+                tsto.varsPrint(cmds[1])
+            else:
+                tsto.varsPrint(None)
         elif (cmds[0] == "cleandebris"):
             tsto.cleanDebris()
         elif (cmds[0] == "cleanr"):
@@ -561,6 +574,7 @@ save filepath        - save LandMessage to local filepath
 astext               - save LandMessage text representation into file
 
 vs name[,name] val   - set variable(s) to value
+vars [name[,name]]   - print variables with given names or all
 donuts count         - set donuts for logined acc to count
 ia ids type count=1  - add item(s) with id and type into inventory
 ic id type count     - set count item with id and type
