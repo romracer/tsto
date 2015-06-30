@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
-"""TSTO tool."""
+"""
+TSTO tool.
+WARNING: absolutly no warranties. Use this script at own risk.
+"""
 
 __author__ = 'jsbot@ya.ru (Oleg Polivets)'
 
