@@ -139,6 +139,7 @@ class TSTO:
                 , "/mh/games/bg_gameserver_plugin/protoland/%s/" % self.mUid, True);
         self.mLandMessage = LandData_pb2.LandMessage()
         self.mLandMessage.ParseFromString(data)
+        self.doFileSave("%s.%f" % (self.mUid, time.time()))
 
     def doLandUpload(self):
         self.checkLogined()
