@@ -69,6 +69,15 @@ message SublandInfo {
   optional bool created = 3 [default = false];
 }
 
+message SharedVariableSet {
+ message SharedVariable {
+  optional uint32 owner = 1;
+  optional int32 id = 2;
+  optional int32 value = 3;
+ }
+ repeated SharedVariable variable = 1;
+}
+
 message FriendData {
   optional int32 dataVersion = 1;
   optional bool hasLemonTree = 2;
@@ -81,6 +90,7 @@ message FriendData {
   repeated SublandInfo sublandInfos = 9;
   optional int32 boardwalkTileCount = 10;
   optional int64 lastPlayedTime = 11;
+  optional SharedVariableSet sharedVariableSet = 12;
 }
 
 message LandMessage {
@@ -122,6 +132,9 @@ message LandMessage {
   optional int32 timezoneOffset = 26;
   optional uint32 userPreferences = 27;
   optional bool shouldAnalyze = 28;
+  optional int32 gambleOutcomeID = 29;
+  optional string gambleItemType = 30;
+  optional bool fullDLCCompleted = 31;
  }
 
  message InnerLandData {
@@ -159,6 +172,8 @@ message LandMessage {
   optional uint32 numSavedFriends = 32;
   optional uint32 landBlockWidth = 33;
   optional uint32 landBlockHeight = 34;
+  optional int32 landBlockPositionX = 35;
+  optional int32 landBlockPositionY = 36;
  }
 
  message TerrainData {
