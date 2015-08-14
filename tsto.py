@@ -26,14 +26,14 @@ class TSTO:
         self.headers                       = dict()
         self.headers["Accept"]             = "*/*"
         self.headers["Accept-Encoding"]    = "gzip"
-        self.headers["client_version"]     = "4.15.0"
+        self.headers["client_version"]     = "4.16.3"
         self.headers["server_api_version"] = "4.0.0"
         self.headers["EA-SELL-ID"]         = "857120"
         self.headers["platform"]           = "android"
         self.headers["os_version"]         = "15.0.0"
         self.headers["hw_model_id"]        = "0 0.0"
         self.headers["data_param_1"]       = "2633815347"
-        self.mMhClientVersion              = "Android.4.15.0"
+        self.mMhClientVersion              = "Android.4.16.3"
 
 ### Network ###
 
