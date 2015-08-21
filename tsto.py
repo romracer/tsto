@@ -20,8 +20,9 @@ import LandData_pb2
 
 class TSTO:
     def __init__(self):
-        self.mLogined                      = False;
-        self.mLandMessage                  = LandData_pb2.LandMessage();
+        self.dataVerison                   = 29
+        self.mLogined                      = False
+        self.mLandMessage                  = LandData_pb2.LandMessage()
         self.mExtraLandMessage             = None
         self.headers                       = dict()
         self.headers["Accept"]             = "*/*"
@@ -273,18 +274,26 @@ innerLandData.creationTime: %s""" % (
             time.ctime(self.mLandMessage.innerLandData.creationTime)))
 
 ### In-game items ###
+    def arrSplit(self, arr):
+        itms = []
+        for it in arr.split(','):
+            tt = it.split('-')
+            if (len(tt) >= 2 and int(tt[0]) < int(tt[1])):
+                for i in range(int(tt[0]), int(tt[1])+1):
+                    itms.append(i)
+            else:
+                itms.append(int(tt[0]))
+        return itms
 
     def inventoryAdd(self, itemsid, itemtype=0, count=1):
-        items = itemsid.split(',')
+        items = self.splitArr(itemsId)
         # check if present
         for it in items:
-            it = int(it)
             for item in self.mLandMessage.inventoryItemData:
                 if item.itemID == it and item.itemType == itemtype:
                     raise TypeError("ERR: inventoryItem %d:%d" % (it, itemtype))
         # now add
         for it in items:
-            it = int(it)
             t = self.mLandMessage.inventoryItemData.add()
             t.header.id = self.mLandMessage.innerLandData.nextInstanceID
             t.itemID = it
@@ -396,7 +405,7 @@ innerLandData.creationTime: %s""" % (
         for i in range(16 *  3):
             data += '0'
 
-        self.mLandMessage.friendData.dataVersion = 26
+        self.mLandMessage.friendData.dataVersion = self.dataVerison
         self.mLandMessage.innerLandData.landBlocks = data
         self.mLandMessage.friendData.boardwalkTileCount = 0
         self.mLandMessage.innerLandData.landBlockWidth  = 16
