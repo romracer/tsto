@@ -286,14 +286,22 @@ innerLandData.creationTime: %s""" % (
         return itms
 
     def inventoryAdd(self, itemsid, itemtype=0, count=1):
-        items = self.splitArr(itemsId)
-        # check if present
-        for it in items:
-            for item in self.mLandMessage.inventoryItemData:
-                if item.itemID == it and item.itemType == itemtype:
-                    raise TypeError("ERR: inventoryItem %d:%d" % (it, itemtype))
+        items = self.arrSplit(itemsid)
         # now add
         for it in items:
+            # item exists?
+            found = False
+            for item in self.mLandMessage.inventoryItemData:
+                if item.itemID == it and item.itemType == itemtype:
+                    # item found, change its amount
+                    found = True
+                    self.inventoryCount(it, itemtype, count)
+                    break
+            # already exists? then precess next item
+            if found == True:
+                continue
+            # or add item with given itemid and itemtype
+            # into inventory
             t = self.mLandMessage.inventoryItemData.add()
             t.header.id = self.mLandMessage.innerLandData.nextInstanceID
             t.itemID = it
