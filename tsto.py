@@ -177,6 +177,7 @@ class TSTO:
         currdat = LandData_pb2.CurrencyData()
         currdat.ParseFromString(data)
         print(str(currdat))
+        return currdat
 
     def doDownloadFriendsData(self):
         data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
@@ -358,6 +359,16 @@ innerLandData.creationTime: %s""" % (
             nextId += 1
             sum += cur
         self.mLandMessage.innerLandData.nextCurrencyID = nextId
+
+    def spendablesShow(self):
+        self.checkLogined()
+        if (len(self.mLandMessage.spendablesData.spendable) == 0):
+            raise TypeError("ERR: Download land first.");
+        donuts = self.doLoadCurrency()
+        print("donuts=%s" % (donuts.vcBalance))
+        print("money=%s" % (self.mLandMessage.userData.money))
+        for sp in self.mLandMessage.spendablesData.spendable:
+            print("%d=%d" % (sp.type, sp.amount))
 
     def spendableSet(self, type, amount):
         for sp in self.mLandMessage.spendablesData.spendable:
@@ -577,6 +588,8 @@ while True :
                 tsto.doAuthWithToken(cmds[1])
         elif (cmds[0] == "vs"):
             tsto.varChange(cmds[1], int(cmds[2]))
+        elif (cmds[0] == "spendables"):
+            tsto.spendablesShow()
         elif (cmds[0] == "vars"):
             if cmds_count >= 2:
                 tsto.varsPrint(cmds[1])
