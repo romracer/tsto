@@ -18,23 +18,33 @@ import traceback
 import random
 import LandData_pb2
 
+URL_SIMPSONS = 'prod.simpsons-ea.com'
+URL_OFRIENDS = 'm.friends.dm.origin.com'
+URL_TNTAUTH  = 'auth.tnt-ea.com'
+URL_TNTNUCLEUS = 'nucleus.tnt-ea.com'
+CT_PROTOBUF  = 'application/x-protobuf'
+CT_JSON      = 'application/json'
+CT_XML       = 'application/xaml+xml'
+VERSION_LAND = '29'
+VERSION_APP  = '4.16.3'
+
 class TSTO:
     def __init__(self):
-        self.dataVerison                   = 29
+        self.dataVerison                   = int(VERSION_LAND)
         self.mLogined                      = False
         self.mLandMessage                  = LandData_pb2.LandMessage()
         self.mExtraLandMessage             = None
         self.headers                       = dict()
         self.headers["Accept"]             = "*/*"
         self.headers["Accept-Encoding"]    = "gzip"
-        self.headers["client_version"]     = "4.16.3"
+        self.headers["client_version"]     = VERSION_APP
         self.headers["server_api_version"] = "4.0.0"
         self.headers["EA-SELL-ID"]         = "857120"
         self.headers["platform"]           = "android"
         self.headers["os_version"]         = "15.0.0"
         self.headers["hw_model_id"]        = "0 0.0"
         self.headers["data_param_1"]       = "2633815347"
-        self.mMhClientVersion              = "Android.4.16.3"
+        self.mMhClientVersion              = "Android." + VERSION_APP
 
 ### Network ###
 
@@ -89,7 +99,7 @@ class TSTO:
             raise TypeError("ERR: need to login before perform this action!!!")
 
     def doAuth(self, email, password):
-        data = self.doRequest("POST", "application/json", "nucleus.tnt-ea.com"
+        data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
             , "/rest/token/%s/%s/" % (email, password))
         data = json.JSONDecoder().decode(data);
         self.mUserId = data["userId"]
@@ -100,7 +110,7 @@ class TSTO:
         self.headers["nucleus_token"] = token
         self.headers["AuthToken"] = token
 
-        data = self.doRequest("GET", "application/json", "auth.tnt-ea.com"
+        data = self.doRequest("GET", CT_JSON, URL_TNTAUTH
             , "/rest/oauth/origin/%s/Simpsons-Tapped-Out/" % self.mToken)
         data = json.JSONDecoder().decode(data);
         self.mCode  = data["code"]
@@ -109,7 +119,7 @@ class TSTO:
         self.headers["mh_auth_params"]    = data["code"]
         self.headers["mh_client_version"] = self.mMhClientVersion
 
-        data = self.doRequest("PUT", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("PUT", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/users?appVer=2.2.0&appLang=en&application=tnt&applicationUserId=%s" % self.mTntId, True)
         urm  = LandData_pb2.UsersResponseMessage()
         urm.ParseFromString(data)
@@ -118,14 +128,14 @@ class TSTO:
         self.headers["mh_uid"]         = self.mUid;
         self.headers["mh_session_key"] = self.mSession;
 
-        data = self.doRequest("GET", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
                 , "/mh/games/bg_gameserver_plugin/checkToken/%s/protoWholeLandToken/" % (self.mUid), True)
         wltr = LandData_pb2.WholeLandTokenRequest()
         if self.protobufParse(wltr, data) == False:
             wltr = LandData_pb2.WholeLandTokenRequest();
             wltr.requestId = self.mTntId
             data = wltr.SerializeToString()
-            data = self.doRequest("POST", "application/x-protobuf", "prod.simpsons-ea.com"
+            data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
                 , "/mh/games/bg_gameserver_plugin/protoWholeLandToken/%s/" % self.mUid, True, data)
             wltr = LandData_pb2.WholeLandTokenRequest()
             wltr.ParseFromString(data)
@@ -136,7 +146,7 @@ class TSTO:
 
     def doLandDownload(self):
         self.checkLogined()
-        data = self.doRequest("GET", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
                 , "/mh/games/bg_gameserver_plugin/protoland/%s/" % self.mUid, True);
         self.mLandMessage = LandData_pb2.LandMessage()
         self.mLandMessage.ParseFromString(data)
@@ -157,19 +167,19 @@ class TSTO:
         g.write(data)
         g.close()
         data = out.getvalue()
-        data = self.doRequest("POST", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/protoland/%s/" % self.mUid, True, data, uncomressedLen);
 
     def doLoadCurrency(self):
         self.checkLogined()
-        data = self.doRequest("GET", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
                 , "/mh/games/bg_gameserver_plugin/protocurrency/%s/" % self.mUid, True);
         currdat = LandData_pb2.CurrencyData()
         currdat.ParseFromString(data)
         print(str(currdat))
 
     def doDownloadFriendsData(self):
-        data = self.doRequest("POST", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/friendData?debug_mayhem_id=%s" % self.mUid)
         fdresp = LandData_pb2.GetFriendDataResponse()
         fdresp.ParseFromString(data)
@@ -180,12 +190,12 @@ class TSTO:
         if msg == None:
             return
         data = msg.SerializeToString()
-        data = self.doRequest("POST", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/extraLandUpdate/%s/protoland/" % self.mUid, True, data)
         self.mExtraLandMessage = None
 
     def doResetNotifications(self):
-        data = self.doRequest("GET", "application/x-protobuf", "prod.simpsons-ea.com"
+        data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/event/%s/protoland/" % self.mUid, True);
         events = LandData_pb2.EventsMessage()
         events.ParseFromString(data)
@@ -201,9 +211,9 @@ class TSTO:
             xev = extra.event.add()
             xev.id = ev.id
             alreadyDone.add(ev.id)
-        data = self.doRequest("POST", "application/xaml+xml", "prod.simpsons-ea.com"
+        data = self.doRequest("POST", CT_XML, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/usernotificationstatus/?type=reset_count", True)
-        data = self.doRequest("POST", "application/xaml+xml", "prod.simpsons-ea.com"
+        data = self.doRequest("POST", CT_XML, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/usernotificationstatus/?type=reset_time", True)
 
     # show sorted friends list
@@ -230,10 +240,10 @@ class TSTO:
 #        for key, value in self.headers.items():
 #            print (key, value)
 
-#        self.doRequest("GET", "application/json", "m.friends.dm.origin.com"
+#        self.doRequest("GET", CT_JSON, URL_OFRIENDS
 #            , "//friends/user/%s/pendingfriends" % (self.mUserId)
 #            , True)
-#        self.doRequest("GET", "application/json", "m.friends.dm.origin.com"
+#        self.doRequest("GET", CT_JSON, URL_OFRIENDS
 #            , "//friends/user/%s/globalgroup/friendIds" % (self.mUserId)
 #            , True)
         
@@ -246,7 +256,7 @@ class TSTO:
                 continue
             print("%s:%s:%d:%s" % (time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)), fd.friendId, f.level, f.name))
             if raw_input("Drop this friend (y/N) ").lower() == 'y':
-                self.doRequest("GET", "application/json", "m.friends.dm.origin.com"
+                self.doRequest("GET", CT_JSON, URL_OFRIENDS
                     , "//friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, fd.externalId)
                     , True)
         # get indexes for deletion
