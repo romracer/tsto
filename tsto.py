@@ -219,20 +219,56 @@ class TSTO:
 
     # show sorted friends list
 
-    def showFriends(self):
+    def friendsShow(self):
         self.checkLogined()
         friends = self.doDownloadFriendsData()
         fds = []
         for fd in friends.friendData:
             f = fd.friendData
-            fds.append("%s:%s:%d:%s" % (time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)), fd.friendId, f.level, f.name))
+            fds.append("%s:%d:%s:%s:%s" % (
+                time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)),
+                f.level,
+                fd.externalId,
+                fd.friendId,
+                f.name))
         fds.sort()
+        print("LASTPLAYTIME | LEVEL | ORIGINID | MYHEMID | NAME")
         for f in fds:
             print(f)
 
+    # drop single Origin friend by its id
+
+    def friendDrop(self, friendOriginId, externalDeleter=True):
+        # resolve myhemId of Origin user
+        friendMyhemId = ''
+        for fd in self.doDownloadFriendsData().friendData:
+            if fd.externalId == friendOriginId:
+                friendMyhemId = fd.friendId
+                break
+
+        if friendMyhemId == '':
+            raise TypeError("ERR: nothing found.")
+
+        friendIdx = -1;
+        for idx in range(len(self.mLandMessage.friendListData)):
+            fld = self.mLandMessage.friendListData[idx]
+            if fld.friendID == friendMyhemId:
+                friendIdx = idx
+                break
+
+        if friendIdx == -1:
+            raise TypeError("ERR: not found friendIdx.")
+
+        # delete
+        self.doRequest("GET", CT_JSON, URL_OFRIENDS
+            , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, friendOriginId)
+            , True)
+        del self.mLandMessage.friendListData[friendIdx]
+        self.mLandMessage.innerLandData.numSavedFriends = len(self.mLandMessage.friendListData)
+
     # drop friends that not playing more given days
 
-    def dropFriends(self, days):
+    def friendsDropNotActive(self, days):
         self.checkLogined()
         ts = time.mktime(time.localtime())
         crit = (24 * 60 * 60 * days)
@@ -255,7 +291,12 @@ class TSTO:
             if (ts - f.lastPlayedTime) < crit:
                 notDel.append(fd.friendId)
                 continue
-            print("%s:%s:%d:%s" % (time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)), fd.friendId, f.level, f.name))
+            print("%s:%d:%s:%s:%s" % (
+                time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)),
+                f.level,
+                fd.externalId,
+                fd.friendId,
+                f.name))
             if raw_input("Drop this friend (y/N) ").lower() == 'y':
                 self.doRequest("GET", CT_JSON, URL_OFRIENDS
                     , "//friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, fd.externalId)
@@ -570,13 +611,15 @@ while True :
             tsto.doResetNotifications()
         elif (cmds[0] == "showtimes"):
             tsto.showTimes()
+        elif (cmds[0] == "frienddrop"):
+            tsto.friendDrop(cmds[1])
         elif (cmds[0] == "friends"):
-            tsto.showFriends()
+            tsto.friendsShow()
         elif (cmds[0] == "friendsdrop"):
             if cmds_count >= 2:
-                tsto.dropFriends(int(cmds[1]))
+                tsto.friendsDropNotActive(int(cmds[1]))
             else:
-                tsto.dropFriends(90)
+                tsto.friendsDropNotActive(90)
         elif (cmds[0] == "donuts"):
             tsto.donutsAdd(int(cmds[1]))
         elif (cmds[0] == "setlevel"):
@@ -608,6 +651,7 @@ download             - download LandMessage
 showtimes            - show some times variables from LandMessage
 friends              - show friends info
 friendsdrop days=90  - drop friends who not playing more then given amount
+frienddrop ORIGINID  - drop friend by its Origin id
 resetnotif           - clear neighbor handshakes
 protocurrency        - show ProtoCurrency information
 upload               - upload current LandMessage to mayhem server
