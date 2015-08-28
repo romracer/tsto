@@ -20,6 +20,7 @@ import LandData_pb2
 
 URL_SIMPSONS = 'prod.simpsons-ea.com'
 URL_OFRIENDS = 'm.friends.dm.origin.com'
+URL_AVATAR   = 'm.avatar.dm.origin.com'
 URL_TNTAUTH  = 'auth.tnt-ea.com'
 URL_TNTNUCLEUS = 'nucleus.tnt-ea.com'
 CT_PROTOBUF  = 'application/x-protobuf'
@@ -249,6 +250,7 @@ class TSTO:
         if friendMyhemId == '':
             raise TypeError("ERR: nothing found.")
 
+        # resolve its index in current user land
         friendIdx = -1;
         for idx in range(len(self.mLandMessage.friendListData)):
             fld = self.mLandMessage.friendListData[idx]
@@ -299,7 +301,7 @@ class TSTO:
                 f.name))
             if raw_input("Drop this friend (y/N) ").lower() == 'y':
                 self.doRequest("GET", CT_JSON, URL_OFRIENDS
-                    , "//friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, fd.externalId)
+                    , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, fd.externalId)
                     , True)
         # get indexes for deletion
         forDel=[]
@@ -423,6 +425,15 @@ innerLandData.creationTime: %s""" % (
         for sp in self.mLandMessage.spendablesData.spendable:
             if sp.type != 57: # skip FP
                 sp.amount = amount
+
+    def configShow(self):
+        data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
+            , "/mh/games/bg_gameserver_plugin/protoClientConfig"
+              "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e");
+        response = LandData_pb2.ClientConfigResponse()
+        response.ParseFromString(data)
+        for item in response.items:
+            print("'%s':%s" % (item.name, item.value))
 
     def skinsSet(self, data):
         self.mLandMessage.skinUnlocksData.skinUnlock      = data
@@ -642,6 +653,8 @@ while True :
             tsto.cleanDebris()
         elif (cmds[0] == "cleanr"):
             tsto.cleanR()
+        elif (cmds[0] == "config"):
+            tsto.configShow()
         elif (cmds[0] == "quit"):
             sys.exit(0)
         elif (cmds[0] == "help"):
@@ -656,6 +669,7 @@ resetnotif           - clear neighbor handshakes
 protocurrency        - show ProtoCurrency information
 upload               - upload current LandMessage to mayhem server
 uploadextra          - upload current ExtraLandMessage to mayhem server
+config               - show current game config variables
 
 load filepath        - load LandMessage from local filepath
 save filepath        - save LandMessage to local filepath

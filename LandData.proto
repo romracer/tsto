@@ -2,6 +2,18 @@ package Data;
 
 // ///////////////////////////////////////////////////////////////////////////// //
 
+message ClientConfigResponse {
+ message ClientConfigItem {
+  optional int32 clientConfigId = 1;
+  optional string name = 2;
+  optional string value = 3;
+ }
+
+ repeated ClientConfigItem items = 2;
+}
+
+// ///////////////////////////////////////////////////////////////////////////// //
+
 message CurrencyData {
  optional string id = 1;
  optional int32 vcTotalPurchased = 2;
