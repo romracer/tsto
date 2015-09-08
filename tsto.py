@@ -7,7 +7,7 @@ WARNING: absolutly no warranties. Use this script at own risk.
 
 __author__ = 'jsbot@ya.ru (Oleg Polivets)'
 
-import urllib2
+import requests
 import json
 import gzip
 import StringIO
@@ -66,23 +66,21 @@ class TSTO:
         headers["Content-Type"] = content_type
 
         # do request
-        request = urllib2.Request(url=url, data=body, headers=headers)
-        request.get_method = lambda: method
-        response = urllib2.urlopen(request)
+        if method == "POST":
+            r = requests.post(url=url, headers=headers, verify=False, data=body)
+        elif method == "GET":
+            r = requests.get(url=url, headers=headers, verify=False)
+        elif method == "PUT":
+            r = requests.put(url=url, headers=headers, verify=False)
 
         # reading response
-        if response.info().get('Content-Encoding') != 'gzip':
-            data = response.read()
-        else:
-            buf = StringIO.StringIO(response.read())
-            f = gzip.GzipFile(fileobj=buf)
-            data = f.read()
+        data = r.content
 
         if (len(data) == 0):
             print("no content")
         else:
-            if response.info().get("Content-Type") == 'application/x-protobuf':
-                print(response.info().get("Content-Type"))
+            if r.headers['Content-Type'] == 'application/x-protobuf':
+                print(r.headers['Content-Type'])
             else:
                 print(data)
         return data
