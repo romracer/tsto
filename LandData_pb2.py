@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='LandData.proto',
   package='Data',
-  serialized_pb=_b('\n\x0eLandData.proto\x12\x04\x44\x61ta\"\x9b\x01\n\x14\x43lientConfigResponse\x12:\n\x05items\x18\x02 \x03(\x0b\x32+.Data.ClientConfigResponse.ClientConfigItem\x1aG\n\x10\x43lientConfigItem\x12\x16\n\x0e\x63lientConfigId\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\x85\x01\n\x0c\x43urrencyData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x18\n\x10vcTotalPurchased\x18\x02 \x01(\x05\x12\x16\n\x0evcTotalAwarded\x18\x03 \x01(\x05\x12\x11\n\tvcBalance\x18\x04 \x01(\x05\x12\x11\n\tcreatedAt\x18\x05 \x01(\x03\x12\x11\n\tupdatedAt\x18\x06 \x01(\x03\"7\n\x10UserIndirectData\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x13\n\x0btelemetryId\x18\x02 \x01(\t\"(\n\x11\x41nonymousUserData\x12\x13\n\x0bisAnonymous\x18\x01 \x01(\x08\"7\n\tTokenData\x12\x12\n\nsessionKey\x18\x01 \x01(\t\x12\x16\n\x0e\x65xpirationDate\x18\x02 \x01(\x03\"\\\n\x14UsersResponseMessage\x12$\n\x04user\x18\x01 \x01(\x0b\x32\x16.Data.UserIndirectData\x12\x1e\n\x05token\x18\x02 \x01(\x0b\x32\x0f.Data.TokenData\"*\n\x15WholeLandTokenRequest\x12\x11\n\trequestId\x18\x01 \x01(\t\"9\n\x16WholeLandTokenResponse\x12\r\n\x05token\x18\x01 \x01(\t\x12\x10\n\x08\x63onflict\x18\x02 \x01(\x08\"#\n\x12\x44\x65leteTokenRequest\x12\r\n\x05token\x18\x01 \x01(\t\"%\n\x13\x44\x65leteTokenResponse\x12\x0e\n\x06result\x18\x01 \x01(\x08\"0\n\x10SpendableElement\x12\x0c\n\x04type\x18\x01 \x01(\r\x12\x0e\n\x06\x61mount\x18\x02 \x01(\r\")\n\tOwnerList\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x03(\t\"H\n\x0bSublandInfo\x12\x11\n\tsublandId\x18\x01 \x01(\x05\x12\x0e\n\x06rating\x18\x02 \x01(\x05\x12\x16\n\x07\x63reated\x18\x03 \x01(\x08:\x05\x66\x61lse\"\x89\x01\n\x11SharedVariableSet\x12\x38\n\x08variable\x18\x01 \x03(\x0b\x32&.Data.SharedVariableSet.SharedVariable\x1a:\n\x0eSharedVariable\x12\r\n\x05owner\x18\x01 \x01(\r\x12\n\n\x02id\x18\x02 \x01(\x05\x12\r\n\x05value\x18\x03 \x01(\x05\"\xc7\x02\n\nFriendData\x12\x13\n\x0b\x64\x61taVersion\x18\x01 \x01(\x05\x12\x14\n\x0chasLemonTree\x18\x02 \x01(\x08\x12\x10\n\x08language\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06rating\x18\x06 \x01(\x05\x12)\n\tspendable\x18\x07 \x03(\x0b\x32\x16.Data.SpendableElement\x12\x13\n\x0blandVersion\x18\x08 \x01(\x05\x12\'\n\x0csublandInfos\x18\t \x03(\x0b\x32\x11.Data.SublandInfo\x12\x1a\n\x12\x62oardwalkTileCount\x18\n \x01(\x05\x12\x16\n\x0elastPlayedTime\x18\x0b \x01(\x03\x12\x32\n\x11sharedVariableSet\x18\x0c \x01(\x0b\x32\x17.Data.SharedVariableSet\"\x99\x81\x01\n\x0bLandMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12$\n\nfriendData\x18\x02 \x01(\x0b\x32\x10.Data.FriendData\x12,\n\x08userData\x18\x03 \x01(\x0b\x32\x1a.Data.LandMessage.UserData\x12\x36\n\rinnerLandData\x18\x04 \x01(\x0b\x32\x1f.Data.LandMessage.InnerLandData\x12\x30\n\troadsData\x18\x05 \x01(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x31\n\nriversData\x18\x06 \x01(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x34\n\x0c\x62uildingData\x18\x07 \x03(\x0b\x32\x1e.Data.LandMessage.BuildingData\x12\x36\n\rcharacterData\x18\x08 \x03(\x0b\x32\x1f.Data.LandMessage.CharacterData\x12\x38\n\x0e\x63onsumableData\x18\t \x03(\x0b\x32 .Data.LandMessage.ConsumableData\x12*\n\x07jobData\x18\n \x03(\x0b\x32\x19.Data.LandMessage.JobData\x12.\n\tquestData\x18\x0b \x03(\x0b\x32\x1b.Data.LandMessage.QuestData\x12<\n\x10notificationData\x18\x0c \x03(\x0b\x32\".Data.LandMessage.NotificationData\x12>\n\x11inventoryItemData\x18\r \x03(\x0b\x32#.Data.LandMessage.InventoryItemData\x12\x42\n\x13memorabiliaItemData\x18\x0e \x03(\x0b\x32%.Data.LandMessage.MemorabiliaItemData\x12\x46\n\x15premiumUnlockItemData\x18\x0f \x03(\x0b\x32\'.Data.LandMessage.PremiumUnlockItemData\x12@\n\x12\x65ventCountListData\x18\x10 \x03(\x0b\x32$.Data.LandMessage.EventCountListData\x12:\n\x0f\x61\x63tionLimitData\x18\x11 \x03(\x0b\x32!.Data.LandMessage.ActionLimitData\x12\x32\n\x0bsidebarData\x18\x12 \x01(\x0b\x32\x1d.Data.LandMessage.SidebarData\x12>\n\x11\x63haracterSetsData\x18\x13 \x01(\x0b\x32#.Data.LandMessage.CharacterSetsData\x12\x46\n\x15pushNotificationsData\x18\x14 \x03(\x0b\x32\'.Data.LandMessage.PushNotificationsData\x12:\n\x0ftimedScriptData\x18\x15 \x03(\x0b\x32!.Data.LandMessage.TimedScriptData\x12<\n\x10\x62onusUnlocksData\x18\x16 \x01(\x0b\x32\".Data.LandMessage.BonusUnlocksData\x12\x44\n\x14\x63haracterUnlocksData\x18\x17 \x03(\x0b\x32&.Data.LandMessage.CharacterUnlocksData\x12:\n\x0fskinUnlocksData\x18\x18 \x01(\x0b\x32!.Data.LandMessage.SkinUnlocksData\x12>\n\x11\x64\x65layedActionData\x18\x19 \x03(\x0b\x32#.Data.LandMessage.DelayedActionData\x12\x38\n\x0espendablesData\x18\x1a \x01(\x0b\x32 .Data.LandMessage.SpendablesData\x12>\n\x11specialEventsData\x18\x1b \x01(\x0b\x32#.Data.LandMessage.SpecialEventsData\x12\x38\n\x0e\x66\x61keFriendData\x18\x1c \x01(\x0b\x32 .Data.LandMessage.FakeFriendData\x12\x38\n\x0equestGroupData\x18\x1d \x03(\x0b\x32 .Data.LandMessage.QuestGroupData\x12\x36\n\tpurchases\x18\x1e \x03(\x0b\x32#.Data.LandMessage.PurchasedItemData\x12\x46\n\x15processedPurchaseData\x18\x1f \x01(\x0b\x32\'.Data.LandMessage.ProcessedPurchaseData\x12H\n\x16\x63ustomFriendActionData\x18  \x03(\x0b\x32(.Data.LandMessage.CustomFriendActionData\x12\x11\n\tdebugLand\x18! \x01(\x08\x12\x30\n\toceanData\x18\" \x01(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x38\n\x0egameObjectInfo\x18# \x01(\x0b\x32 .Data.LandMessage.GameObjectInfo\x12\x32\n\x0bsubLandData\x18$ \x03(\x0b\x32\x1d.Data.LandMessage.SubLandData\x12\x34\n\x0cminigameData\x18% \x03(\x0b\x32\x1e.Data.LandMessage.MinigameData\x12=\n\x15stealableBuildingData\x18& \x03(\x0b\x32\x1e.Data.LandMessage.BuildingData\x12\x42\n\x13\x63ollectionItemsData\x18\' \x03(\x0b\x32%.Data.LandMessage.CollectionItemsData\x12\x38\n\x0e\x66riendListData\x18( \x03(\x0b\x32 .Data.LandMessage.FriendListData\x12\x42\n\x15\x61llFriendActionsCount\x18) \x01(\x0b\x32#.Data.LandMessage.FriendActionCount\x12\'\n\x1f\x66riendListDataIsCreatedAndSaved\x18* \x01(\x08\x12:\n\x0fobjectVariables\x18+ \x01(\x0b\x32!.Data.LandMessage.ObjectVariables\x12?\n\x0frecommendations\x18, \x03(\x0b\x32&.Data.LandMessage.SavedRecommendations\x1a\x1a\n\x0c\x45ntityHeader\x12\n\n\x02id\x18\x01 \x01(\r\x1a\xfb\x06\n\x08UserData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x1b\n\x13lastBonusCollection\x18\x02 \x01(\x04\x12\r\n\x05level\x18\x03 \x01(\r\x12\x12\n\nexperience\x18\x04 \x01(\r\x12\r\n\x05money\x18\x05 \x01(\r\x12;\n\x0bsavedRating\x18\x06 \x03(\x0b\x32&.Data.LandMessage.UserData.SavedRating\x12\x11\n\tlastBonus\x18\x07 \x01(\r\x12\x17\n\x0f\x66riendsUnlocked\x18\x08 \x01(\x08\x12\x1b\n\x13memorabiliaUnlocked\x18\t \x01(\x08\x12\x1a\n\x12reorganizeUnlocked\x18\n \x01(\x08\x12\x15\n\rfirstPurchase\x18\x0b \x01(\x08\x12\x1a\n\x12sidebarDefaultOpen\x18\x0c \x01(\x08\x12\x13\n\x0bshowLevelUp\x18\r \x01(\x08\x12\x17\n\x0f\x62onusExperience\x18\x0e \x01(\r\x12\x12\n\nbonusLevel\x18\x0f \x01(\r\x12\x17\n\x0fhasPrestigeData\x18\x10 \x01(\x08\x12\x12\n\nprestigeID\x18\x11 \x01(\r\x12\x1a\n\x12prestigeShownFirst\x18\x12 \x01(\x08\x12\x1b\n\x13prestigeShownSecond\x18\x13 \x01(\x08\x12\x1a\n\x12prestigeShownThird\x18\x14 \x01(\x08\x12\x18\n\x10prestigeSelected\x18\x15 \x01(\r\x12\x1d\n\x15prestigeConsumbableID\x18\x16 \x01(\r\x12\x18\n\x10tutorialComplete\x18\x17 \x01(\x08\x12\x19\n\x11pendingConsumable\x18\x18 \x01(\r\x12\x13\n\x0bvisualLevel\x18\x19 \x01(\r\x12\x16\n\x0etimezoneOffset\x18\x1a \x01(\x05\x12\x17\n\x0fuserPreferences\x18\x1b \x01(\r\x12\x15\n\rshouldAnalyze\x18\x1c \x01(\x08\x12\x17\n\x0fgambleOutcomeID\x18\x1d \x01(\x05\x12\x16\n\x0egambleItemType\x18\x1e \x01(\t\x12\x18\n\x10\x66ullDLCCompleted\x18\x1f \x01(\x08\x1a\x41\n\x0bSavedRating\x12\x19\n\x11savedRatingElemID\x18\x01 \x01(\r\x12\x17\n\x0fsavedRatingElem\x18\x02 \x01(\x05\x1a\xc1\x07\n\rInnerLandData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nlandBlocks\x18\x02 \x01(\t\x12\x16\n\x0enextInstanceID\x18\x03 \x01(\r\x12\x10\n\x08numChars\x18\x04 \x01(\r\x12\x14\n\x0cnumBuildings\x18\x05 \x01(\r\x12\x16\n\x0enumConsumables\x18\x06 \x01(\r\x12\x0f\n\x07numJobs\x18\x07 \x01(\r\x12\x11\n\tnumQuests\x18\x08 \x01(\r\x12\x12\n\nnumNotices\x18\t \x01(\r\x12\x19\n\x11numInventoryItems\x18\n \x01(\r\x12\x1b\n\x13numMemorabiliaItems\x18\x0b \x01(\r\x12\x1a\n\x12numEventCountLists\x18\x0c \x01(\r\x12\x19\n\x11numPremiumUnlocks\x18\r \x01(\r\x12\x17\n\x0fnumActionLimits\x18\x0e \x01(\r\x12\x1d\n\x15numRunsSincePromotion\x18\x0f \x01(\r\x12\x16\n\x0elevelOfRateAsk\x18\x10 \x01(\r\x12\x12\n\nupdateTime\x18\x11 \x01(\x03\x12\x18\n\x10timeSpentPlaying\x18\x12 \x01(\x03\x12\x1c\n\x14lastLevelUpSpentTime\x18\x13 \x01(\x03\x12\x1c\n\x14lastLevelUpTimeStamp\x18\x14 \x01(\x03\x12\x17\n\x0finitialSaveDone\x18\x15 \x01(\x08\x12\x1f\n\x17lastVandalismFeedPosted\x18\x16 \x01(\x03\x12#\n\x1blastStealBuildingFeedPosted\x18\x17 \x01(\x03\x12\x1e\n\x16lastSideshowBobSpawned\x18\x18 \x01(\x03\x12\x16\n\x0enextCurrencyID\x18\x19 \x01(\r\x12\x16\n\x0enumQuestGroups\x18\x1a \x01(\r\x12\x1c\n\x14scratcherRewardIndex\x18\x1b \x01(\x05\x12#\n\x1bscratcherRewardConsumableID\x18\x1c \x01(\r\x12\x14\n\x0c\x63reationTime\x18\x1d \x01(\x04\x12\x10\n\x08versions\x18\x1e \x03(\t\x12\x17\n\x0f\x62uildingsSorted\x18\x1f \x01(\x08\x12\x17\n\x0fnumSavedFriends\x18  \x01(\r\x12\x16\n\x0elandBlockWidth\x18! \x01(\r\x12\x17\n\x0flandBlockHeight\x18\" \x01(\r\x12\x1a\n\x12landBlockPositionX\x18# \x01(\x05\x12\x1a\n\x12landBlockPositionY\x18$ \x01(\x05\x1a\x63\n\x0bTerrainData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0bmapDataSize\x18\x02 \x01(\r\x12\x0f\n\x07mapData\x18\x03 \x01(\t\x1a\x9b\x04\n\x0c\x42uildingData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x10\n\x08\x62uilding\x18\x02 \x01(\r\x12\x14\n\x0c\x63reationTime\x18\x03 \x01(\x03\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x12\x11\n\tpositionX\x18\x05 \x01(\x02\x12\x11\n\tpositionY\x18\x06 \x01(\x02\x12\x0f\n\x07\x66lipped\x18\x07 \x01(\x08\x12\x12\n\nbuildState\x18\x08 \x01(\x05\x12\r\n\x05hurry\x18\t \x01(\x08\x12\x11\n\tcropState\x18\n \x01(\r\x12\x11\n\tbetActive\x18\x0b \x01(\x08\x12\x14\n\x0c\x62\x65tStartTime\x18\x0c \x01(\x03\x12\x11\n\tbetChoice\x18\r \x01(\r\x12\x12\n\nwinningBet\x18\x0e \x01(\x08\x12\x12\n\nvandalized\x18\x0f \x01(\x08\x12\x0f\n\x07namelen\x18\x10 \x01(\x05\x12\x12\n\nvandalName\x18\x11 \x01(\t\x12\x13\n\x0bisOwnerList\x18\x12 \x01(\x08\x12\"\n\townerList\x18\x13 \x01(\x0b\x32\x0f.Data.OwnerList\x12\x0c\n\x04skin\x18\x14 \x01(\x05\x12\x14\n\x0cgrantRewards\x18\x15 \x01(\x08\x12\x11\n\tflipState\x18\x16 \x01(\r\x12\x11\n\tsubLandID\x18\x17 \x01(\r\x12\x17\n\x0ftimeOfVandalism\x18\x18 \x01(\x03\x12\r\n\x05\x66lags\x18\x19 \x01(\r\x1a\xd0\x01\n\rCharacterData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x11\n\tcharacter\x18\x02 \x01(\r\x12\x12\n\nupdateTime\x18\x03 \x01(\x03\x12\x11\n\tpositionX\x18\x04 \x01(\x02\x12\x11\n\tpositionY\x18\x05 \x01(\x02\x12\x0c\n\x04skin\x18\x06 \x01(\x05\x12\x12\n\nskinBackup\x18\x07 \x01(\x05\x12\x11\n\tsubLandID\x18\x08 \x01(\r\x12\r\n\x05\x66lags\x18\t \x01(\r\x1aj\n\x0e\x43onsumableData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nconsumable\x18\x02 \x01(\r\x12\x14\n\x0c\x63onsumedTime\x18\x03 \x01(\x03\x1a\xde\x02\n\x07JobData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0b\n\x03job\x18\x02 \x01(\r\x12\x0f\n\x07\x63harRef\x18\x03 \x01(\r\x12\x13\n\x0b\x62uildingRef\x18\x04 \x01(\r\x12\x12\n\nupdateTime\x18\x05 \x01(\x03\x12\r\n\x05state\x18\x06 \x01(\x05\x12\r\n\x05hurry\x18\x07 \x01(\x08\x12\x13\n\x0bhasBuilding\x18\x08 \x01(\x08\x12\x0f\n\x07hasChar\x18\t \x01(\x08\x12\x15\n\rmoveToCharRef\x18\n \x01(\r\x12\x17\n\x0fproxyCheckFired\x18\x0b \x01(\x08\x12\x15\n\rgridPositionX\x18\x0c \x01(\x05\x12\x15\n\rgridPositionY\x18\r \x01(\x05\x12\x0f\n\x07hasGrid\x18\x0e \x01(\x08\x12\x11\n\tsubLandID\x18\x0f \x01(\r\x12\x16\n\x0esubBuildingRef\x18\x10 \x01(\r\x1a\xe2\x08\n\tQuestData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0f\n\x07questID\x18\x02 \x01(\r\x12\x12\n\nquestState\x18\x03 \x01(\x05\x12\x18\n\x10questScriptState\x18\x04 \x01(\x05\x12\x15\n\rnumObjectives\x18\x05 \x01(\x05\x12@\n\robjectiveData\x18\x06 \x03(\x0b\x32).Data.LandMessage.QuestData.ObjectiveData\x12\x16\n\x0etimesCompleted\x18\x07 \x01(\x05\x1a\xf4\x06\n\rObjectiveData\x12\x13\n\x0bobjectiveID\x18\x01 \x01(\x05\x12\x16\n\x0eobjectiveState\x18\x02 \x01(\x05\x12\x15\n\robjectiveType\x18\x03 \x01(\x05\x12\x0f\n\x07version\x18\x04 \x01(\x05\x12\x17\n\x0fquestLastRetVal\x18\x05 \x01(\x08\x12\x12\n\nquestLocal\x18\x06 \x01(\x08\x12\x0e\n\x06rushed\x18\x07 \x01(\x08\x12\x10\n\x08keepDone\x18\x08 \x01(\x08\x12\x17\n\x0f\x62lockDoneScript\x18\t \x01(\x08\x12X\n\x12\x62uildingCustomData\x18\n \x01(\x0b\x32<.Data.LandMessage.QuestData.ObjectiveData.BuildingCustomData\x12Z\n\x13resourcesCustomData\x18\x0b \x01(\x0b\x32=.Data.LandMessage.QuestData.ObjectiveData.ResourcesCustomData\x12Z\n\x13itemCountCustomData\x18\x0c \x01(\x0b\x32=.Data.LandMessage.QuestData.ObjectiveData.ItemCountCustomData\x12^\n\x15visitFriendCustomData\x18\r \x01(\x0b\x32?.Data.LandMessage.QuestData.ObjectiveData.VisitFriendCustomData\x12J\n\x0b\x64ynamicData\x18\x0e \x01(\x0b\x32\x35.Data.LandMessage.QuestData.ObjectiveData.DynamicData\x1a!\n\x12\x42uildingCustomData\x12\x0b\n\x03qty\x18\x01 \x01(\x05\x1a\x35\n\x13ResourcesCustomData\x12\r\n\x05money\x18\x01 \x01(\r\x12\x0f\n\x07premium\x18\x02 \x01(\r\x1a$\n\x13ItemCountCustomData\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x1aJ\n\x15VisitFriendCustomData\x12\x0b\n\x03num\x18\x01 \x01(\x05\x12\x14\n\x0c\x66\x61keIncluded\x18\x02 \x01(\x08\x12\x0e\n\x06\x66riend\x18\x03 \x03(\t\x1a\x1c\n\x0b\x44ynamicData\x12\r\n\x05value\x18\x01 \x01(\x05\x1a\xc0\x13\n\x10NotificationData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nbuildingID\x18\x02 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\x03 \x01(\r\x12\x0c\n\x04type\x18\x04 \x01(\r\x12\x12\n\ncallbackID\x18\x05 \x01(\r\x12\x0e\n\x06startX\x18\x06 \x01(\x02\x12\x0e\n\x06startY\x18\x07 \x01(\x02\x12\x0e\n\x06startZ\x18\x08 \x01(\x02\x12\x0c\n\x04\x65ndX\x18\t \x01(\x02\x12\x0c\n\x04\x65ndY\x18\n \x01(\x02\x12\x0c\n\x04\x65ndZ\x18\x0b \x01(\x02\x12\x10\n\x08moveTime\x18\x0c \x01(\x03\x12\x10\n\x08isStatic\x18\r \x01(\x08\x12\x0f\n\x07isSetup\x18\x0e \x01(\x08\x12\x13\n\x0bhasBuilding\x18\x0f \x01(\x08\x12\x0f\n\x07hasChar\x18\x10 \x01(\x08\x12\x13\n\x0bhistoryType\x18\x11 \x01(\r\x12\x14\n\x0chistoryJobID\x18\x12 \x01(\r\x12\x19\n\x11historyBuildingID\x18\x13 \x01(\r\x12\x1a\n\x12historyCharacterID\x18\x14 \x01(\r\x12\x16\n\x0ehistoryQuestID\x18\x15 \x01(\r\x12!\n\x19historyBuildingInstanceID\x18\x16 \x01(\r\x12Q\n\x12\x63onsumableCallback\x18\x17 \x01(\x0b\x32\x35.Data.LandMessage.NotificationData.ConsumableCallback\x12_\n\x19memorabiliaRewardCallback\x18\x18 \x01(\x0b\x32<.Data.LandMessage.NotificationData.MemorabiliaRewardCallback\x12U\n\x14notificationCallback\x18\x19 \x01(\x0b\x32\x37.Data.LandMessage.NotificationData.NotificationCallback\x12\x63\n\x1bgainCharacterRewardCallback\x18\x1a \x01(\x0b\x32>.Data.LandMessage.NotificationData.GainCharacterRewardCallback\x12[\n\x17gainPrizeRewardCallback\x18\x1b \x01(\x0b\x32:.Data.LandMessage.NotificationData.GainPrizeRewardCallback\x12S\n\x13multiRewardCallback\x18\x1c \x01(\x0b\x32\x36.Data.LandMessage.NotificationData.MultiRewardCallback\x12g\n\x1dresourceAndItemRewardCallback\x18\x1d \x01(\x0b\x32@.Data.LandMessage.NotificationData.ResourceAndItemRewardCallback\x12\x11\n\tsubLandID\x18\x1e \x01(\r\x12\"\n\x1ahistoryCharacterInstanceID\x18\x1f \x01(\r\x1ai\n\x12\x43onsumableCallback\x12\x14\n\x0c\x63onsumableID\x18\x01 \x01(\r\x12\x14\n\x0csourceLength\x18\x02 \x01(\x05\x12\x0e\n\x06source\x18\x03 \x01(\t\x12\x17\n\x0f\x63onsumableCount\x18\x04 \x01(\r\x1a\x32\n\x19MemorabiliaRewardCallback\x12\x15\n\rmemorabiliaID\x18\x01 \x01(\r\x1a\xc2\x01\n\x14NotificationCallback\x12\r\n\x05money\x18\x01 \x01(\r\x12\x17\n\x0fpremiumCurrency\x18\x02 \x01(\r\x12\x0b\n\x03\x65xp\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x14\n\x0creasonLength\x18\x06 \x01(\x05\x12\x0e\n\x06reason\x18\x07 \x01(\t\x12\x15\n\rspendablesLen\x18\x08 \x01(\x05\x12\x12\n\nspendables\x18\t \x01(\t\x1a\x84\x01\n\x1bGainCharacterRewardCallback\x12\x12\n\nbuildingID\x18\x01 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\x02 \x01(\r\x12\x16\n\x0e\x63haracterCount\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x1aI\n\x17GainPrizeRewardCallback\x12\x16\n\x0especialEventID\x18\x01 \x01(\r\x12\x16\n\x0eprizeListIndex\x18\x02 \x01(\r\x1a\xfe\x02\n\x13MultiRewardCallback\x12\r\n\x05money\x18\x01 \x01(\r\x12\x17\n\x0fpremiumCurrency\x18\x02 \x01(\r\x12\x0b\n\x03\x65xp\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x14\n\x0creasonLength\x18\x06 \x01(\x05\x12\x0e\n\x06reason\x18\x07 \x01(\t\x12\x12\n\nbuildingID\x18\x08 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\t \x01(\r\x12\x11\n\tpositionX\x18\n \x01(\x02\x12\x11\n\tpositionY\x18\x0b \x01(\x02\x12\x11\n\tpositionZ\x18\x0c \x01(\x02\x12\x15\n\rspendablesLen\x18\r \x01(\x05\x12\x12\n\nspendables\x18\x0e \x01(\t\x12\x14\n\x0c\x63onsumableID\x18\x0f \x01(\r\x12\x17\n\x0f\x63onsumableCount\x18\x10 \x01(\r\x12\x17\n\x0f\x66loatTextLength\x18\x11 \x01(\x05\x12\x11\n\tfloatText\x18\x12 \x01(\t\x1a\xe5\x02\n\x1dResourceAndItemRewardCallback\x12\r\n\x05money\x18\x01 \x01(\r\x12\x17\n\x0fpremiumCurrency\x18\x02 \x01(\r\x12\x0b\n\x03\x65xp\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x14\n\x0creasonLength\x18\x06 \x01(\x05\x12\x0e\n\x06reason\x18\x07 \x01(\t\x12\x12\n\nbuildingID\x18\x08 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\t \x01(\r\x12\x15\n\rspendablesLen\x18\n \x01(\x05\x12\x12\n\nspendables\x18\x0b \x01(\t\x12\x18\n\x10rewardBuildingID\x18\x0c \x01(\r\x12\x1a\n\x12rewardConsumableID\x18\r \x01(\r\x12\x17\n\x0f\x66loatTextLength\x18\x0e \x01(\x05\x12\x11\n\tfloatText\x18\x0f \x01(\t\x12\r\n\x05\x66lags\x18\x10 \x01(\x05\x1a\xe2\x01\n\x11InventoryItemData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x10\n\x08itemType\x18\x02 \x01(\x05\x12\x0e\n\x06itemID\x18\x03 \x01(\x05\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\x12\x13\n\x0bisOwnerList\x18\x05 \x01(\x08\x12\"\n\townerList\x18\x06 \x01(\x0b\x32\x0f.Data.OwnerList\x12\x10\n\x08\x66romLand\x18\x07 \x01(\x05\x12\x11\n\tsourceLen\x18\x08 \x01(\x05\x12\x0e\n\x06source\x18\t \x01(\t\x1a\x64\n\x13MemorabiliaItemData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12\r\n\x05\x63ount\x18\x03 \x01(\r\x1ai\n\x15PremiumUnlockItemData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12\x10\n\x08itemType\x18\x03 \x01(\x05\x1a\xdc\x02\n\x12\x45ventCountListData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0bnumElements\x18\x02 \x01(\x05\x12\x39\n\x05\x65vent\x18\x03 \x03(\x0b\x32*.Data.LandMessage.EventCountListData.Event\x1a\xc5\x01\n\x05\x45vent\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\r\n\x05jobID\x18\x03 \x01(\x05\x12\x0e\n\x06\x63harID\x18\x04 \x01(\x05\x12\x0f\n\x07\x62uildID\x18\x05 \x01(\x05\x12\x11\n\tconsumeID\x18\x06 \x01(\x05\x12\x12\n\nbuildingID\x18\x07 \x01(\x05\x12\x12\n\nfriendLand\x18\x08 \x01(\x05\x12\x13\n\x0b\x63haracterID\x18\t \x01(\x05\x12\x0c\n\x04\x61rg1\x18\n \x01(\x05\x12\x11\n\tupdatedAt\x18\x0b \x01(\x03\x1a\x91\x01\n\x0f\x41\x63tionLimitData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04time\x18\x03 \x01(\x03\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\x12\x0f\n\x07special\x18\x05 \x01(\x05\x12\x12\n\nfakeFriend\x18\x06 \x01(\x08\x1a\xf6\x01\n\x0bSidebarData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x1a\n\x12numSidebarElements\x18\x02 \x01(\x05\x12\x44\n\x0esidebarElement\x18\x03 \x03(\x0b\x32,.Data.LandMessage.SidebarData.SidebarElement\x1aU\n\x0eSidebarElement\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x12\n\nidentifier\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x05\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x1a\xd2\x01\n\x11\x43haracterSetsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x17\n\x0fnumCompleteSets\x18\x02 \x01(\x05\x12\x46\n\x0c\x63haracterSet\x18\x03 \x03(\x0b\x32\x30.Data.LandMessage.CharacterSetsData.CharacterSet\x1a,\n\x0c\x43haracterSet\x12\x0e\n\x06length\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\x9e\x01\n\x15PushNotificationsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x14\n\x0cpushIDLength\x18\x03 \x01(\x05\x12\x0e\n\x06pushID\x18\x04 \x01(\t\x12\x11\n\thasSource\x18\x05 \x01(\x08\x12\x0e\n\x06source\x18\x06 \x01(\r\x1a\x88\x02\n\x0fTimedScriptData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x14\n\x0c\x63reationTime\x18\x02 \x01(\x03\x12\x10\n\x08waitTime\x18\x03 \x01(\x05\x12\x15\n\rscriptnamelen\x18\x04 \x01(\x05\x12\x18\n\x10scriptpackagelen\x18\x05 \x01(\x05\x12\x12\n\nscriptname\x18\x06 \x01(\t\x12\x15\n\rscriptpackage\x18\x07 \x01(\t\x12\x18\n\x10scriptobjnamelen\x18\x08 \x01(\x05\x12\x15\n\rscriptobjname\x18\t \x01(\t\x12\x10\n\x08\x65ntityID\x18\n \x01(\x05\x1a\xc2\x01\n\x10\x42onusUnlocksData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nnumEntries\x18\x02 \x01(\x05\x12\x41\n\nbonusEntry\x18\x03 \x03(\x0b\x32-.Data.LandMessage.BonusUnlocksData.BonusEntry\x1a\'\n\nBonusEntry\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x08\x1a[\n\x14\x43haracterUnlocksData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0b\x63haracterID\x18\x02 \x01(\r\x1a\x9b\x01\n\x0fSkinUnlocksData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x15\n\rskinUnlockLen\x18\x02 \x01(\x05\x12\x12\n\nskinUnlock\x18\x03 \x01(\t\x12\x17\n\x0fskinReceivedLen\x18\x04 \x01(\x05\x12\x14\n\x0cskinReceived\x18\x05 \x01(\t\x1a\x96\x02\n\x11\x44\x65layedActionData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x11\n\tsourceLen\x18\x03 \x01(\x05\x12\x0e\n\x06source\x18\x04 \x01(\t\x12\x11\n\treasonLen\x18\x05 \x01(\x05\x12\x0e\n\x06reason\x18\x06 \x01(\t\x12\x42\n\nrewardData\x18\x07 \x01(\x0b\x32..Data.LandMessage.DelayedActionData.RewardData\x1a\x39\n\nRewardData\x12\r\n\x05money\x18\x01 \x01(\r\x12\x0b\n\x03\x65xp\x18\x02 \x01(\r\x12\x0f\n\x07premium\x18\x03 \x01(\r\x1ak\n\x0eSpendablesData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12)\n\tspendable\x18\x02 \x03(\x0b\x32\x16.Data.SpendableElement\x1a\xb6\x03\n\x15TimedCharacterDataSet\x12V\n\x12timedCharacterData\x18\x01 \x03(\x0b\x32:.Data.LandMessage.TimedCharacterDataSet.TimedCharacterData\x1a\xc4\x02\n\x12TimedCharacterData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12#\n\x1btimedCharacterInstanceIDLen\x18\x02 \x01(\r\x12 \n\x18timedCharacterInstanceID\x18\x03 \x01(\t\x12\x13\n\x0b\x63haracterID\x18\x04 \x01(\r\x12\x11\n\tsubLandID\x18\x05 \x01(\r\x12\x19\n\x11\x63haracterOwnerLen\x18\x06 \x01(\r\x12\x16\n\x0e\x63haracterOwner\x18\x07 \x01(\t\x12\x14\n\x0clandOwnerLen\x18\x08 \x01(\r\x12\x11\n\tlandOwner\x18\t \x01(\t\x12\x13\n\x0btimeCreated\x18\n \x01(\x03\x12\x10\n\x08lifeSpan\x18\x0b \x01(\x03\x12\x0c\n\x04\x66lag\x18\x0c \x01(\r\x1a\xe4\x0b\n\x11SpecialEventsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x46\n\x0cspecialEvent\x18\x02 \x03(\x0b\x32\x30.Data.LandMessage.SpecialEventsData.SpecialEvent\x1a\xd6\n\n\x0cSpecialEvent\x12\n\n\x02id\x18\x01 \x01(\r\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x12O\n\tvariables\x18\x05 \x01(\x0b\x32<.Data.LandMessage.SpecialEventsData.SpecialEvent.VariableSet\x12_\n\x0cprizeDataSet\x18\x06 \x01(\x0b\x32I.Data.LandMessage.SpecialEventsData.SpecialEvent.SpecialEventPrizeDataSet\x12\x46\n\x15timedCharacterDataSet\x18\x07 \x01(\x0b\x32\'.Data.LandMessage.TimedCharacterDataSet\x12Q\n\x0b\x62\x61nkDataSet\x18\x08 \x01(\x0b\x32<.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet\x1a\x95\x02\n\x18SpecialEventPrizeDataSet\x12r\n\tprizeData\x18\x01 \x03(\x0b\x32_.Data.LandMessage.SpecialEventsData.SpecialEvent.SpecialEventPrizeDataSet.SpecialEventPrizeData\x1a\x84\x01\n\x15SpecialEventPrizeData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0bprizeListID\x18\x02 \x01(\r\x12\x11\n\tnextPrize\x18\x03 \x01(\r\x12\x13\n\x0bprizeChance\x18\x04 \x01(\x02\x1a\x8f\x01\n\x0bVariableSet\x12W\n\x08variable\x18\x01 \x03(\x0b\x32\x45.Data.LandMessage.SpecialEventsData.SpecialEvent.VariableSet.Variable\x1a\'\n\x08Variable\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05\x1a\xae\x04\n\x0b\x42\x61nkDataSet\x12W\n\x08\x62\x61nkData\x18\x01 \x03(\x0b\x32\x45.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.BankData\x1a\x8a\x01\n\x07\x44\x65posit\x12$\n\x04\x63ost\x18\x01 \x01(\x0b\x32\x16.Data.CurrencySaveData\x12\x18\n\x10\x64\x65positedByIDLen\x18\x02 \x01(\r\x12\x15\n\rdepositedByID\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65positedAt\x18\x04 \x01(\x03\x12\x13\n\x0b\x62uildingRef\x18\x05 \x01(\r\x1ah\n\x0b\x44\x65positData\x12Y\n\x0b\x64\x65positData\x18\x01 \x03(\x0b\x32\x44.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.Deposit\x1a\xce\x01\n\x08\x42\x61nkData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0b\x62uildingRef\x18\x02 \x01(\r\x12\x11\n\tsubLandID\x18\x03 \x01(\r\x12\x0e\n\x06\x62\x61nkID\x18\x04 \x01(\r\x12Z\n\x08\x64\x65posits\x18\x06 \x01(\x0b\x32H.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.DepositData\x1a\xd0\x01\n\x0e\x46\x61keFriendData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x11\n\ttownLevel\x18\x02 \x01(\x05\x12\x13\n\x0b\x62uildingLen\x18\x03 \x01(\x05\x12\x10\n\x08\x62uilding\x18\x04 \x01(\t\x12\x15\n\ractionTypeLen\x18\x05 \x01(\x05\x12\x12\n\nactionType\x18\x06 \x01(\t\x12\x15\n\ractionTimeLen\x18\x07 \x01(\x03\x12\x12\n\nactionTime\x18\x08 \x01(\t\x1a\xbc\x02\n\x0eQuestGroupData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x14\n\x0cquestGroupID\x18\x02 \x01(\r\x12\x17\n\x0fquestGroupState\x18\x03 \x01(\x05\x12\x14\n\x0c\x63urrentChild\x18\x04 \x01(\x05\x12\x11\n\tlastChild\x18\x05 \x01(\x05\x12\x13\n\x0bnumChildren\x18\x06 \x01(\x05\x12\x16\n\x0e\x63hildIDListLen\x18\x07 \x01(\x05\x12\x15\n\rweightListLen\x18\x08 \x01(\x05\x12\x13\n\x0b\x63hildIDList\x18\t \x01(\t\x12\x12\n\nweightList\x18\n \x01(\t\x12\x18\n\x10numCompleteDaily\x18\x0b \x01(\r\x12\x1b\n\x13\x64\x61ilyCompletionTime\x18\x0c \x01(\x03\x1az\n\x15ProcessedPurchaseData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x16\n\x0eidAndCountList\x18\x02 \x01(\t\x12\x19\n\x11idAndCountListLen\x18\x03 \x01(\x05\x1a\xcc\x01\n\x16\x43ustomFriendActionData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x18\n\x10\x62uildingInstance\x18\x02 \x01(\r\x12\x12\n\nfriendName\x18\x03 \x01(\t\x12\x15\n\rfriendNameLen\x18\x04 \x01(\x05\x12\x12\n\nactionType\x18\x05 \x01(\t\x12\x15\n\ractionTypeLen\x18\x06 \x01(\x05\x12\x12\n\nisBuilding\x18\x07 \x01(\x08\x1a\xeb\x01\n\x0eGameObjectInfo\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12?\n\ngameObject\x18\x02 \x03(\x0b\x32+.Data.LandMessage.GameObjectInfo.GameObject\x1ah\n\nGameObject\x12\x0e\n\x06\x64\x61taId\x18\x01 \x01(\r\x12\x16\n\x0egameObjectType\x18\x02 \x01(\r\x12\x12\n\nunlockTime\x18\x03 \x01(\x03\x12\x0e\n\x06locked\x18\x04 \x01(\x08\x12\x0e\n\x06viewed\x18\x05 \x01(\x08\x1a\xe2\x01\n\x0bSubLandData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x11\n\tsubLandID\x18\x02 \x01(\r\x12\x12\n\nlandBlocks\x18\x03 \x01(\t\x12\x32\n\x0bterrainData\x18\x04 \x03(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x17\n\x0f\x62uildingsSorted\x18\x05 \x01(\x08\x12\x16\n\x0elandBlockWidth\x18\x06 \x01(\r\x12\x17\n\x0flandBlockHeight\x18\x07 \x01(\r\x1a\xe8\x01\n\x0cMinigameData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nminigameID\x18\x02 \x01(\r\x12\x15\n\rbuildingRefID\x18\x03 \x01(\r\x12\r\n\x05state\x18\x04 \x01(\r\x12\x12\n\nupdateTime\x18\x05 \x01(\x03\x12\x11\n\tprizeList\x18\x06 \x01(\t\x12\x14\n\x0cprizeListLen\x18\x07 \x01(\x05\x12\x16\n\x0etappedIndecies\x18\x08 \x01(\t\x12\x19\n\x11tappedIndeciesLen\x18\t \x01(\x05\x1a\x64\n\x13\x43ollectionItemsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12\r\n\x05\x63ount\x18\x03 \x01(\r\x1a\x8f\x01\n\x0e\x46riendListData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x10\n\x08\x66riendID\x18\x02 \x01(\t\x12\x11\n\thideInMap\x18\x03 \x01(\x08\x12\x16\n\x0ehasBeenVisited\x18\x04 \x01(\x08\x12\x10\n\x08isOrigin\x18\x05 \x01(\x08\x1aq\n\x11\x46riendActionCount\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04time\x18\x02 \x01(\x03\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\x12\x0f\n\x07special\x18\x04 \x01(\x05\x1a&\n\x11PurchasedItemData\x12\x11\n\tproductId\x18\x01 \x01(\t\x1a\xd8\x02\n\x13\x41\x64vancedVariableSet\x12H\n\x08variable\x18\x01 \x03(\x0b\x32\x36.Data.LandMessage.AdvancedVariableSet.AdvancedVariable\x1a\xf6\x01\n\x10\x41\x64vancedVariable\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\x13\n\x0b\x63reatedTime\x18\x03 \x01(\x03\x12\x0b\n\x03ttl\x18\x04 \x01(\x03\x12\x13\n\x0bobjectClass\x18\x05 \x01(\r\x12\x10\n\x08serverID\x18\x06 \x01(\r\x12\x14\n\x0cobjectTypeID\x18\x07 \x01(\r\x12\x10\n\x08orphaned\x18\x08 \x01(\x08\x12\x15\n\rcanBeOrphaned\x18\t \x01(\x08\x12\r\n\x05scope\x18\n \x01(\x05\x12\x11\n\tsublandID\x18\x0b \x01(\r\x12\r\n\x05\x66lags\x18\x0c \x01(\r\x12\x0c\n\x04uuid\x18\r \x01(\r\x1aK\n\x0fObjectVariables\x12\x38\n\tvariables\x18\x01 \x01(\x0b\x32%.Data.LandMessage.AdvancedVariableSet\x1a\xb8\x01\n\x14SavedRecommendations\x12\x1a\n\x12reccomendationType\x18\x01 \x01(\x05\x12\x11\n\tentryName\x18\x02 \x01(\t\x12\x11\n\tsublandID\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x03\x12\x15\n\rcharacterName\x18\x05 \x01(\t\x12\x0e\n\x06number\x18\x06 \x01(\x05\x12\x11\n\textraName\x18\x07 \x01(\t\x12\x16\n\x0epopularityTime\x18\x08 \x01(\x02\"N\n\rCurrencyDelta\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x05\x12\x11\n\tupdatedAt\x18\x04 \x01(\x03\"\x9a\x01\n\x10\x43urrencySaveData\x12\r\n\x05money\x18\x01 \x01(\r\x12\x0f\n\x07premium\x18\x02 \x01(\r\x12\x11\n\trealMoney\x18\x03 \x01(\r\x12\x13\n\x0brealPremium\x18\x04 \x01(\r\x12\x12\n\nnumSpecial\x18\x05 \x01(\r\x12\x13\n\x0bspecialType\x18\x06 \x03(\r\x12\x15\n\rspecialAmount\x18\x07 \x03(\r\"\xa4\x13\n\x0c\x45ventMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\ntoPlayerId\x18\x02 \x01(\t\x12\x14\n\x0c\x66romPlayerId\x18\x03 \x01(\t\x12\x11\n\teventType\x18\x04 \x01(\t\x12\x11\n\tcreatedAt\x18\x05 \x01(\x03\x12\x11\n\tupdatedAt\x18\n \x01(\x03\x12\x0b\n\x03inc\x18\x06 \x01(\x03\x12/\n\teventData\x18\x07 \x01(\x0b\x32\x1c.Data.EventMessage.EventData\x12\x16\n\x0etargetEntityId\x18\x08 \x01(\t\x12\x13\n\x0buniqueEvent\x18\t \x01(\x08\x1a\xb9\x11\n\tEventData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\x05\x12\x13\n\x0brequestTime\x18\x02 \x01(\x03\x12\x13\n\x0brequestType\x18\x03 \x01(\x05\x12M\n\x13\x63haracterGainedData\x18\x04 \x01(\x0b\x32\x30.Data.EventMessage.EventData.CharacterGainedData\x12I\n\x11\x63haracterLostData\x18\x05 \x01(\x0b\x32..Data.EventMessage.EventData.CharacterLostData\x12S\n\x16stealBuildingEventData\x18\x06 \x01(\x0b\x32\x33.Data.EventMessage.EventData.StealBuildingEventData\x12M\n\x13giftMemorabiliaData\x18\x07 \x01(\x0b\x32\x30.Data.EventMessage.EventData.GiftMemorabiliaData\x12I\n\x11shopCollectedData\x18\x08 \x01(\x0b\x32..Data.EventMessage.EventData.ShopCollectedData\x12K\n\x12vandalismEventData\x18\t \x01(\x0b\x32/.Data.EventMessage.EventData.VandalismEventData\x12I\n\x11sidebarUpdateData\x18\n \x01(\x0b\x32..Data.EventMessage.EventData.SidebarUpdateData\x12K\n\x12returnBuildingData\x18\x0b \x01(\x0b\x32/.Data.EventMessage.EventData.ReturnBuildingData\x12\x43\n\x0eplayScriptData\x18\x0c \x01(\x0b\x32+.Data.EventMessage.EventData.PlayScriptData\x12U\n\x17\x63ustomFriendRequestData\x18\r \x01(\x0b\x32\x34.Data.EventMessage.EventData.CustomFriendRequestData\x12W\n\x18playScriptAtPositionData\x18\x0e \x01(\x0b\x32\x35.Data.EventMessage.EventData.PlayScriptAtPositionData\x12\x16\n\x0e\x64isplayNameLen\x18\x0f \x01(\x05\x12\x13\n\x0b\x64isplayName\x18\x10 \x01(\t\x12\x11\n\tupdatedAt\x18\x11 \x01(\x03\x12W\n\x18loseResourcesRequestData\x18\x12 \x01(\x0b\x32\x35.Data.EventMessage.EventData.LoseResourcesRequestData\x1a*\n\x13\x43haracterGainedData\x12\x13\n\x0b\x63haracterID\x18\x01 \x01(\r\x1a(\n\x11\x43haracterLostData\x12\x13\n\x0b\x63haracterID\x18\x01 \x01(\r\x1al\n\x16StealBuildingEventData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\r\x12\x12\n\nbuildingID\x18\x02 \x01(\r\x12\"\n\townerList\x18\x03 \x01(\x0b\x32\x0f.Data.OwnerList\x1a\x34\n\x13GiftMemorabiliaData\x12\r\n\x05setID\x18\x01 \x01(\x05\x12\x0e\n\x06itemID\x18\x02 \x01(\x05\x1a/\n\x11ShopCollectedData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\r\x1ai\n\x12VandalismEventData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\r\x12\x12\n\nvandalized\x18\x02 \x01(\x08\x12\x0f\n\x07namelen\x18\x03 \x01(\x05\x12\x12\n\nvandalName\x18\x04 \x01(\t\x1aX\n\x11SidebarUpdateData\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x05\x12\x12\n\nidentifier\x18\x03 \x01(\x05\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x1a\x61\n\x12ReturnBuildingData\x12\x12\n\nbuildingID\x18\x01 \x01(\r\x12\x13\n\x0bisOwnerList\x18\x02 \x01(\x08\x12\"\n\townerList\x18\x03 \x01(\x0b\x32\x0f.Data.OwnerList\x1ak\n\x0ePlayScriptData\x12\x15\n\rplayForFriend\x18\x01 \x01(\x08\x12\x0f\n\x07nameLen\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x12\n\npackageLen\x18\x04 \x01(\x05\x12\x0f\n\x07package\x18\x05 \x01(\t\x1a\x97\x01\n\x17\x43ustomFriendRequestData\x12\x12\n\nbuildingID\x18\x01 \x01(\r\x12\x15\n\rfriendNameLen\x18\x02 \x01(\x05\x12\x12\n\nfriendName\x18\x03 \x01(\t\x12\x15\n\ractionTypeLen\x18\x04 \x01(\x05\x12\x12\n\nactionType\x18\x05 \x01(\t\x12\x12\n\nisBuilding\x18\x06 \x01(\x08\x1a\xa4\x01\n\x18PlayScriptAtPositionData\x12\x15\n\rplayForFriend\x18\x01 \x01(\x08\x12\x0f\n\x07nameLen\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x12\n\npackageLen\x18\x04 \x01(\x05\x12\x0f\n\x07package\x18\x05 \x01(\t\x12\x0c\n\x04xPos\x18\x06 \x01(\x05\x12\x0c\n\x04yPos\x18\x07 \x01(\x05\x12\x11\n\tsublandId\x18\x08 \x01(\x05\x1ai\n\x18LoseResourcesRequestData\x12)\n\tresources\x18\x01 \x01(\x0b\x32\x16.Data.CurrencySaveData\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x12\n\nfriendName\x18\x03 \x01(\t\"2\n\rEventsMessage\x12!\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x12.Data.EventMessage\"\xed\x04\n\x10\x45xtraLandMessage\x12*\n\rcurrencyDelta\x18\x01 \x03(\x0b\x32\x13.Data.CurrencyDelta\x12!\n\x05\x65vent\x18\x02 \x03(\x0b\x32\x12.Data.EventMessage\x12\x41\n\x10pushNotification\x18\x03 \x03(\x0b\x32\'.Data.ExtraLandMessage.PushNotification\x12\x45\n\x12\x63ommunityGoalDelta\x18\x04 \x03(\x0b\x32).Data.ExtraLandMessage.CommunityGoalDelta\x12O\n\x17matchmakingRegistration\x18\x05 \x03(\x0b\x32..Data.ExtraLandMessage.MatchmakingRegistration\x1an\n\x10PushNotification\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\ntoPlayerId\x18\x02 \x01(\t\x12\x13\n\x0bscheduledIn\x18\x03 \x01(\x05\x12\x14\n\x0ctemplateName\x18\x04 \x01(\t\x12\x0f\n\x07message\x18\x05 \x01(\t\x1a\x36\n\x12\x43ommunityGoalDelta\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x03\x1a(\n\tNameValue\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x1a]\n\x17MatchmakingRegistration\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x30\n\x06params\x18\x02 \x03(\x0b\x32 .Data.ExtraLandMessage.NameValue\"\xc6\x02\n\x11\x45xtraLandResponse\x12\x33\n\x16processedCurrencyDelta\x18\x01 \x03(\x0b\x32\x13.Data.CurrencyDelta\x12*\n\x0eprocessedEvent\x18\x02 \x03(\x0b\x32\x12.Data.EventMessage\x12)\n\rreceivedEvent\x18\x03 \x03(\x0b\x32\x12.Data.EventMessage\x12<\n\rcommunityGoal\x18\x04 \x03(\x0b\x32%.Data.ExtraLandResponse.CommunityGoal\x1ag\n\rCommunityGoal\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x15\n\rprogressTotal\x18\x02 \x01(\x03\x12\x14\n\x0cprogressRate\x18\x03 \x01(\x01\x12\x17\n\x0f\x61wardThresholds\x18\x04 \x03(\x03\"(\n\x14GetFriendDataRequest\x12\x10\n\x08\x66riendId\x18\x01 \x03(\t\"\xa7\x03\n\x15GetFriendDataResponse\x12>\n\nfriendData\x18\x01 \x03(\x0b\x32*.Data.GetFriendDataResponse.FriendDataPair\x1a\xcd\x02\n\x0e\x46riendDataPair\x12\x10\n\x08\x66riendId\x18\x01 \x01(\t\x12$\n\nfriendData\x18\x02 \x01(\x0b\x32\x10.Data.FriendData\x12I\n\x05\x65rror\x18\x03 \x01(\x0b\x32:.Data.GetFriendDataResponse.FriendDataPair.FriendDataError\x12K\n\x0b\x61uthService\x18\x04 \x01(\x0e\x32\x36.Data.GetFriendDataResponse.FriendDataPair.AuthService\x12\x12\n\nexternalId\x18\x05 \x01(\t\x1a-\n\x0f\x46riendDataError\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\t\"(\n\x0b\x41uthService\x12\x0b\n\x07NUCLEUS\x10\x00\x12\x0c\n\x08\x46\x41\x43\x45\x42OOK\x10\x01')
+  serialized_pb=_b('\n\x0eLandData.proto\x12\x04\x44\x61ta\"\x9b\x01\n\x14\x43lientConfigResponse\x12:\n\x05items\x18\x02 \x03(\x0b\x32+.Data.ClientConfigResponse.ClientConfigItem\x1aG\n\x10\x43lientConfigItem\x12\x16\n\x0e\x63lientConfigId\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\"\x85\x01\n\x0c\x43urrencyData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x18\n\x10vcTotalPurchased\x18\x02 \x01(\x05\x12\x16\n\x0evcTotalAwarded\x18\x03 \x01(\x05\x12\x11\n\tvcBalance\x18\x04 \x01(\x05\x12\x11\n\tcreatedAt\x18\x05 \x01(\x03\x12\x11\n\tupdatedAt\x18\x06 \x01(\x03\"7\n\x10UserIndirectData\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x13\n\x0btelemetryId\x18\x02 \x01(\t\"(\n\x11\x41nonymousUserData\x12\x13\n\x0bisAnonymous\x18\x01 \x01(\x08\"7\n\tTokenData\x12\x12\n\nsessionKey\x18\x01 \x01(\t\x12\x16\n\x0e\x65xpirationDate\x18\x02 \x01(\x03\"\\\n\x14UsersResponseMessage\x12$\n\x04user\x18\x01 \x01(\x0b\x32\x16.Data.UserIndirectData\x12\x1e\n\x05token\x18\x02 \x01(\x0b\x32\x0f.Data.TokenData\"*\n\x15WholeLandTokenRequest\x12\x11\n\trequestId\x18\x01 \x01(\t\"9\n\x16WholeLandTokenResponse\x12\r\n\x05token\x18\x01 \x01(\t\x12\x10\n\x08\x63onflict\x18\x02 \x01(\x08\"#\n\x12\x44\x65leteTokenRequest\x12\r\n\x05token\x18\x01 \x01(\t\"%\n\x13\x44\x65leteTokenResponse\x12\x0e\n\x06result\x18\x01 \x01(\x08\"0\n\x10SpendableElement\x12\x0c\n\x04type\x18\x01 \x01(\r\x12\x0e\n\x06\x61mount\x18\x02 \x01(\r\")\n\tOwnerList\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x03(\t\"H\n\x0bSublandInfo\x12\x11\n\tsublandId\x18\x01 \x01(\x05\x12\x0e\n\x06rating\x18\x02 \x01(\x05\x12\x16\n\x07\x63reated\x18\x03 \x01(\x08:\x05\x66\x61lse\"\x89\x01\n\x11SharedVariableSet\x12\x38\n\x08variable\x18\x01 \x03(\x0b\x32&.Data.SharedVariableSet.SharedVariable\x1a:\n\x0eSharedVariable\x12\r\n\x05owner\x18\x01 \x01(\r\x12\n\n\x02id\x18\x02 \x01(\x05\x12\r\n\x05value\x18\x03 \x01(\x05\"\xc7\x02\n\nFriendData\x12\x13\n\x0b\x64\x61taVersion\x18\x01 \x01(\x05\x12\x14\n\x0chasLemonTree\x18\x02 \x01(\x08\x12\x10\n\x08language\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06rating\x18\x06 \x01(\x05\x12)\n\tspendable\x18\x07 \x03(\x0b\x32\x16.Data.SpendableElement\x12\x13\n\x0blandVersion\x18\x08 \x01(\x05\x12\'\n\x0csublandInfos\x18\t \x03(\x0b\x32\x11.Data.SublandInfo\x12\x1a\n\x12\x62oardwalkTileCount\x18\n \x01(\x05\x12\x16\n\x0elastPlayedTime\x18\x0b \x01(\x03\x12\x32\n\x11sharedVariableSet\x18\x0c \x01(\x0b\x32\x17.Data.SharedVariableSet\"\xa7\x8a\x01\n\x0bLandMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12$\n\nfriendData\x18\x02 \x01(\x0b\x32\x10.Data.FriendData\x12,\n\x08userData\x18\x03 \x01(\x0b\x32\x1a.Data.LandMessage.UserData\x12\x36\n\rinnerLandData\x18\x04 \x01(\x0b\x32\x1f.Data.LandMessage.InnerLandData\x12\x30\n\troadsData\x18\x05 \x01(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x31\n\nriversData\x18\x06 \x01(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x34\n\x0c\x62uildingData\x18\x07 \x03(\x0b\x32\x1e.Data.LandMessage.BuildingData\x12\x36\n\rcharacterData\x18\x08 \x03(\x0b\x32\x1f.Data.LandMessage.CharacterData\x12\x38\n\x0e\x63onsumableData\x18\t \x03(\x0b\x32 .Data.LandMessage.ConsumableData\x12*\n\x07jobData\x18\n \x03(\x0b\x32\x19.Data.LandMessage.JobData\x12.\n\tquestData\x18\x0b \x03(\x0b\x32\x1b.Data.LandMessage.QuestData\x12<\n\x10notificationData\x18\x0c \x03(\x0b\x32\".Data.LandMessage.NotificationData\x12>\n\x11inventoryItemData\x18\r \x03(\x0b\x32#.Data.LandMessage.InventoryItemData\x12\x42\n\x13memorabiliaItemData\x18\x0e \x03(\x0b\x32%.Data.LandMessage.MemorabiliaItemData\x12\x46\n\x15premiumUnlockItemData\x18\x0f \x03(\x0b\x32\'.Data.LandMessage.PremiumUnlockItemData\x12@\n\x12\x65ventCountListData\x18\x10 \x03(\x0b\x32$.Data.LandMessage.EventCountListData\x12:\n\x0f\x61\x63tionLimitData\x18\x11 \x03(\x0b\x32!.Data.LandMessage.ActionLimitData\x12\x32\n\x0bsidebarData\x18\x12 \x01(\x0b\x32\x1d.Data.LandMessage.SidebarData\x12>\n\x11\x63haracterSetsData\x18\x13 \x01(\x0b\x32#.Data.LandMessage.CharacterSetsData\x12\x46\n\x15pushNotificationsData\x18\x14 \x03(\x0b\x32\'.Data.LandMessage.PushNotificationsData\x12:\n\x0ftimedScriptData\x18\x15 \x03(\x0b\x32!.Data.LandMessage.TimedScriptData\x12<\n\x10\x62onusUnlocksData\x18\x16 \x01(\x0b\x32\".Data.LandMessage.BonusUnlocksData\x12\x44\n\x14\x63haracterUnlocksData\x18\x17 \x03(\x0b\x32&.Data.LandMessage.CharacterUnlocksData\x12:\n\x0fskinUnlocksData\x18\x18 \x01(\x0b\x32!.Data.LandMessage.SkinUnlocksData\x12>\n\x11\x64\x65layedActionData\x18\x19 \x03(\x0b\x32#.Data.LandMessage.DelayedActionData\x12\x38\n\x0espendablesData\x18\x1a \x01(\x0b\x32 .Data.LandMessage.SpendablesData\x12>\n\x11specialEventsData\x18\x1b \x01(\x0b\x32#.Data.LandMessage.SpecialEventsData\x12\x38\n\x0e\x66\x61keFriendData\x18\x1c \x01(\x0b\x32 .Data.LandMessage.FakeFriendData\x12\x38\n\x0equestGroupData\x18\x1d \x03(\x0b\x32 .Data.LandMessage.QuestGroupData\x12\x36\n\tpurchases\x18\x1e \x03(\x0b\x32#.Data.LandMessage.PurchasedItemData\x12\x46\n\x15processedPurchaseData\x18\x1f \x01(\x0b\x32\'.Data.LandMessage.ProcessedPurchaseData\x12H\n\x16\x63ustomFriendActionData\x18  \x03(\x0b\x32(.Data.LandMessage.CustomFriendActionData\x12\x11\n\tdebugLand\x18! \x01(\x08\x12\x30\n\toceanData\x18\" \x01(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x38\n\x0egameObjectInfo\x18# \x01(\x0b\x32 .Data.LandMessage.GameObjectInfo\x12\x32\n\x0bsubLandData\x18$ \x03(\x0b\x32\x1d.Data.LandMessage.SubLandData\x12\x34\n\x0cminigameData\x18% \x03(\x0b\x32\x1e.Data.LandMessage.MinigameData\x12=\n\x15stealableBuildingData\x18& \x03(\x0b\x32\x1e.Data.LandMessage.BuildingData\x12\x42\n\x13\x63ollectionItemsData\x18\' \x03(\x0b\x32%.Data.LandMessage.CollectionItemsData\x12\x38\n\x0e\x66riendListData\x18( \x03(\x0b\x32 .Data.LandMessage.FriendListData\x12\x42\n\x15\x61llFriendActionsCount\x18) \x01(\x0b\x32#.Data.LandMessage.FriendActionCount\x12\'\n\x1f\x66riendListDataIsCreatedAndSaved\x18* \x01(\x08\x12:\n\x0fobjectVariables\x18+ \x01(\x0b\x32!.Data.LandMessage.ObjectVariables\x12?\n\x0frecommendations\x18, \x03(\x0b\x32&.Data.LandMessage.SavedRecommendations\x1a\x1a\n\x0c\x45ntityHeader\x12\n\n\x02id\x18\x01 \x01(\r\x1a\xfb\x06\n\x08UserData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x1b\n\x13lastBonusCollection\x18\x02 \x01(\x04\x12\r\n\x05level\x18\x03 \x01(\r\x12\x12\n\nexperience\x18\x04 \x01(\r\x12\r\n\x05money\x18\x05 \x01(\r\x12;\n\x0bsavedRating\x18\x06 \x03(\x0b\x32&.Data.LandMessage.UserData.SavedRating\x12\x11\n\tlastBonus\x18\x07 \x01(\r\x12\x17\n\x0f\x66riendsUnlocked\x18\x08 \x01(\x08\x12\x1b\n\x13memorabiliaUnlocked\x18\t \x01(\x08\x12\x1a\n\x12reorganizeUnlocked\x18\n \x01(\x08\x12\x15\n\rfirstPurchase\x18\x0b \x01(\x08\x12\x1a\n\x12sidebarDefaultOpen\x18\x0c \x01(\x08\x12\x13\n\x0bshowLevelUp\x18\r \x01(\x08\x12\x17\n\x0f\x62onusExperience\x18\x0e \x01(\r\x12\x12\n\nbonusLevel\x18\x0f \x01(\r\x12\x17\n\x0fhasPrestigeData\x18\x10 \x01(\x08\x12\x12\n\nprestigeID\x18\x11 \x01(\r\x12\x1a\n\x12prestigeShownFirst\x18\x12 \x01(\x08\x12\x1b\n\x13prestigeShownSecond\x18\x13 \x01(\x08\x12\x1a\n\x12prestigeShownThird\x18\x14 \x01(\x08\x12\x18\n\x10prestigeSelected\x18\x15 \x01(\r\x12\x1d\n\x15prestigeConsumbableID\x18\x16 \x01(\r\x12\x18\n\x10tutorialComplete\x18\x17 \x01(\x08\x12\x19\n\x11pendingConsumable\x18\x18 \x01(\r\x12\x13\n\x0bvisualLevel\x18\x19 \x01(\r\x12\x16\n\x0etimezoneOffset\x18\x1a \x01(\x05\x12\x17\n\x0fuserPreferences\x18\x1b \x01(\r\x12\x15\n\rshouldAnalyze\x18\x1c \x01(\x08\x12\x17\n\x0fgambleOutcomeID\x18\x1d \x01(\x05\x12\x16\n\x0egambleItemType\x18\x1e \x01(\t\x12\x18\n\x10\x66ullDLCCompleted\x18\x1f \x01(\x08\x1a\x41\n\x0bSavedRating\x12\x19\n\x11savedRatingElemID\x18\x01 \x01(\r\x12\x17\n\x0fsavedRatingElem\x18\x02 \x01(\x05\x1a\xc1\x07\n\rInnerLandData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nlandBlocks\x18\x02 \x01(\t\x12\x16\n\x0enextInstanceID\x18\x03 \x01(\r\x12\x10\n\x08numChars\x18\x04 \x01(\r\x12\x14\n\x0cnumBuildings\x18\x05 \x01(\r\x12\x16\n\x0enumConsumables\x18\x06 \x01(\r\x12\x0f\n\x07numJobs\x18\x07 \x01(\r\x12\x11\n\tnumQuests\x18\x08 \x01(\r\x12\x12\n\nnumNotices\x18\t \x01(\r\x12\x19\n\x11numInventoryItems\x18\n \x01(\r\x12\x1b\n\x13numMemorabiliaItems\x18\x0b \x01(\r\x12\x1a\n\x12numEventCountLists\x18\x0c \x01(\r\x12\x19\n\x11numPremiumUnlocks\x18\r \x01(\r\x12\x17\n\x0fnumActionLimits\x18\x0e \x01(\r\x12\x1d\n\x15numRunsSincePromotion\x18\x0f \x01(\r\x12\x16\n\x0elevelOfRateAsk\x18\x10 \x01(\r\x12\x12\n\nupdateTime\x18\x11 \x01(\x03\x12\x18\n\x10timeSpentPlaying\x18\x12 \x01(\x03\x12\x1c\n\x14lastLevelUpSpentTime\x18\x13 \x01(\x03\x12\x1c\n\x14lastLevelUpTimeStamp\x18\x14 \x01(\x03\x12\x17\n\x0finitialSaveDone\x18\x15 \x01(\x08\x12\x1f\n\x17lastVandalismFeedPosted\x18\x16 \x01(\x03\x12#\n\x1blastStealBuildingFeedPosted\x18\x17 \x01(\x03\x12\x1e\n\x16lastSideshowBobSpawned\x18\x18 \x01(\x03\x12\x16\n\x0enextCurrencyID\x18\x19 \x01(\r\x12\x16\n\x0enumQuestGroups\x18\x1a \x01(\r\x12\x1c\n\x14scratcherRewardIndex\x18\x1b \x01(\x05\x12#\n\x1bscratcherRewardConsumableID\x18\x1c \x01(\r\x12\x14\n\x0c\x63reationTime\x18\x1d \x01(\x04\x12\x10\n\x08versions\x18\x1e \x03(\t\x12\x17\n\x0f\x62uildingsSorted\x18\x1f \x01(\x08\x12\x17\n\x0fnumSavedFriends\x18  \x01(\r\x12\x16\n\x0elandBlockWidth\x18! \x01(\r\x12\x17\n\x0flandBlockHeight\x18\" \x01(\r\x12\x1a\n\x12landBlockPositionX\x18# \x01(\x05\x12\x1a\n\x12landBlockPositionY\x18$ \x01(\x05\x1a\x63\n\x0bTerrainData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0bmapDataSize\x18\x02 \x01(\r\x12\x0f\n\x07mapData\x18\x03 \x01(\t\x1a\x9b\x04\n\x0c\x42uildingData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x10\n\x08\x62uilding\x18\x02 \x01(\r\x12\x14\n\x0c\x63reationTime\x18\x03 \x01(\x03\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x12\x11\n\tpositionX\x18\x05 \x01(\x02\x12\x11\n\tpositionY\x18\x06 \x01(\x02\x12\x0f\n\x07\x66lipped\x18\x07 \x01(\x08\x12\x12\n\nbuildState\x18\x08 \x01(\x05\x12\r\n\x05hurry\x18\t \x01(\x08\x12\x11\n\tcropState\x18\n \x01(\r\x12\x11\n\tbetActive\x18\x0b \x01(\x08\x12\x14\n\x0c\x62\x65tStartTime\x18\x0c \x01(\x03\x12\x11\n\tbetChoice\x18\r \x01(\r\x12\x12\n\nwinningBet\x18\x0e \x01(\x08\x12\x12\n\nvandalized\x18\x0f \x01(\x08\x12\x0f\n\x07namelen\x18\x10 \x01(\x05\x12\x12\n\nvandalName\x18\x11 \x01(\t\x12\x13\n\x0bisOwnerList\x18\x12 \x01(\x08\x12\"\n\townerList\x18\x13 \x01(\x0b\x32\x0f.Data.OwnerList\x12\x0c\n\x04skin\x18\x14 \x01(\x05\x12\x14\n\x0cgrantRewards\x18\x15 \x01(\x08\x12\x11\n\tflipState\x18\x16 \x01(\r\x12\x11\n\tsubLandID\x18\x17 \x01(\r\x12\x17\n\x0ftimeOfVandalism\x18\x18 \x01(\x03\x12\r\n\x05\x66lags\x18\x19 \x01(\r\x1a\xd0\x01\n\rCharacterData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x11\n\tcharacter\x18\x02 \x01(\r\x12\x12\n\nupdateTime\x18\x03 \x01(\x03\x12\x11\n\tpositionX\x18\x04 \x01(\x02\x12\x11\n\tpositionY\x18\x05 \x01(\x02\x12\x0c\n\x04skin\x18\x06 \x01(\x05\x12\x12\n\nskinBackup\x18\x07 \x01(\x05\x12\x11\n\tsubLandID\x18\x08 \x01(\r\x12\r\n\x05\x66lags\x18\t \x01(\r\x1aj\n\x0e\x43onsumableData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nconsumable\x18\x02 \x01(\r\x12\x14\n\x0c\x63onsumedTime\x18\x03 \x01(\x03\x1a\xde\x02\n\x07JobData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0b\n\x03job\x18\x02 \x01(\r\x12\x0f\n\x07\x63harRef\x18\x03 \x01(\r\x12\x13\n\x0b\x62uildingRef\x18\x04 \x01(\r\x12\x12\n\nupdateTime\x18\x05 \x01(\x03\x12\r\n\x05state\x18\x06 \x01(\x05\x12\r\n\x05hurry\x18\x07 \x01(\x08\x12\x13\n\x0bhasBuilding\x18\x08 \x01(\x08\x12\x0f\n\x07hasChar\x18\t \x01(\x08\x12\x15\n\rmoveToCharRef\x18\n \x01(\r\x12\x17\n\x0fproxyCheckFired\x18\x0b \x01(\x08\x12\x15\n\rgridPositionX\x18\x0c \x01(\x05\x12\x15\n\rgridPositionY\x18\r \x01(\x05\x12\x0f\n\x07hasGrid\x18\x0e \x01(\x08\x12\x11\n\tsubLandID\x18\x0f \x01(\r\x12\x16\n\x0esubBuildingRef\x18\x10 \x01(\r\x1a\xe2\x08\n\tQuestData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0f\n\x07questID\x18\x02 \x01(\r\x12\x12\n\nquestState\x18\x03 \x01(\x05\x12\x18\n\x10questScriptState\x18\x04 \x01(\x05\x12\x15\n\rnumObjectives\x18\x05 \x01(\x05\x12@\n\robjectiveData\x18\x06 \x03(\x0b\x32).Data.LandMessage.QuestData.ObjectiveData\x12\x16\n\x0etimesCompleted\x18\x07 \x01(\x05\x1a\xf4\x06\n\rObjectiveData\x12\x13\n\x0bobjectiveID\x18\x01 \x01(\x05\x12\x16\n\x0eobjectiveState\x18\x02 \x01(\x05\x12\x15\n\robjectiveType\x18\x03 \x01(\x05\x12\x0f\n\x07version\x18\x04 \x01(\x05\x12\x17\n\x0fquestLastRetVal\x18\x05 \x01(\x08\x12\x12\n\nquestLocal\x18\x06 \x01(\x08\x12\x0e\n\x06rushed\x18\x07 \x01(\x08\x12\x10\n\x08keepDone\x18\x08 \x01(\x08\x12\x17\n\x0f\x62lockDoneScript\x18\t \x01(\x08\x12X\n\x12\x62uildingCustomData\x18\n \x01(\x0b\x32<.Data.LandMessage.QuestData.ObjectiveData.BuildingCustomData\x12Z\n\x13resourcesCustomData\x18\x0b \x01(\x0b\x32=.Data.LandMessage.QuestData.ObjectiveData.ResourcesCustomData\x12Z\n\x13itemCountCustomData\x18\x0c \x01(\x0b\x32=.Data.LandMessage.QuestData.ObjectiveData.ItemCountCustomData\x12^\n\x15visitFriendCustomData\x18\r \x01(\x0b\x32?.Data.LandMessage.QuestData.ObjectiveData.VisitFriendCustomData\x12J\n\x0b\x64ynamicData\x18\x0e \x01(\x0b\x32\x35.Data.LandMessage.QuestData.ObjectiveData.DynamicData\x1a!\n\x12\x42uildingCustomData\x12\x0b\n\x03qty\x18\x01 \x01(\x05\x1a\x35\n\x13ResourcesCustomData\x12\r\n\x05money\x18\x01 \x01(\r\x12\x0f\n\x07premium\x18\x02 \x01(\r\x1a$\n\x13ItemCountCustomData\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x1aJ\n\x15VisitFriendCustomData\x12\x0b\n\x03num\x18\x01 \x01(\x05\x12\x14\n\x0c\x66\x61keIncluded\x18\x02 \x01(\x08\x12\x0e\n\x06\x66riend\x18\x03 \x03(\t\x1a\x1c\n\x0b\x44ynamicData\x12\r\n\x05value\x18\x01 \x01(\x05\x1a\xc0\x13\n\x10NotificationData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nbuildingID\x18\x02 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\x03 \x01(\r\x12\x0c\n\x04type\x18\x04 \x01(\r\x12\x12\n\ncallbackID\x18\x05 \x01(\r\x12\x0e\n\x06startX\x18\x06 \x01(\x02\x12\x0e\n\x06startY\x18\x07 \x01(\x02\x12\x0e\n\x06startZ\x18\x08 \x01(\x02\x12\x0c\n\x04\x65ndX\x18\t \x01(\x02\x12\x0c\n\x04\x65ndY\x18\n \x01(\x02\x12\x0c\n\x04\x65ndZ\x18\x0b \x01(\x02\x12\x10\n\x08moveTime\x18\x0c \x01(\x03\x12\x10\n\x08isStatic\x18\r \x01(\x08\x12\x0f\n\x07isSetup\x18\x0e \x01(\x08\x12\x13\n\x0bhasBuilding\x18\x0f \x01(\x08\x12\x0f\n\x07hasChar\x18\x10 \x01(\x08\x12\x13\n\x0bhistoryType\x18\x11 \x01(\r\x12\x14\n\x0chistoryJobID\x18\x12 \x01(\r\x12\x19\n\x11historyBuildingID\x18\x13 \x01(\r\x12\x1a\n\x12historyCharacterID\x18\x14 \x01(\r\x12\x16\n\x0ehistoryQuestID\x18\x15 \x01(\r\x12!\n\x19historyBuildingInstanceID\x18\x16 \x01(\r\x12Q\n\x12\x63onsumableCallback\x18\x17 \x01(\x0b\x32\x35.Data.LandMessage.NotificationData.ConsumableCallback\x12_\n\x19memorabiliaRewardCallback\x18\x18 \x01(\x0b\x32<.Data.LandMessage.NotificationData.MemorabiliaRewardCallback\x12U\n\x14notificationCallback\x18\x19 \x01(\x0b\x32\x37.Data.LandMessage.NotificationData.NotificationCallback\x12\x63\n\x1bgainCharacterRewardCallback\x18\x1a \x01(\x0b\x32>.Data.LandMessage.NotificationData.GainCharacterRewardCallback\x12[\n\x17gainPrizeRewardCallback\x18\x1b \x01(\x0b\x32:.Data.LandMessage.NotificationData.GainPrizeRewardCallback\x12S\n\x13multiRewardCallback\x18\x1c \x01(\x0b\x32\x36.Data.LandMessage.NotificationData.MultiRewardCallback\x12g\n\x1dresourceAndItemRewardCallback\x18\x1d \x01(\x0b\x32@.Data.LandMessage.NotificationData.ResourceAndItemRewardCallback\x12\x11\n\tsubLandID\x18\x1e \x01(\r\x12\"\n\x1ahistoryCharacterInstanceID\x18\x1f \x01(\r\x1ai\n\x12\x43onsumableCallback\x12\x14\n\x0c\x63onsumableID\x18\x01 \x01(\r\x12\x14\n\x0csourceLength\x18\x02 \x01(\x05\x12\x0e\n\x06source\x18\x03 \x01(\t\x12\x17\n\x0f\x63onsumableCount\x18\x04 \x01(\r\x1a\x32\n\x19MemorabiliaRewardCallback\x12\x15\n\rmemorabiliaID\x18\x01 \x01(\r\x1a\xc2\x01\n\x14NotificationCallback\x12\r\n\x05money\x18\x01 \x01(\r\x12\x17\n\x0fpremiumCurrency\x18\x02 \x01(\r\x12\x0b\n\x03\x65xp\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x14\n\x0creasonLength\x18\x06 \x01(\x05\x12\x0e\n\x06reason\x18\x07 \x01(\t\x12\x15\n\rspendablesLen\x18\x08 \x01(\x05\x12\x12\n\nspendables\x18\t \x01(\t\x1a\x84\x01\n\x1bGainCharacterRewardCallback\x12\x12\n\nbuildingID\x18\x01 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\x02 \x01(\r\x12\x16\n\x0e\x63haracterCount\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x1aI\n\x17GainPrizeRewardCallback\x12\x16\n\x0especialEventID\x18\x01 \x01(\r\x12\x16\n\x0eprizeListIndex\x18\x02 \x01(\r\x1a\xfe\x02\n\x13MultiRewardCallback\x12\r\n\x05money\x18\x01 \x01(\r\x12\x17\n\x0fpremiumCurrency\x18\x02 \x01(\r\x12\x0b\n\x03\x65xp\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x14\n\x0creasonLength\x18\x06 \x01(\x05\x12\x0e\n\x06reason\x18\x07 \x01(\t\x12\x12\n\nbuildingID\x18\x08 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\t \x01(\r\x12\x11\n\tpositionX\x18\n \x01(\x02\x12\x11\n\tpositionY\x18\x0b \x01(\x02\x12\x11\n\tpositionZ\x18\x0c \x01(\x02\x12\x15\n\rspendablesLen\x18\r \x01(\x05\x12\x12\n\nspendables\x18\x0e \x01(\t\x12\x14\n\x0c\x63onsumableID\x18\x0f \x01(\r\x12\x17\n\x0f\x63onsumableCount\x18\x10 \x01(\r\x12\x17\n\x0f\x66loatTextLength\x18\x11 \x01(\x05\x12\x11\n\tfloatText\x18\x12 \x01(\t\x1a\xe5\x02\n\x1dResourceAndItemRewardCallback\x12\r\n\x05money\x18\x01 \x01(\r\x12\x17\n\x0fpremiumCurrency\x18\x02 \x01(\r\x12\x0b\n\x03\x65xp\x18\x03 \x01(\r\x12\x14\n\x0csourceLength\x18\x04 \x01(\x05\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x14\n\x0creasonLength\x18\x06 \x01(\x05\x12\x0e\n\x06reason\x18\x07 \x01(\t\x12\x12\n\nbuildingID\x18\x08 \x01(\r\x12\x13\n\x0b\x63haracterID\x18\t \x01(\r\x12\x15\n\rspendablesLen\x18\n \x01(\x05\x12\x12\n\nspendables\x18\x0b \x01(\t\x12\x18\n\x10rewardBuildingID\x18\x0c \x01(\r\x12\x1a\n\x12rewardConsumableID\x18\r \x01(\r\x12\x17\n\x0f\x66loatTextLength\x18\x0e \x01(\x05\x12\x11\n\tfloatText\x18\x0f \x01(\t\x12\r\n\x05\x66lags\x18\x10 \x01(\x05\x1a\xe2\x01\n\x11InventoryItemData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x10\n\x08itemType\x18\x02 \x01(\x05\x12\x0e\n\x06itemID\x18\x03 \x01(\x05\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\x12\x13\n\x0bisOwnerList\x18\x05 \x01(\x08\x12\"\n\townerList\x18\x06 \x01(\x0b\x32\x0f.Data.OwnerList\x12\x10\n\x08\x66romLand\x18\x07 \x01(\x05\x12\x11\n\tsourceLen\x18\x08 \x01(\x05\x12\x0e\n\x06source\x18\t \x01(\t\x1a\x64\n\x13MemorabiliaItemData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12\r\n\x05\x63ount\x18\x03 \x01(\r\x1ai\n\x15PremiumUnlockItemData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12\x10\n\x08itemType\x18\x03 \x01(\x05\x1a\xdc\x02\n\x12\x45ventCountListData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0bnumElements\x18\x02 \x01(\x05\x12\x39\n\x05\x65vent\x18\x03 \x03(\x0b\x32*.Data.LandMessage.EventCountListData.Event\x1a\xc5\x01\n\x05\x45vent\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\r\n\x05jobID\x18\x03 \x01(\x05\x12\x0e\n\x06\x63harID\x18\x04 \x01(\x05\x12\x0f\n\x07\x62uildID\x18\x05 \x01(\x05\x12\x11\n\tconsumeID\x18\x06 \x01(\x05\x12\x12\n\nbuildingID\x18\x07 \x01(\x05\x12\x12\n\nfriendLand\x18\x08 \x01(\x05\x12\x13\n\x0b\x63haracterID\x18\t \x01(\x05\x12\x0c\n\x04\x61rg1\x18\n \x01(\x05\x12\x11\n\tupdatedAt\x18\x0b \x01(\x03\x1a\x91\x01\n\x0f\x41\x63tionLimitData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04time\x18\x03 \x01(\x03\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\x12\x0f\n\x07special\x18\x05 \x01(\x05\x12\x12\n\nfakeFriend\x18\x06 \x01(\x08\x1a\xf6\x01\n\x0bSidebarData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x1a\n\x12numSidebarElements\x18\x02 \x01(\x05\x12\x44\n\x0esidebarElement\x18\x03 \x03(\x0b\x32,.Data.LandMessage.SidebarData.SidebarElement\x1aU\n\x0eSidebarElement\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\x12\n\nidentifier\x18\x02 \x01(\x05\x12\r\n\x05state\x18\x03 \x01(\x05\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x1a\xd2\x01\n\x11\x43haracterSetsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x17\n\x0fnumCompleteSets\x18\x02 \x01(\x05\x12\x46\n\x0c\x63haracterSet\x18\x03 \x03(\x0b\x32\x30.Data.LandMessage.CharacterSetsData.CharacterSet\x1a,\n\x0c\x43haracterSet\x12\x0e\n\x06length\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\x9e\x01\n\x15PushNotificationsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x14\n\x0cpushIDLength\x18\x03 \x01(\x05\x12\x0e\n\x06pushID\x18\x04 \x01(\t\x12\x11\n\thasSource\x18\x05 \x01(\x08\x12\x0e\n\x06source\x18\x06 \x01(\r\x1a\x88\x02\n\x0fTimedScriptData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x14\n\x0c\x63reationTime\x18\x02 \x01(\x03\x12\x10\n\x08waitTime\x18\x03 \x01(\x05\x12\x15\n\rscriptnamelen\x18\x04 \x01(\x05\x12\x18\n\x10scriptpackagelen\x18\x05 \x01(\x05\x12\x12\n\nscriptname\x18\x06 \x01(\t\x12\x15\n\rscriptpackage\x18\x07 \x01(\t\x12\x18\n\x10scriptobjnamelen\x18\x08 \x01(\x05\x12\x15\n\rscriptobjname\x18\t \x01(\t\x12\x10\n\x08\x65ntityID\x18\n \x01(\x05\x1a\xc2\x01\n\x10\x42onusUnlocksData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nnumEntries\x18\x02 \x01(\x05\x12\x41\n\nbonusEntry\x18\x03 \x03(\x0b\x32-.Data.LandMessage.BonusUnlocksData.BonusEntry\x1a\'\n\nBonusEntry\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x08\x1a[\n\x14\x43haracterUnlocksData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0b\x63haracterID\x18\x02 \x01(\r\x1a\x9b\x01\n\x0fSkinUnlocksData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x15\n\rskinUnlockLen\x18\x02 \x01(\x05\x12\x12\n\nskinUnlock\x18\x03 \x01(\t\x12\x17\n\x0fskinReceivedLen\x18\x04 \x01(\x05\x12\x14\n\x0cskinReceived\x18\x05 \x01(\t\x1a\x96\x02\n\x11\x44\x65layedActionData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x11\n\tsourceLen\x18\x03 \x01(\x05\x12\x0e\n\x06source\x18\x04 \x01(\t\x12\x11\n\treasonLen\x18\x05 \x01(\x05\x12\x0e\n\x06reason\x18\x06 \x01(\t\x12\x42\n\nrewardData\x18\x07 \x01(\x0b\x32..Data.LandMessage.DelayedActionData.RewardData\x1a\x39\n\nRewardData\x12\r\n\x05money\x18\x01 \x01(\r\x12\x0b\n\x03\x65xp\x18\x02 \x01(\r\x12\x0f\n\x07premium\x18\x03 \x01(\r\x1ak\n\x0eSpendablesData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12)\n\tspendable\x18\x02 \x03(\x0b\x32\x16.Data.SpendableElement\x1a\xb6\x03\n\x15TimedCharacterDataSet\x12V\n\x12timedCharacterData\x18\x01 \x03(\x0b\x32:.Data.LandMessage.TimedCharacterDataSet.TimedCharacterData\x1a\xc4\x02\n\x12TimedCharacterData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12#\n\x1btimedCharacterInstanceIDLen\x18\x02 \x01(\r\x12 \n\x18timedCharacterInstanceID\x18\x03 \x01(\t\x12\x13\n\x0b\x63haracterID\x18\x04 \x01(\r\x12\x11\n\tsubLandID\x18\x05 \x01(\r\x12\x19\n\x11\x63haracterOwnerLen\x18\x06 \x01(\r\x12\x16\n\x0e\x63haracterOwner\x18\x07 \x01(\t\x12\x14\n\x0clandOwnerLen\x18\x08 \x01(\r\x12\x11\n\tlandOwner\x18\t \x01(\t\x12\x13\n\x0btimeCreated\x18\n \x01(\x03\x12\x10\n\x08lifeSpan\x18\x0b \x01(\x03\x12\x0c\n\x04\x66lag\x18\x0c \x01(\r\x1a\xa5\x14\n\x11SpecialEventsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x46\n\x0cspecialEvent\x18\x02 \x03(\x0b\x32\x30.Data.LandMessage.SpecialEventsData.SpecialEvent\x1a\x97\x13\n\x0cSpecialEvent\x12\n\n\x02id\x18\x01 \x01(\r\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x12O\n\tvariables\x18\x05 \x01(\x0b\x32<.Data.LandMessage.SpecialEventsData.SpecialEvent.VariableSet\x12_\n\x0cprizeDataSet\x18\x06 \x01(\x0b\x32I.Data.LandMessage.SpecialEventsData.SpecialEvent.SpecialEventPrizeDataSet\x12\x46\n\x15timedCharacterDataSet\x18\x07 \x01(\x0b\x32\'.Data.LandMessage.TimedCharacterDataSet\x12Q\n\x0b\x62\x61nkDataSet\x18\x08 \x01(\x0b\x32<.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet\x12_\n\x12timedAttackDataSet\x18\t \x01(\x0b\x32\x43.Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet\x12Q\n\x0btimeGateSet\x18\n \x01(\x0b\x32<.Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet\x12Z\n\x0egeneralBuffers\x18\x0b \x01(\x0b\x32\x42.Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets\x1a\xc5\x02\n\x18SpecialEventPrizeDataSet\x12r\n\tprizeData\x18\x01 \x03(\x0b\x32_.Data.LandMessage.SpecialEventsData.SpecialEvent.SpecialEventPrizeDataSet.SpecialEventPrizeData\x1a\xb4\x01\n\x15SpecialEventPrizeData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0bprizeListID\x18\x02 \x01(\r\x12\x11\n\tnextPrize\x18\x03 \x01(\r\x12\x13\n\x0bprizeChance\x18\x04 \x01(\x02\x12\x17\n\x0fnextPrizeRushed\x18\x05 \x01(\x08\x12\x15\n\rnextResetTime\x18\x06 \x01(\x03\x1a\x8f\x01\n\x0bVariableSet\x12W\n\x08variable\x18\x01 \x03(\x0b\x32\x45.Data.LandMessage.SpecialEventsData.SpecialEvent.VariableSet.Variable\x1a\'\n\x08Variable\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05\x1a\xae\x04\n\x0b\x42\x61nkDataSet\x12W\n\x08\x62\x61nkData\x18\x01 \x03(\x0b\x32\x45.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.BankData\x1a\x8a\x01\n\x07\x44\x65posit\x12$\n\x04\x63ost\x18\x01 \x01(\x0b\x32\x16.Data.CurrencySaveData\x12\x18\n\x10\x64\x65positedByIDLen\x18\x02 \x01(\r\x12\x15\n\rdepositedByID\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65positedAt\x18\x04 \x01(\x03\x12\x13\n\x0b\x62uildingRef\x18\x05 \x01(\r\x1ah\n\x0b\x44\x65positData\x12Y\n\x0b\x64\x65positData\x18\x01 \x03(\x0b\x32\x44.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.Deposit\x1a\xce\x01\n\x08\x42\x61nkData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x13\n\x0b\x62uildingRef\x18\x02 \x01(\r\x12\x11\n\tsubLandID\x18\x03 \x01(\r\x12\x0e\n\x06\x62\x61nkID\x18\x04 \x01(\r\x12Z\n\x08\x64\x65posits\x18\x06 \x01(\x0b\x32H.Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.DepositData\x1a\x80\x03\n\x12TimedAttackDataSet\x12l\n\x0ftimedAttackData\x18\x01 \x03(\x0b\x32S.Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData\x1a\xfb\x01\n\x0fTimedAttackData\x12\x12\n\ninstanceID\x18\x01 \x01(\t\x12\x11\n\tsubLandID\x18\x02 \x01(\r\x12\x16\n\x0eobjectServerID\x18\x03 \x01(\r\x12\x13\n\x0bobjectClass\x18\x04 \x01(\r\x12\x13\n\x0bobjectOwner\x18\x05 \x01(\t\x12\x13\n\x0b\x61ttackOwner\x18\x06 \x01(\t\x12\x13\n\x0btimeCreated\x18\x07 \x01(\x03\x12\x10\n\x08lifeSpan\x18\x08 \x01(\x03\x12\x0c\n\x04\x66lag\x18\t \x01(\r\x12\x0f\n\x07\x65ventID\x18\n \x01(\r\x12\x12\n\nnumResUsed\x18\x0b \x01(\x05\x12\x10\n\x08objectID\x18\x0c \x01(\r\x1a\xda\x01\n\x0bTimeGateSet\x12W\n\x08timegate\x18\x01 \x03(\x0b\x32\x45.Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate\x1ar\n\x08TimeGate\x12\x0e\n\x06gateId\x18\x01 \x01(\x05\x12\x15\n\rusesRemaining\x18\x02 \x01(\x05\x12\x12\n\nrefillTime\x18\x03 \x01(\x03\x12\x12\n\ninstanceId\x18\x04 \x01(\t\x12\x17\n\x0flastRefillCount\x18\x05 \x01(\x05\x1a\x9e\x01\n\x11GeneralBufferSets\x12_\n\tbufferSet\x18\x01 \x03(\x0b\x32L.Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets.BufferSet\x1a(\n\tBufferSet\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0f\n\x07\x62uffers\x18\x02 \x03(\t\x1a\xd0\x01\n\x0e\x46\x61keFriendData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x11\n\ttownLevel\x18\x02 \x01(\x05\x12\x13\n\x0b\x62uildingLen\x18\x03 \x01(\x05\x12\x10\n\x08\x62uilding\x18\x04 \x01(\t\x12\x15\n\ractionTypeLen\x18\x05 \x01(\x05\x12\x12\n\nactionType\x18\x06 \x01(\t\x12\x15\n\ractionTimeLen\x18\x07 \x01(\x03\x12\x12\n\nactionTime\x18\x08 \x01(\t\x1a\xbc\x02\n\x0eQuestGroupData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x14\n\x0cquestGroupID\x18\x02 \x01(\r\x12\x17\n\x0fquestGroupState\x18\x03 \x01(\x05\x12\x14\n\x0c\x63urrentChild\x18\x04 \x01(\x05\x12\x11\n\tlastChild\x18\x05 \x01(\x05\x12\x13\n\x0bnumChildren\x18\x06 \x01(\x05\x12\x16\n\x0e\x63hildIDListLen\x18\x07 \x01(\x05\x12\x15\n\rweightListLen\x18\x08 \x01(\x05\x12\x13\n\x0b\x63hildIDList\x18\t \x01(\t\x12\x12\n\nweightList\x18\n \x01(\t\x12\x18\n\x10numCompleteDaily\x18\x0b \x01(\r\x12\x1b\n\x13\x64\x61ilyCompletionTime\x18\x0c \x01(\x03\x1az\n\x15ProcessedPurchaseData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x16\n\x0eidAndCountList\x18\x02 \x01(\t\x12\x19\n\x11idAndCountListLen\x18\x03 \x01(\x05\x1a\xcc\x01\n\x16\x43ustomFriendActionData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x18\n\x10\x62uildingInstance\x18\x02 \x01(\r\x12\x12\n\nfriendName\x18\x03 \x01(\t\x12\x15\n\rfriendNameLen\x18\x04 \x01(\x05\x12\x12\n\nactionType\x18\x05 \x01(\t\x12\x15\n\ractionTypeLen\x18\x06 \x01(\x05\x12\x12\n\nisBuilding\x18\x07 \x01(\x08\x1a\xeb\x01\n\x0eGameObjectInfo\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12?\n\ngameObject\x18\x02 \x03(\x0b\x32+.Data.LandMessage.GameObjectInfo.GameObject\x1ah\n\nGameObject\x12\x0e\n\x06\x64\x61taId\x18\x01 \x01(\r\x12\x16\n\x0egameObjectType\x18\x02 \x01(\r\x12\x12\n\nunlockTime\x18\x03 \x01(\x03\x12\x0e\n\x06locked\x18\x04 \x01(\x08\x12\x0e\n\x06viewed\x18\x05 \x01(\x08\x1a\x9a\x02\n\x0bSubLandData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x11\n\tsubLandID\x18\x02 \x01(\r\x12\x12\n\nlandBlocks\x18\x03 \x01(\t\x12\x32\n\x0bterrainData\x18\x04 \x03(\x0b\x32\x1d.Data.LandMessage.TerrainData\x12\x17\n\x0f\x62uildingsSorted\x18\x05 \x01(\x08\x12\x16\n\x0elandBlockWidth\x18\x06 \x01(\r\x12\x17\n\x0flandBlockHeight\x18\x07 \x01(\r\x12\x1a\n\x12landBlockPositionX\x18\x08 \x01(\x05\x12\x1a\n\x12landBlockPositionY\x18\t \x01(\x05\x1a\xe8\x01\n\x0cMinigameData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x12\n\nminigameID\x18\x02 \x01(\r\x12\x15\n\rbuildingRefID\x18\x03 \x01(\r\x12\r\n\x05state\x18\x04 \x01(\r\x12\x12\n\nupdateTime\x18\x05 \x01(\x03\x12\x11\n\tprizeList\x18\x06 \x01(\t\x12\x14\n\x0cprizeListLen\x18\x07 \x01(\x05\x12\x16\n\x0etappedIndecies\x18\x08 \x01(\t\x12\x19\n\x11tappedIndeciesLen\x18\t \x01(\x05\x1ay\n\x13\x43ollectionItemsData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0e\n\x06itemID\x18\x02 \x01(\r\x12\r\n\x05\x63ount\x18\x03 \x01(\r\x12\x13\n\x0bvisualCount\x18\x04 \x01(\r\x1a\x8f\x01\n\x0e\x46riendListData\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x10\n\x08\x66riendID\x18\x02 \x01(\t\x12\x11\n\thideInMap\x18\x03 \x01(\x08\x12\x16\n\x0ehasBeenVisited\x18\x04 \x01(\x08\x12\x10\n\x08isOrigin\x18\x05 \x01(\x08\x1aq\n\x11\x46riendActionCount\x12.\n\x06header\x18\x01 \x01(\x0b\x32\x1e.Data.LandMessage.EntityHeader\x12\x0c\n\x04time\x18\x02 \x01(\x03\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\x12\x0f\n\x07special\x18\x04 \x01(\x05\x1a&\n\x11PurchasedItemData\x12\x11\n\tproductId\x18\x01 \x01(\t\x1a\xd8\x02\n\x13\x41\x64vancedVariableSet\x12H\n\x08variable\x18\x01 \x03(\x0b\x32\x36.Data.LandMessage.AdvancedVariableSet.AdvancedVariable\x1a\xf6\x01\n\x10\x41\x64vancedVariable\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x12\x13\n\x0b\x63reatedTime\x18\x03 \x01(\x03\x12\x0b\n\x03ttl\x18\x04 \x01(\x03\x12\x13\n\x0bobjectClass\x18\x05 \x01(\r\x12\x10\n\x08serverID\x18\x06 \x01(\r\x12\x14\n\x0cobjectTypeID\x18\x07 \x01(\r\x12\x10\n\x08orphaned\x18\x08 \x01(\x08\x12\x15\n\rcanBeOrphaned\x18\t \x01(\x08\x12\r\n\x05scope\x18\n \x01(\x05\x12\x11\n\tsublandID\x18\x0b \x01(\r\x12\r\n\x05\x66lags\x18\x0c \x01(\r\x12\x0c\n\x04uuid\x18\r \x01(\r\x1aK\n\x0fObjectVariables\x12\x38\n\tvariables\x18\x01 \x01(\x0b\x32%.Data.LandMessage.AdvancedVariableSet\x1a\xb8\x01\n\x14SavedRecommendations\x12\x1a\n\x12reccomendationType\x18\x01 \x01(\x05\x12\x11\n\tentryName\x18\x02 \x01(\t\x12\x11\n\tsublandID\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x03\x12\x15\n\rcharacterName\x18\x05 \x01(\t\x12\x0e\n\x06number\x18\x06 \x01(\x05\x12\x11\n\textraName\x18\x07 \x01(\t\x12\x16\n\x0epopularityTime\x18\x08 \x01(\x02\"N\n\rCurrencyDelta\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06reason\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x05\x12\x11\n\tupdatedAt\x18\x04 \x01(\x03\"\x9a\x01\n\x10\x43urrencySaveData\x12\r\n\x05money\x18\x01 \x01(\r\x12\x0f\n\x07premium\x18\x02 \x01(\r\x12\x11\n\trealMoney\x18\x03 \x01(\r\x12\x13\n\x0brealPremium\x18\x04 \x01(\r\x12\x12\n\nnumSpecial\x18\x05 \x01(\r\x12\x13\n\x0bspecialType\x18\x06 \x03(\r\x12\x15\n\rspecialAmount\x18\x07 \x03(\r\"\xa4\x13\n\x0c\x45ventMessage\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\ntoPlayerId\x18\x02 \x01(\t\x12\x14\n\x0c\x66romPlayerId\x18\x03 \x01(\t\x12\x11\n\teventType\x18\x04 \x01(\t\x12\x11\n\tcreatedAt\x18\x05 \x01(\x03\x12\x11\n\tupdatedAt\x18\n \x01(\x03\x12\x0b\n\x03inc\x18\x06 \x01(\x03\x12/\n\teventData\x18\x07 \x01(\x0b\x32\x1c.Data.EventMessage.EventData\x12\x16\n\x0etargetEntityId\x18\x08 \x01(\t\x12\x13\n\x0buniqueEvent\x18\t \x01(\x08\x1a\xb9\x11\n\tEventData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\x05\x12\x13\n\x0brequestTime\x18\x02 \x01(\x03\x12\x13\n\x0brequestType\x18\x03 \x01(\x05\x12M\n\x13\x63haracterGainedData\x18\x04 \x01(\x0b\x32\x30.Data.EventMessage.EventData.CharacterGainedData\x12I\n\x11\x63haracterLostData\x18\x05 \x01(\x0b\x32..Data.EventMessage.EventData.CharacterLostData\x12S\n\x16stealBuildingEventData\x18\x06 \x01(\x0b\x32\x33.Data.EventMessage.EventData.StealBuildingEventData\x12M\n\x13giftMemorabiliaData\x18\x07 \x01(\x0b\x32\x30.Data.EventMessage.EventData.GiftMemorabiliaData\x12I\n\x11shopCollectedData\x18\x08 \x01(\x0b\x32..Data.EventMessage.EventData.ShopCollectedData\x12K\n\x12vandalismEventData\x18\t \x01(\x0b\x32/.Data.EventMessage.EventData.VandalismEventData\x12I\n\x11sidebarUpdateData\x18\n \x01(\x0b\x32..Data.EventMessage.EventData.SidebarUpdateData\x12K\n\x12returnBuildingData\x18\x0b \x01(\x0b\x32/.Data.EventMessage.EventData.ReturnBuildingData\x12\x43\n\x0eplayScriptData\x18\x0c \x01(\x0b\x32+.Data.EventMessage.EventData.PlayScriptData\x12U\n\x17\x63ustomFriendRequestData\x18\r \x01(\x0b\x32\x34.Data.EventMessage.EventData.CustomFriendRequestData\x12W\n\x18playScriptAtPositionData\x18\x0e \x01(\x0b\x32\x35.Data.EventMessage.EventData.PlayScriptAtPositionData\x12\x16\n\x0e\x64isplayNameLen\x18\x0f \x01(\x05\x12\x13\n\x0b\x64isplayName\x18\x10 \x01(\t\x12\x11\n\tupdatedAt\x18\x11 \x01(\x03\x12W\n\x18loseResourcesRequestData\x18\x12 \x01(\x0b\x32\x35.Data.EventMessage.EventData.LoseResourcesRequestData\x1a*\n\x13\x43haracterGainedData\x12\x13\n\x0b\x63haracterID\x18\x01 \x01(\r\x1a(\n\x11\x43haracterLostData\x12\x13\n\x0b\x63haracterID\x18\x01 \x01(\r\x1al\n\x16StealBuildingEventData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\r\x12\x12\n\nbuildingID\x18\x02 \x01(\r\x12\"\n\townerList\x18\x03 \x01(\x0b\x32\x0f.Data.OwnerList\x1a\x34\n\x13GiftMemorabiliaData\x12\r\n\x05setID\x18\x01 \x01(\x05\x12\x0e\n\x06itemID\x18\x02 \x01(\x05\x1a/\n\x11ShopCollectedData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\r\x1ai\n\x12VandalismEventData\x12\x1a\n\x12\x62uildingInstanceID\x18\x01 \x01(\r\x12\x12\n\nvandalized\x18\x02 \x01(\x08\x12\x0f\n\x07namelen\x18\x03 \x01(\x05\x12\x12\n\nvandalName\x18\x04 \x01(\t\x1aX\n\x11SidebarUpdateData\x12\x0c\n\x04type\x18\x01 \x01(\x05\x12\r\n\x05state\x18\x02 \x01(\x05\x12\x12\n\nidentifier\x18\x03 \x01(\x05\x12\x12\n\nupdateTime\x18\x04 \x01(\x03\x1a\x61\n\x12ReturnBuildingData\x12\x12\n\nbuildingID\x18\x01 \x01(\r\x12\x13\n\x0bisOwnerList\x18\x02 \x01(\x08\x12\"\n\townerList\x18\x03 \x01(\x0b\x32\x0f.Data.OwnerList\x1ak\n\x0ePlayScriptData\x12\x15\n\rplayForFriend\x18\x01 \x01(\x08\x12\x0f\n\x07nameLen\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x12\n\npackageLen\x18\x04 \x01(\x05\x12\x0f\n\x07package\x18\x05 \x01(\t\x1a\x97\x01\n\x17\x43ustomFriendRequestData\x12\x12\n\nbuildingID\x18\x01 \x01(\r\x12\x15\n\rfriendNameLen\x18\x02 \x01(\x05\x12\x12\n\nfriendName\x18\x03 \x01(\t\x12\x15\n\ractionTypeLen\x18\x04 \x01(\x05\x12\x12\n\nactionType\x18\x05 \x01(\t\x12\x12\n\nisBuilding\x18\x06 \x01(\x08\x1a\xa4\x01\n\x18PlayScriptAtPositionData\x12\x15\n\rplayForFriend\x18\x01 \x01(\x08\x12\x0f\n\x07nameLen\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x12\n\npackageLen\x18\x04 \x01(\x05\x12\x0f\n\x07package\x18\x05 \x01(\t\x12\x0c\n\x04xPos\x18\x06 \x01(\x05\x12\x0c\n\x04yPos\x18\x07 \x01(\x05\x12\x11\n\tsublandId\x18\x08 \x01(\x05\x1ai\n\x18LoseResourcesRequestData\x12)\n\tresources\x18\x01 \x01(\x0b\x32\x16.Data.CurrencySaveData\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x12\n\nfriendName\x18\x03 \x01(\t\"2\n\rEventsMessage\x12!\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x12.Data.EventMessage\"\xed\x04\n\x10\x45xtraLandMessage\x12*\n\rcurrencyDelta\x18\x01 \x03(\x0b\x32\x13.Data.CurrencyDelta\x12!\n\x05\x65vent\x18\x02 \x03(\x0b\x32\x12.Data.EventMessage\x12\x41\n\x10pushNotification\x18\x03 \x03(\x0b\x32\'.Data.ExtraLandMessage.PushNotification\x12\x45\n\x12\x63ommunityGoalDelta\x18\x04 \x03(\x0b\x32).Data.ExtraLandMessage.CommunityGoalDelta\x12O\n\x17matchmakingRegistration\x18\x05 \x03(\x0b\x32..Data.ExtraLandMessage.MatchmakingRegistration\x1an\n\x10PushNotification\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\ntoPlayerId\x18\x02 \x01(\t\x12\x13\n\x0bscheduledIn\x18\x03 \x01(\x05\x12\x14\n\x0ctemplateName\x18\x04 \x01(\t\x12\x0f\n\x07message\x18\x05 \x01(\t\x1a\x36\n\x12\x43ommunityGoalDelta\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x03\x1a(\n\tNameValue\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x1a]\n\x17MatchmakingRegistration\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x30\n\x06params\x18\x02 \x03(\x0b\x32 .Data.ExtraLandMessage.NameValue\"\xc6\x02\n\x11\x45xtraLandResponse\x12\x33\n\x16processedCurrencyDelta\x18\x01 \x03(\x0b\x32\x13.Data.CurrencyDelta\x12*\n\x0eprocessedEvent\x18\x02 \x03(\x0b\x32\x12.Data.EventMessage\x12)\n\rreceivedEvent\x18\x03 \x03(\x0b\x32\x12.Data.EventMessage\x12<\n\rcommunityGoal\x18\x04 \x03(\x0b\x32%.Data.ExtraLandResponse.CommunityGoal\x1ag\n\rCommunityGoal\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\t\x12\x15\n\rprogressTotal\x18\x02 \x01(\x03\x12\x14\n\x0cprogressRate\x18\x03 \x01(\x01\x12\x17\n\x0f\x61wardThresholds\x18\x04 \x03(\x03\"(\n\x14GetFriendDataRequest\x12\x10\n\x08\x66riendId\x18\x01 \x03(\t\"\xa7\x03\n\x15GetFriendDataResponse\x12>\n\nfriendData\x18\x01 \x03(\x0b\x32*.Data.GetFriendDataResponse.FriendDataPair\x1a\xcd\x02\n\x0e\x46riendDataPair\x12\x10\n\x08\x66riendId\x18\x01 \x01(\t\x12$\n\nfriendData\x18\x02 \x01(\x0b\x32\x10.Data.FriendData\x12I\n\x05\x65rror\x18\x03 \x01(\x0b\x32:.Data.GetFriendDataResponse.FriendDataPair.FriendDataError\x12K\n\x0b\x61uthService\x18\x04 \x01(\x0e\x32\x36.Data.GetFriendDataResponse.FriendDataPair.AuthService\x12\x12\n\nexternalId\x18\x05 \x01(\t\x1a-\n\x0f\x46riendDataError\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\t\"(\n\x0b\x41uthService\x12\x0b\n\x07NUCLEUS\x10\x00\x12\x0c\n\x08\x46\x41\x43\x45\x42OOK\x10\x01')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -41,8 +41,8 @@ _GETFRIENDDATARESPONSE_FRIENDDATAPAIR_AUTHSERVICE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=22064,
-  serialized_end=22104,
+  serialized_start=23230,
+  serialized_end=23270,
 )
 _sym_db.RegisterEnumDescriptor(_GETFRIENDDATARESPONSE_FRIENDDATAPAIR_AUTHSERVICE)
 
@@ -4163,6 +4163,20 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_SPECIALEVENTPRIZEDATASET_SPECIALEVEN
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='nextPrizeRushed', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.SpecialEventPrizeDataSet.SpecialEventPrizeData.nextPrizeRushed', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='nextResetTime', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.SpecialEventPrizeDataSet.SpecialEventPrizeData.nextResetTime', index=5,
+      number=6, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -4174,8 +4188,8 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_SPECIALEVENTPRIZEDATASET_SPECIALEVEN
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14507,
-  serialized_end=14639,
+  serialized_start=14779,
+  serialized_end=14959,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_SPECIALEVENTPRIZEDATASET = _descriptor.Descriptor(
@@ -4203,8 +4217,8 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_SPECIALEVENTPRIZEDATASET = _descript
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14362,
-  serialized_end=14639,
+  serialized_start=14634,
+  serialized_end=14959,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_VARIABLESET_VARIABLE = _descriptor.Descriptor(
@@ -4239,8 +4253,8 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_VARIABLESET_VARIABLE = _descriptor.D
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14746,
-  serialized_end=14785,
+  serialized_start=15066,
+  serialized_end=15105,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_VARIABLESET = _descriptor.Descriptor(
@@ -4268,8 +4282,8 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_VARIABLESET = _descriptor.Descriptor
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14642,
-  serialized_end=14785,
+  serialized_start=14962,
+  serialized_end=15105,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_DEPOSIT = _descriptor.Descriptor(
@@ -4325,8 +4339,8 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_DEPOSIT = _descriptor.De
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14893,
-  serialized_end=15031,
+  serialized_start=15213,
+  serialized_end=15351,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_DEPOSITDATA = _descriptor.Descriptor(
@@ -4354,8 +4368,8 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_DEPOSITDATA = _descripto
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15033,
-  serialized_end=15137,
+  serialized_start=15353,
+  serialized_end=15457,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_BANKDATA = _descriptor.Descriptor(
@@ -4411,8 +4425,8 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_BANKDATA = _descriptor.D
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15140,
-  serialized_end=15346,
+  serialized_start=15460,
+  serialized_end=15666,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET = _descriptor.Descriptor(
@@ -4440,8 +4454,294 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET = _descriptor.Descriptor
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14788,
-  serialized_end=15346,
+  serialized_start=15108,
+  serialized_end=15666,
+)
+
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET_TIMEDATTACKDATA = _descriptor.Descriptor(
+  name='TimedAttackData',
+  full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instanceID', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.instanceID', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='subLandID', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.subLandID', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='objectServerID', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.objectServerID', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='objectClass', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.objectClass', index=3,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='objectOwner', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.objectOwner', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='attackOwner', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.attackOwner', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='timeCreated', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.timeCreated', index=6,
+      number=7, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='lifeSpan', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.lifeSpan', index=7,
+      number=8, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='flag', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.flag', index=8,
+      number=9, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='eventID', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.eventID', index=9,
+      number=10, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='numResUsed', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.numResUsed', index=10,
+      number=11, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='objectID', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData.objectID', index=11,
+      number=12, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=15802,
+  serialized_end=16053,
+)
+
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET = _descriptor.Descriptor(
+  name='TimedAttackDataSet',
+  full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='timedAttackData', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.timedAttackData', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET_TIMEDATTACKDATA, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=15669,
+  serialized_end=16053,
+)
+
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET_TIMEGATE = _descriptor.Descriptor(
+  name='TimeGate',
+  full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='gateId', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate.gateId', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='usesRemaining', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate.usesRemaining', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='refillTime', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate.refillTime', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='instanceId', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate.instanceId', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='lastRefillCount', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate.lastRefillCount', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=16160,
+  serialized_end=16274,
+)
+
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET = _descriptor.Descriptor(
+  name='TimeGateSet',
+  full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='timegate', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.timegate', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET_TIMEGATE, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=16056,
+  serialized_end=16274,
+)
+
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS_BUFFERSET = _descriptor.Descriptor(
+  name='BufferSet',
+  full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets.BufferSet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets.BufferSet.id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='buffers', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets.BufferSet.buffers', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=16395,
+  serialized_end=16435,
+)
+
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS = _descriptor.Descriptor(
+  name='GeneralBufferSets',
+  full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='bufferSet', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets.bufferSet', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS_BUFFERSET, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=16277,
+  serialized_end=16435,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT = _descriptor.Descriptor(
@@ -4493,10 +4793,31 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='timedAttackDataSet', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.timedAttackDataSet', index=6,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='timeGateSet', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.timeGateSet', index=7,
+      number=10, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='generalBuffers', full_name='Data.LandMessage.SpecialEventsData.SpecialEvent.generalBuffers', index=8,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
-  nested_types=[_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_SPECIALEVENTPRIZEDATASET, _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_VARIABLESET, _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET, ],
+  nested_types=[_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_SPECIALEVENTPRIZEDATASET, _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_VARIABLESET, _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET, _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET, _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET, _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS, ],
   enum_types=[
   ],
   options=None,
@@ -4505,7 +4826,7 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=13980,
-  serialized_end=15346,
+  serialized_end=16435,
 )
 
 _LANDMESSAGE_SPECIALEVENTSDATA = _descriptor.Descriptor(
@@ -4541,7 +4862,7 @@ _LANDMESSAGE_SPECIALEVENTSDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=13838,
-  serialized_end=15346,
+  serialized_end=16435,
 )
 
 _LANDMESSAGE_FAKEFRIENDDATA = _descriptor.Descriptor(
@@ -4618,8 +4939,8 @@ _LANDMESSAGE_FAKEFRIENDDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15349,
-  serialized_end=15557,
+  serialized_start=16438,
+  serialized_end=16646,
 )
 
 _LANDMESSAGE_QUESTGROUPDATA = _descriptor.Descriptor(
@@ -4724,8 +5045,8 @@ _LANDMESSAGE_QUESTGROUPDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15560,
-  serialized_end=15876,
+  serialized_start=16649,
+  serialized_end=16965,
 )
 
 _LANDMESSAGE_PROCESSEDPURCHASEDATA = _descriptor.Descriptor(
@@ -4767,8 +5088,8 @@ _LANDMESSAGE_PROCESSEDPURCHASEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15878,
-  serialized_end=16000,
+  serialized_start=16967,
+  serialized_end=17089,
 )
 
 _LANDMESSAGE_CUSTOMFRIENDACTIONDATA = _descriptor.Descriptor(
@@ -4838,8 +5159,8 @@ _LANDMESSAGE_CUSTOMFRIENDACTIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16003,
-  serialized_end=16207,
+  serialized_start=17092,
+  serialized_end=17296,
 )
 
 _LANDMESSAGE_GAMEOBJECTINFO_GAMEOBJECT = _descriptor.Descriptor(
@@ -4895,8 +5216,8 @@ _LANDMESSAGE_GAMEOBJECTINFO_GAMEOBJECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16341,
-  serialized_end=16445,
+  serialized_start=17430,
+  serialized_end=17534,
 )
 
 _LANDMESSAGE_GAMEOBJECTINFO = _descriptor.Descriptor(
@@ -4931,8 +5252,8 @@ _LANDMESSAGE_GAMEOBJECTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16210,
-  serialized_end=16445,
+  serialized_start=17299,
+  serialized_end=17534,
 )
 
 _LANDMESSAGE_SUBLANDDATA = _descriptor.Descriptor(
@@ -4991,6 +5312,20 @@ _LANDMESSAGE_SUBLANDDATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='landBlockPositionX', full_name='Data.LandMessage.SubLandData.landBlockPositionX', index=7,
+      number=8, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='landBlockPositionY', full_name='Data.LandMessage.SubLandData.landBlockPositionY', index=8,
+      number=9, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -5002,8 +5337,8 @@ _LANDMESSAGE_SUBLANDDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16448,
-  serialized_end=16674,
+  serialized_start=17537,
+  serialized_end=17819,
 )
 
 _LANDMESSAGE_MINIGAMEDATA = _descriptor.Descriptor(
@@ -5087,8 +5422,8 @@ _LANDMESSAGE_MINIGAMEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16677,
-  serialized_end=16909,
+  serialized_start=17822,
+  serialized_end=18054,
 )
 
 _LANDMESSAGE_COLLECTIONITEMSDATA = _descriptor.Descriptor(
@@ -5119,6 +5454,13 @@ _LANDMESSAGE_COLLECTIONITEMSDATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='visualCount', full_name='Data.LandMessage.CollectionItemsData.visualCount', index=3,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -5130,8 +5472,8 @@ _LANDMESSAGE_COLLECTIONITEMSDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=16911,
-  serialized_end=17011,
+  serialized_start=18056,
+  serialized_end=18177,
 )
 
 _LANDMESSAGE_FRIENDLISTDATA = _descriptor.Descriptor(
@@ -5187,8 +5529,8 @@ _LANDMESSAGE_FRIENDLISTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17014,
-  serialized_end=17157,
+  serialized_start=18180,
+  serialized_end=18323,
 )
 
 _LANDMESSAGE_FRIENDACTIONCOUNT = _descriptor.Descriptor(
@@ -5237,8 +5579,8 @@ _LANDMESSAGE_FRIENDACTIONCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17159,
-  serialized_end=17272,
+  serialized_start=18325,
+  serialized_end=18438,
 )
 
 _LANDMESSAGE_PURCHASEDITEMDATA = _descriptor.Descriptor(
@@ -5266,8 +5608,8 @@ _LANDMESSAGE_PURCHASEDITEMDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17274,
-  serialized_end=17312,
+  serialized_start=18440,
+  serialized_end=18478,
 )
 
 _LANDMESSAGE_ADVANCEDVARIABLESET_ADVANCEDVARIABLE = _descriptor.Descriptor(
@@ -5379,8 +5721,8 @@ _LANDMESSAGE_ADVANCEDVARIABLESET_ADVANCEDVARIABLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17413,
-  serialized_end=17659,
+  serialized_start=18579,
+  serialized_end=18825,
 )
 
 _LANDMESSAGE_ADVANCEDVARIABLESET = _descriptor.Descriptor(
@@ -5408,8 +5750,8 @@ _LANDMESSAGE_ADVANCEDVARIABLESET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17315,
-  serialized_end=17659,
+  serialized_start=18481,
+  serialized_end=18825,
 )
 
 _LANDMESSAGE_OBJECTVARIABLES = _descriptor.Descriptor(
@@ -5437,8 +5779,8 @@ _LANDMESSAGE_OBJECTVARIABLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17661,
-  serialized_end=17736,
+  serialized_start=18827,
+  serialized_end=18902,
 )
 
 _LANDMESSAGE_SAVEDRECOMMENDATIONS = _descriptor.Descriptor(
@@ -5515,8 +5857,8 @@ _LANDMESSAGE_SAVEDRECOMMENDATIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17739,
-  serialized_end=17923,
+  serialized_start=18905,
+  serialized_end=19089,
 )
 
 _LANDMESSAGE = _descriptor.Descriptor(
@@ -5846,7 +6188,7 @@ _LANDMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1386,
-  serialized_end=17923,
+  serialized_end=19089,
 )
 
 
@@ -5896,8 +6238,8 @@ _CURRENCYDELTA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17925,
-  serialized_end=18003,
+  serialized_start=19091,
+  serialized_end=19169,
 )
 
 
@@ -5968,8 +6310,8 @@ _CURRENCYSAVEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18006,
-  serialized_end=18160,
+  serialized_start=19172,
+  serialized_end=19326,
 )
 
 
@@ -5998,8 +6340,8 @@ _EVENTMESSAGE_EVENTDATA_CHARACTERGAINEDDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19501,
-  serialized_end=19543,
+  serialized_start=20667,
+  serialized_end=20709,
 )
 
 _EVENTMESSAGE_EVENTDATA_CHARACTERLOSTDATA = _descriptor.Descriptor(
@@ -6027,8 +6369,8 @@ _EVENTMESSAGE_EVENTDATA_CHARACTERLOSTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19545,
-  serialized_end=19585,
+  serialized_start=20711,
+  serialized_end=20751,
 )
 
 _EVENTMESSAGE_EVENTDATA_STEALBUILDINGEVENTDATA = _descriptor.Descriptor(
@@ -6070,8 +6412,8 @@ _EVENTMESSAGE_EVENTDATA_STEALBUILDINGEVENTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19587,
-  serialized_end=19695,
+  serialized_start=20753,
+  serialized_end=20861,
 )
 
 _EVENTMESSAGE_EVENTDATA_GIFTMEMORABILIADATA = _descriptor.Descriptor(
@@ -6106,8 +6448,8 @@ _EVENTMESSAGE_EVENTDATA_GIFTMEMORABILIADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19697,
-  serialized_end=19749,
+  serialized_start=20863,
+  serialized_end=20915,
 )
 
 _EVENTMESSAGE_EVENTDATA_SHOPCOLLECTEDDATA = _descriptor.Descriptor(
@@ -6135,8 +6477,8 @@ _EVENTMESSAGE_EVENTDATA_SHOPCOLLECTEDDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19751,
-  serialized_end=19798,
+  serialized_start=20917,
+  serialized_end=20964,
 )
 
 _EVENTMESSAGE_EVENTDATA_VANDALISMEVENTDATA = _descriptor.Descriptor(
@@ -6185,8 +6527,8 @@ _EVENTMESSAGE_EVENTDATA_VANDALISMEVENTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19800,
-  serialized_end=19905,
+  serialized_start=20966,
+  serialized_end=21071,
 )
 
 _EVENTMESSAGE_EVENTDATA_SIDEBARUPDATEDATA = _descriptor.Descriptor(
@@ -6235,8 +6577,8 @@ _EVENTMESSAGE_EVENTDATA_SIDEBARUPDATEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19907,
-  serialized_end=19995,
+  serialized_start=21073,
+  serialized_end=21161,
 )
 
 _EVENTMESSAGE_EVENTDATA_RETURNBUILDINGDATA = _descriptor.Descriptor(
@@ -6278,8 +6620,8 @@ _EVENTMESSAGE_EVENTDATA_RETURNBUILDINGDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=19997,
-  serialized_end=20094,
+  serialized_start=21163,
+  serialized_end=21260,
 )
 
 _EVENTMESSAGE_EVENTDATA_PLAYSCRIPTDATA = _descriptor.Descriptor(
@@ -6335,8 +6677,8 @@ _EVENTMESSAGE_EVENTDATA_PLAYSCRIPTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=20096,
-  serialized_end=20203,
+  serialized_start=21262,
+  serialized_end=21369,
 )
 
 _EVENTMESSAGE_EVENTDATA_CUSTOMFRIENDREQUESTDATA = _descriptor.Descriptor(
@@ -6399,8 +6741,8 @@ _EVENTMESSAGE_EVENTDATA_CUSTOMFRIENDREQUESTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=20206,
-  serialized_end=20357,
+  serialized_start=21372,
+  serialized_end=21523,
 )
 
 _EVENTMESSAGE_EVENTDATA_PLAYSCRIPTATPOSITIONDATA = _descriptor.Descriptor(
@@ -6477,8 +6819,8 @@ _EVENTMESSAGE_EVENTDATA_PLAYSCRIPTATPOSITIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=20360,
-  serialized_end=20524,
+  serialized_start=21526,
+  serialized_end=21690,
 )
 
 _EVENTMESSAGE_EVENTDATA_LOSERESOURCESREQUESTDATA = _descriptor.Descriptor(
@@ -6520,8 +6862,8 @@ _EVENTMESSAGE_EVENTDATA_LOSERESOURCESREQUESTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=20526,
-  serialized_end=20631,
+  serialized_start=21692,
+  serialized_end=21797,
 )
 
 _EVENTMESSAGE_EVENTDATA = _descriptor.Descriptor(
@@ -6668,8 +7010,8 @@ _EVENTMESSAGE_EVENTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18398,
-  serialized_end=20631,
+  serialized_start=19564,
+  serialized_end=21797,
 )
 
 _EVENTMESSAGE = _descriptor.Descriptor(
@@ -6760,8 +7102,8 @@ _EVENTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=18163,
-  serialized_end=20631,
+  serialized_start=19329,
+  serialized_end=21797,
 )
 
 
@@ -6790,8 +7132,8 @@ _EVENTSMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=20633,
-  serialized_end=20683,
+  serialized_start=21799,
+  serialized_end=21849,
 )
 
 
@@ -6848,8 +7190,8 @@ _EXTRALANDMESSAGE_PUSHNOTIFICATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21004,
-  serialized_end=21114,
+  serialized_start=22170,
+  serialized_end=22280,
 )
 
 _EXTRALANDMESSAGE_COMMUNITYGOALDELTA = _descriptor.Descriptor(
@@ -6884,8 +7226,8 @@ _EXTRALANDMESSAGE_COMMUNITYGOALDELTA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21116,
-  serialized_end=21170,
+  serialized_start=22282,
+  serialized_end=22336,
 )
 
 _EXTRALANDMESSAGE_NAMEVALUE = _descriptor.Descriptor(
@@ -6920,8 +7262,8 @@ _EXTRALANDMESSAGE_NAMEVALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21172,
-  serialized_end=21212,
+  serialized_start=22338,
+  serialized_end=22378,
 )
 
 _EXTRALANDMESSAGE_MATCHMAKINGREGISTRATION = _descriptor.Descriptor(
@@ -6956,8 +7298,8 @@ _EXTRALANDMESSAGE_MATCHMAKINGREGISTRATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21214,
-  serialized_end=21307,
+  serialized_start=22380,
+  serialized_end=22473,
 )
 
 _EXTRALANDMESSAGE = _descriptor.Descriptor(
@@ -7013,8 +7355,8 @@ _EXTRALANDMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=20686,
-  serialized_end=21307,
+  serialized_start=21852,
+  serialized_end=22473,
 )
 
 
@@ -7064,8 +7406,8 @@ _EXTRALANDRESPONSE_COMMUNITYGOAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21533,
-  serialized_end=21636,
+  serialized_start=22699,
+  serialized_end=22802,
 )
 
 _EXTRALANDRESPONSE = _descriptor.Descriptor(
@@ -7114,8 +7456,8 @@ _EXTRALANDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21310,
-  serialized_end=21636,
+  serialized_start=22476,
+  serialized_end=22802,
 )
 
 
@@ -7144,8 +7486,8 @@ _GETFRIENDDATAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21638,
-  serialized_end=21678,
+  serialized_start=22804,
+  serialized_end=22844,
 )
 
 
@@ -7181,8 +7523,8 @@ _GETFRIENDDATARESPONSE_FRIENDDATAPAIR_FRIENDDATAERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=22017,
-  serialized_end=22062,
+  serialized_start=23183,
+  serialized_end=23228,
 )
 
 _GETFRIENDDATARESPONSE_FRIENDDATAPAIR = _descriptor.Descriptor(
@@ -7239,8 +7581,8 @@ _GETFRIENDDATARESPONSE_FRIENDDATAPAIR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21771,
-  serialized_end=22104,
+  serialized_start=22937,
+  serialized_end=23270,
 )
 
 _GETFRIENDDATARESPONSE = _descriptor.Descriptor(
@@ -7268,8 +7610,8 @@ _GETFRIENDDATARESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21681,
-  serialized_end=22104,
+  serialized_start=22847,
+  serialized_end=23270,
 )
 
 _CLIENTCONFIGRESPONSE_CLIENTCONFIGITEM.containing_type = _CLIENTCONFIGRESPONSE
@@ -7389,10 +7731,22 @@ _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_BANKDATA.fields_by_name[
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_BANKDATA.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET.fields_by_name['bankData'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET_BANKDATA
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET_TIMEDATTACKDATA.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET.fields_by_name['timedAttackData'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET_TIMEDATTACKDATA
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET_TIMEGATE.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET.fields_by_name['timegate'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET_TIMEGATE
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS_BUFFERSET.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS.fields_by_name['bufferSet'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS_BUFFERSET
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.fields_by_name['variables'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_VARIABLESET
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.fields_by_name['prizeDataSet'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_SPECIALEVENTPRIZEDATASET
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.fields_by_name['timedCharacterDataSet'].message_type = _LANDMESSAGE_TIMEDCHARACTERDATASET
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.fields_by_name['bankDataSet'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_BANKDATASET
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.fields_by_name['timedAttackDataSet'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.fields_by_name['timeGateSet'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET
+_LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.fields_by_name['generalBuffers'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS
 _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT.containing_type = _LANDMESSAGE_SPECIALEVENTSDATA
 _LANDMESSAGE_SPECIALEVENTSDATA.fields_by_name['header'].message_type = _LANDMESSAGE_ENTITYHEADER
 _LANDMESSAGE_SPECIALEVENTSDATA.fields_by_name['specialEvent'].message_type = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT
@@ -8042,6 +8396,48 @@ LandMessage = _reflection.GeneratedProtocolMessageType('LandMessage', (_message.
         # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent.BankDataSet)
         ))
       ,
+
+      TimedAttackDataSet = _reflection.GeneratedProtocolMessageType('TimedAttackDataSet', (_message.Message,), dict(
+
+        TimedAttackData = _reflection.GeneratedProtocolMessageType('TimedAttackData', (_message.Message,), dict(
+          DESCRIPTOR = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET_TIMEDATTACKDATA,
+          __module__ = 'LandData_pb2'
+          # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData)
+          ))
+        ,
+        DESCRIPTOR = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEDATTACKDATASET,
+        __module__ = 'LandData_pb2'
+        # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet)
+        ))
+      ,
+
+      TimeGateSet = _reflection.GeneratedProtocolMessageType('TimeGateSet', (_message.Message,), dict(
+
+        TimeGate = _reflection.GeneratedProtocolMessageType('TimeGate', (_message.Message,), dict(
+          DESCRIPTOR = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET_TIMEGATE,
+          __module__ = 'LandData_pb2'
+          # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate)
+          ))
+        ,
+        DESCRIPTOR = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_TIMEGATESET,
+        __module__ = 'LandData_pb2'
+        # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet)
+        ))
+      ,
+
+      GeneralBufferSets = _reflection.GeneratedProtocolMessageType('GeneralBufferSets', (_message.Message,), dict(
+
+        BufferSet = _reflection.GeneratedProtocolMessageType('BufferSet', (_message.Message,), dict(
+          DESCRIPTOR = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS_BUFFERSET,
+          __module__ = 'LandData_pb2'
+          # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets.BufferSet)
+          ))
+        ,
+        DESCRIPTOR = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT_GENERALBUFFERSETS,
+        __module__ = 'LandData_pb2'
+        # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets)
+        ))
+      ,
       DESCRIPTOR = _LANDMESSAGE_SPECIALEVENTSDATA_SPECIALEVENT,
       __module__ = 'LandData_pb2'
       # @@protoc_insertion_point(class_scope:Data.LandMessage.SpecialEventsData.SpecialEvent)
@@ -8224,6 +8620,12 @@ _sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.BankDataSet)
 _sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.Deposit)
 _sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.DepositData)
 _sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.BankDataSet.BankData)
+_sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet)
+_sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.TimedAttackDataSet.TimedAttackData)
+_sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet)
+_sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.TimeGateSet.TimeGate)
+_sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets)
+_sym_db.RegisterMessage(LandMessage.SpecialEventsData.SpecialEvent.GeneralBufferSets.BufferSet)
 _sym_db.RegisterMessage(LandMessage.FakeFriendData)
 _sym_db.RegisterMessage(LandMessage.QuestGroupData)
 _sym_db.RegisterMessage(LandMessage.ProcessedPurchaseData)
