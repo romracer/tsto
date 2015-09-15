@@ -590,6 +590,8 @@ message LandMessage {
      optional uint32 prizeListID = 2;
      optional uint32 nextPrize = 3;
      optional float prizeChance = 4;
+     optional bool nextPrizeRushed = 5;
+     optional int64 nextResetTime = 6;
     }
 
     repeated SpecialEventPrizeData prizeData = 1;
@@ -624,8 +626,44 @@ message LandMessage {
      optional uint32 bankID = 4;
      optional DepositData deposits = 6;
     }
-
     repeated BankData bankData = 1;
+   }
+
+   message TimedAttackDataSet {
+    message TimedAttackData {
+     optional string instanceID = 1;
+     optional uint32 subLandID = 2;
+     optional uint32 objectServerID = 3;
+     optional uint32 objectClass = 4;
+     optional string objectOwner = 5;
+     optional string attackOwner = 6;
+     optional int64 timeCreated = 7;
+     optional int64 lifeSpan = 8;
+     optional uint32 flag = 9;
+     optional uint32 eventID = 10;
+     optional int32 numResUsed = 11;
+     optional uint32 objectID = 12;
+    }
+    repeated TimedAttackData timedAttackData = 1;
+   }
+
+   message TimeGateSet {
+    message TimeGate {
+     optional int32 gateId = 1;
+     optional int32 usesRemaining = 2;
+     optional int64 refillTime = 3;
+     optional string instanceId = 4;
+     optional int32 lastRefillCount = 5;
+    }
+    repeated TimeGate timegate = 1;
+   }
+
+   message GeneralBufferSets {
+    message BufferSet {
+     optional int32 id = 1;
+     repeated string buffers = 2;
+    }
+    repeated BufferSet bufferSet = 1;
    }
 
    optional uint32 id = 1;
@@ -634,6 +672,9 @@ message LandMessage {
    optional SpecialEventPrizeDataSet prizeDataSet = 6;
    optional TimedCharacterDataSet timedCharacterDataSet = 7;
    optional BankDataSet bankDataSet = 8;
+   optional TimedAttackDataSet timedAttackDataSet = 9;
+   optional TimeGateSet timeGateSet = 10;
+   optional GeneralBufferSets generalBuffers = 11;
   }
 
   optional EntityHeader header = 1;
@@ -703,6 +744,8 @@ message LandMessage {
   optional bool buildingsSorted = 5;
   optional uint32 landBlockWidth = 6;
   optional uint32 landBlockHeight = 7;
+  optional int32 landBlockPositionX = 8;
+  optional int32 landBlockPositionY = 9;
  }
 
  message MinigameData {
@@ -721,6 +764,7 @@ message LandMessage {
   optional EntityHeader header = 1;
   optional uint32 itemID = 2;
   optional uint32 count = 3;
+  optional uint32 visualCount = 4;
  }
 
  message FriendListData {
