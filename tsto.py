@@ -477,6 +477,12 @@ innerLandData.creationTime: %s""" % (
         for i in range(len(qst.objectiveData)):
             del qst.objectiveData[i]
 
+    def questsShow(self):
+        print("questState:timesCompleted:numObjectives:questID")
+        for q in self.mLandMessage.questData:
+            if q.numObjectives > 0:
+                print("%s:%s:%s:%s" % (q.questState, q.timesCompleted, q.numObjectives, q.questID))
+
     def cleanR(self):
         data=''
         for i in range(16 * 13):
@@ -594,6 +600,8 @@ while True :
             tsto.spendableSet(int(cmds[1]), int(cmds[2]))
         elif (cmds[0] == "qc"):
             tsto.questComplete(int(cmds[1]))
+        elif (cmds[0] == "quests"):
+            tsto.questsShow()
         elif (cmds[0] == "hurry"):
             tsto.hurry()
         elif (cmds[0] == "skins"):
@@ -683,6 +691,7 @@ money count          - set money count
 skins 1,2,3          - set skins to (see: skinsmasterlist.xml)
 setlevel level       - set current level (be careful)
 qc id                - complete quest with id
+quests               - show not completed quests
 hurry                - done all jobs and rewards
 bm id x y flip       - set positions for all buildings with id
 cleanr               - clear roads, rivers, broadwalk
