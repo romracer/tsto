@@ -26,8 +26,8 @@ URL_TNTNUCLEUS = 'nucleus.tnt-ea.com'
 CT_PROTOBUF  = 'application/x-protobuf'
 CT_JSON      = 'application/json'
 CT_XML       = 'application/xaml+xml'
-VERSION_LAND = '29'
-VERSION_APP  = '4.16.3'
+VERSION_LAND = '31'
+VERSION_APP  = '4.16.7'
 
 class TSTO:
     def __init__(self):
@@ -411,12 +411,10 @@ innerLandData.creationTime: %s""" % (
         for sp in self.mLandMessage.spendablesData.spendable:
             print("%d=%d" % (sp.type, sp.amount))
 
-    def spendableSet(self, type, amount):
+    def spendableSet(self, types, amount):
         for sp in self.mLandMessage.spendablesData.spendable:
-            if sp.type == type:
+            if sp.type in types:
                 sp.amount = amount
-                return
-        raise ValueError("ERR: can't found spendable with id=%d" % type)
 
     def spendablesAllSet(self, amount):
         self.set_money(amount)
@@ -457,25 +455,30 @@ innerLandData.creationTime: %s""" % (
         for job in self.mLandMessage.jobData:
             job.state = 2
 
-    def questComplete(self, id):
-        qst = None
-        for q in self.mLandMessage.questData:
-            if q.questID == id:
-                qst = q
-                break
-        if qst == None:
-            qst = self.mLandMessage.questData.add()
-            qst.questID   = id;
-            qst.timesCompleted = 0
-            qst.header.id = self.mLandMessage.innerLandData.nextInstanceID
-            self.mLandMessage.innerLandData.nextInstanceID = qst.header.id + 1
-            self.mLandMessage.innerLandData.numQuests      = len(self.mLandMessage.questData)
-        qst.questState = 5
-        qst.numObjectives = 0
-        qst.questScriptState = 0
-        qst.timesCompleted += 1
-        for i in range(len(qst.objectiveData)):
-            del qst.objectiveData[i]
+    def questComplete(self, quests):
+        for id in quests:
+            # find questData for each quest
+            qst = None
+            for q in self.mLandMessage.questData:
+                if q.questID == id:
+                    qst = q
+                    break
+            # not found?
+            if qst == None:
+                # then create new one
+                qst = self.mLandMessage.questData.add()
+                qst.questID   = id;
+                qst.timesCompleted = 0
+                qst.header.id = self.mLandMessage.innerLandData.nextInstanceID
+                self.mLandMessage.innerLandData.nextInstanceID = qst.header.id + 1
+                self.mLandMessage.innerLandData.numQuests      = len(self.mLandMessage.questData)
+            qst.questState = 5
+            qst.numObjectives = 0
+            qst.questScriptState = 0
+            qst.timesCompleted += 1
+            # delete objective data
+            for i in range(len(qst.objectiveData)):
+                del qst.objectiveData[i]
 
     def questsShow(self):
         print("questState:timesCompleted:numObjectives:questID")
@@ -597,9 +600,9 @@ while True :
         elif (cmds[0] == "money"):
             tsto.set_money(int(cmds[1]))
         elif (cmds[0] == "spendable"):
-            tsto.spendableSet(int(cmds[1]), int(cmds[2]))
+            tsto.spendableSet(tsto.arrSplit(cmds[1]), int(cmds[2]))
         elif (cmds[0] == "qc"):
-            tsto.questComplete(int(cmds[1]))
+            tsto.questComplete(tsto.arrSplit(cmds[1]))
         elif (cmds[0] == "quests"):
             tsto.questsShow()
         elif (cmds[0] == "hurry"):
