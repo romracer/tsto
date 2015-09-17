@@ -17,6 +17,7 @@ import sys
 import traceback
 import random
 import LandData_pb2
+import os.path
 
 URL_SIMPSONS = 'prod.simpsons-ea.com'
 URL_OFRIENDS = 'm.friends.dm.origin.com'
@@ -101,7 +102,16 @@ class TSTO:
         data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
             , "/rest/token/%s/%s/" % (email, password))
         data = json.JSONDecoder().decode(data);
+        self.mUserId    = data["userId"]
+        self.mEncrToken = data["encryptedToken"]
+        self.doAuthWithToken(data["token"])
+
+    def doAuthWithCryptedToken(self, cryptedToken):
+        data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
+            , "/rest/token/%s/" % (cryptedToken))
+        data = json.JSONDecoder().decode(data);
         self.mUserId = data["userId"]
+        self.mEncrToken = data["encryptedToken"]
         self.doAuthWithToken(data["token"])
 
     def doAuthWithToken(self, token):
@@ -579,6 +589,21 @@ innerLandData.creationTime: %s""" % (
         self.mLandMessage = LandData_pb2.LandMessage()
         self.mLandMessage.ParseFromString(data)
 
+    def tokenPath(self):
+        return os.path.join(os.path.expanduser('~'), '.tsto.conf')
+
+    def tokenStore(self):
+        self.checkLogined()
+        with open(self.tokenPath(), 'w') as f:
+            f.write(self.mEncrToken)
+
+    def tokenLogin(self):
+        encrToken = ''
+        with open(self.tokenPath(), 'r') as f:
+            encrToken = f.read().replace('\n', '')
+        if encrToken != '':
+            self.doAuthWithCryptedToken(encrToken)
+
 if __name__ == '__main__':
     exit
 tsto = TSTO()
@@ -648,7 +673,7 @@ while True :
             if cmds_count >= 3:
                 tsto.doAuth(cmds[1], cmds[2])
             elif cmds_count == 2:
-                tsto.doAuthWithToken(cmds[1])
+                tsto.doAuthWithCryptedToken(cmds[1])
         elif (cmds[0] == "vs"):
             tsto.varChange(cmds[1], int(cmds[2]))
         elif (cmds[0] == "spendables"):
@@ -664,6 +689,10 @@ while True :
             tsto.cleanR()
         elif (cmds[0] == "config"):
             tsto.configShow()
+        elif (cmds[0] == "tokenstore"):
+            tsto.tokenStore()
+        elif (cmds[0] == "tokenlogin"):
+            tsto.tokenLogin()
         elif (cmds[0] == "quit"):
             sys.exit(0)
         elif (cmds[0] == "help"):
@@ -679,6 +708,9 @@ protocurrency        - show ProtoCurrency information
 upload               - upload current LandMessage to mayhem server
 uploadextra          - upload current ExtraLandMessage to mayhem server
 config               - show current game config variables
+
+tokenstore           - store current logined token in home dir
+tokenlogin           - login by token stored in file in home dir
 
 load filepath        - load LandMessage from local filepath
 save filepath        - save LandMessage to local filepath
