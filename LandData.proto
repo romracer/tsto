@@ -661,7 +661,7 @@ message LandMessage {
    message GeneralBufferSets {
     message BufferSet {
      optional int32 id = 1;
-     repeated string buffers = 2;
+     repeated bytes buffers = 2;
     }
     repeated BufferSet bufferSet = 1;
    }
