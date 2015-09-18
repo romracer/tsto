@@ -597,6 +597,9 @@ innerLandData.creationTime: %s""" % (
         with open(self.tokenPath(), 'w') as f:
             f.write(self.mEncrToken)
 
+    def tokenForget(self):
+        os.remove(self.tokenPath())
+
     def tokenLogin(self):
         encrToken = ''
         with open(self.tokenPath(), 'r') as f:
@@ -691,6 +694,8 @@ while True :
             tsto.configShow()
         elif (cmds[0] == "tokenstore"):
             tsto.tokenStore()
+        elif (cmds[0] == "tokenforget"):
+            tsto.tokenForget()
         elif (cmds[0] == "tokenlogin"):
             tsto.tokenLogin()
         elif (cmds[0] == "quit"):
@@ -710,6 +715,7 @@ uploadextra          - upload current ExtraLandMessage to mayhem server
 config               - show current game config variables
 
 tokenstore           - store current logined token in home dir
+tokenforget          - remove stored encrypted token file
 tokenlogin           - login by token stored in file in home dir
 
 load filepath        - load LandMessage from local filepath
