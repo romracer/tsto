@@ -507,6 +507,17 @@ innerLandData.creationTime: %s""" % (
             if q.numObjectives > 0:
                 print("%s:%s:%s:%s" % (q.questState, q.timesCompleted, q.numObjectives, q.questID))
 
+    def nextPrizeSet(self, specialEventId, nextPrize):
+        se = None
+        for e in self.mLandMessage.specialEventsData.specialEvent:
+            if e.id == specialEventId:
+                se = e
+                break
+        if se == None:
+            raise TypeError("ERR: specialEvent with given id not found.")
+
+        se.prizeDataSet.prizeData[0].nextPrize = nextPrize
+
     def cleanR(self):
         data=''
         for i in range(16 * 13):
@@ -709,6 +720,8 @@ while True :
             tsto.tokenForget()
         elif (cmds[0] == "tokenlogin"):
             tsto.tokenLogin()
+        elif (cmds[0] == "prizeset"):
+            tsto.nextPrizeSet(int(cmds[1]), int(cmds[2]))
         elif (cmds[0] == "quit"):
             sys.exit(0)
         elif (cmds[0] == "help"):
@@ -733,6 +746,7 @@ load filepath        - load LandMessage from local filepath
 save filepath        - save LandMessage to local filepath
 astext               - save LandMessage text representation into file
 
+prizeset id number   - set current prize number for specialEvent with given id 
 vs name[,name] val   - set variable(s) to value
 vars [name[,name]]   - print variables with given names or all
 donuts count         - set donuts for logined acc to count
