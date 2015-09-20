@@ -436,10 +436,21 @@ innerLandData.creationTime: %s""" % (
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/protoClientConfig"
               "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e");
-        response = LandData_pb2.ClientConfigResponse()
-        response.ParseFromString(data)
-        for item in response.items:
-            print("'%s':%s" % (item.name, item.value))
+        cliConf = LandData_pb2.ClientConfigResponse()
+        cliConf.ParseFromString(data)
+
+        data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
+            , "/mh/gameplayconfig");
+        gameConf = LandData_pb2.GameplayConfigResponse()
+        gameConf.ParseFromString(data)
+
+        print("[protoClientConfig]")
+        for item in cliConf.items:
+            print("%s=%s" % (item.name, item.value))
+
+        print("[gameplayconfig]")
+        for item in gameConf.item:
+            print("%s=%s" % (item.name, item.value))
 
     def skinsSet(self, data):
         self.mLandMessage.skinUnlocksData.skinUnlock      = data
