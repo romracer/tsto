@@ -98,7 +98,9 @@ class TSTO:
         if self.mLogined != True:
             raise TypeError("ERR: need to login before perform this action!!!")
 
-    def doAuth(self, email, password):
+    def doAuth(self, args):
+        email    = args[1]
+        password = args[2]
         data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
             , "/rest/token/%s/%s/" % (email, password))
         data = json.JSONDecoder().decode(data);
@@ -247,7 +249,8 @@ class TSTO:
 
     # drop single Origin friend by its id
 
-    def friendDrop(self, friendOriginId, externalDeleter=True):
+    def friendDrop(self, args):
+        friendOriginId = int(args[1])
         # resolve myhemId of Origin user
         friendMyhemId = ''
         for fd in self.doDownloadFriendsData().friendData:
@@ -278,7 +281,10 @@ class TSTO:
 
     # drop friends that not playing more given days
 
-    def friendsDropNotActive(self, days):
+    def friendsDropNotActive(self, args):
+        days = 90
+        if len(args) > 1:
+            days = int(args[1])
         self.checkLogined()
         ts = time.mktime(time.localtime())
         crit = (24 * 60 * 60 * days)
@@ -347,7 +353,15 @@ innerLandData.creationTime: %s""" % (
                 itms.append(int(tt[0]))
         return itms
 
-    def inventoryAdd(self, itemsid, itemtype=0, count=1):
+    def inventoryAdd(self, args):
+        itemsid = args[1]
+        itemtype = 0
+        count = 1
+        if len(args) > 2:
+            itemtype = int(args[2])
+        if len(args) > 3:
+            count = int(args[3])
+
         items = self.arrSplit(itemsid)
         # now add
         for it in items:
@@ -357,7 +371,10 @@ innerLandData.creationTime: %s""" % (
                 if item.itemID == it and item.itemType == itemtype:
                     # item found, change its amount
                     found = True
-                    self.inventoryCount(it, itemtype, count)
+                    args[1] = it
+                    args[2] = itemtype
+                    args[3] = count
+                    self.inventoryCount(args)
                     break
             # already exists? then precess next item
             if found == True:
@@ -375,7 +392,10 @@ innerLandData.creationTime: %s""" % (
             self.mLandMessage.innerLandData.nextInstanceID    = t.header.id + 1
             self.mLandMessage.innerLandData.numInventoryItems = len(self.mLandMessage.inventoryItemData)
 
-    def inventoryCount(self, itemid, itemtype, count):
+    def inventoryCount(self, args):
+        itemid   = int(args[1])
+        itemtype = int(args[2])
+        count    = int(args[3])
         it = -1
         for i in range(len(self.mLandMessage.inventoryItemData)):
             item = self.mLandMessage.inventoryItemData[i]
@@ -390,9 +410,13 @@ innerLandData.creationTime: %s""" % (
             if it != -1:
                 self.mLandMessage.inventoryItemData[it].count = count
             else:
-                self.inventoryAdd(str(itemid), itemtype, count)
+                args[1] = str(itemid);
+                args[2] = itemtype
+                args[3] = count
+                self.inventoryAdd(args)
 
-    def donutsAdd(self, amount):
+    def donutsAdd(self, args):
+        amout = int(args[1])
         elm = self.mExtraLandMessage;
         if elm == None:
             elm = LandData_pb2.ExtraLandMessage()
@@ -421,15 +445,11 @@ innerLandData.creationTime: %s""" % (
         for sp in self.mLandMessage.spendablesData.spendable:
             print("%d=%d" % (sp.type, sp.amount))
 
-    def spendableSet(self, types, amount):
+    def spendableSet(self, args):
+        types = self.arrSplit(args[1])
+        amount = int(args[2])
         for sp in self.mLandMessage.spendablesData.spendable:
             if sp.type in types:
-                sp.amount = amount
-
-    def spendablesAllSet(self, amount):
-        self.set_money(amount)
-        for sp in self.mLandMessage.spendablesData.spendable:
-            if sp.type != 57: # skip FP
                 sp.amount = amount
 
     def configShow(self):
@@ -452,23 +472,31 @@ innerLandData.creationTime: %s""" % (
         for item in gameConf.item:
             print("%s=%s" % (item.name, item.value))
 
-    def skinsSet(self, data):
+    def skinsSet(self, args):
+        data = args[1]
         self.mLandMessage.skinUnlocksData.skinUnlock      = data
         self.mLandMessage.skinUnlocksData.skinReceived    = data
         self.mLandMessage.skinUnlocksData.skinUnlockLen   = len(data)
         self.mLandMessage.skinUnlocksData.skinReceivedLen = len(data)
 
-    def buildings_move(self, building, x, y, flip):
+    def buildings_move(self, args):
+        building = int(args[1])
+        x = int(args[2])
+        y = int(args[3])
+        flip = int(args[4])
+
         for b in self.mLandMessage.buildingData:
             if b.building == building:
                 b.positionX = x
                 b.positionY = y
                 b.flipState = flip
 
-    def set_money(self, amount):
+    def set_money(self, args):
+        amount = int(args[1])
         self.mLandMessage.userData.money = amount
 
-    def set_level(self, level):
+    def set_level(self, args):
+        level = int(args[1])
         self.mLandMessage.friendData.level = level
         self.mLandMessage.userData.level = level
 
@@ -476,7 +504,8 @@ innerLandData.creationTime: %s""" % (
         for job in self.mLandMessage.jobData:
             job.state = 2
 
-    def questComplete(self, quests):
+    def questComplete(self, args):
+        quests = tsto.arrSplit(args[1])
         for id in quests:
             # find questData for each quest
             qst = None
@@ -502,12 +531,14 @@ innerLandData.creationTime: %s""" % (
                 del qst.objectiveData[i]
 
     def questsShow(self):
-        print("questState:timesCompleted:numObjectives:questID")
+        print("questState | timesCompleted | numObjectives | questID")
         for q in self.mLandMessage.questData:
             if q.numObjectives > 0:
-                print("%s:%s:%s:%s" % (q.questState, q.timesCompleted, q.numObjectives, q.questID))
+                print("%s : %s : %s : %s" % (q.questState, q.timesCompleted, q.numObjectives, q.questID))
 
-    def nextPrizeSet(self, specialEventId, nextPrize):
+    def nextPrizeSet(self, args):
+        specialEventId = int(args[1])
+        nextPrize = int(args[2])
         se = None
         for e in self.mLandMessage.specialEventsData.specialEvent:
             if e.id == specialEventId:
@@ -555,8 +586,9 @@ innerLandData.creationTime: %s""" % (
         for idx in idx2del:
             del self.mLandMessage.buildingData[idx]
 
-    def varChange(self, vars, value):
-        for name in vars.split(','):
+    def varChange(self, args):
+        value = args[2]
+        for name in args[1].split(','):
             found = False
             for e in self.mLandMessage.specialEventsData.specialEvent:
                 for v in e.variables.variable:
@@ -566,27 +598,14 @@ innerLandData.creationTime: %s""" % (
             if found == False:
                 raise ValueError("ERR: can't found variable with name='%s'" % name)
 
-    def varsPrint(self, names):
+    def varsPrint(self, args):
+        names = args[1]
         printAll = names == None
         if printAll == False: ns = names.split(',')
         for e in self.mLandMessage.specialEventsData.specialEvent:
             for v in e.variables.variable:
                 if printAll == False and ns.count(v.name) == 0: continue
                 print("%s=%s" % (v.name, v.value))
-
-    def standard(self, email, password):
-        self.doAuth(email, password)
-        self.doLandDownload()
-        self.inventoryAdd("3704", 0, 15)  # 15 CubicZirconia
-        self.inventoryAdd("1039", 0, 50)  # 50 special trees
-        self.inventoryAdd("1040", 0, 50)  # 50 another special trees
-        self.inventoryAdd("1217", 0, 200) # 200 IChochoseYou trains
-        self.inventoryAdd("9", 2, 999)    # 999 Buddah (9)
-        self.inventoryAdd("44", 2, 999)   # 999 Golden scratchers (44)
-        self.inventoryAdd("5000", 2, 100) # 200 squidport tiles (5000)
-        self.spendablesAllSet(987654321)
-        self.donutsAdd(5432)
-        self.doLandUpload()
 
 ### Operations with files ###
 
@@ -596,7 +615,8 @@ innerLandData.creationTime: %s""" % (
         with open("%s.txt" % self.mLandMessage.id, "w") as f:
             f.write(str(self.mLandMessage))
 
-    def doFileSave(self, fn):
+    def doFileSave(self, args):
+        fn = args[1]
         with open(fn, "wb") as f: 
             data = self.mLandMessage.SerializeToString()
             f.write(struct.pack('i', int(time.time())))
@@ -604,7 +624,8 @@ innerLandData.creationTime: %s""" % (
             f.write(struct.pack('i', len(data)))
             f.write(data)
 
-    def doFileOpen(self, fn):
+    def doFileOpen(self, args):
+        fn = args[1]
         with open(fn, "rb") as f:
             f.seek(0x0c)
             data = f.read()
@@ -629,103 +650,11 @@ innerLandData.creationTime: %s""" % (
         if encrToken != '':
             self.doAuthWithCryptedToken(encrToken)
 
-if __name__ == '__main__':
-    exit
-tsto = TSTO()
-while True :
-    cmds = raw_input("tsto > ").split()
-    cmds_count = len(cmds)
-    if cmds_count == 0:
-        continue
-    try:
-        if (cmds[0] == "ia"):
-            if cmds_count >= 4:
-                tsto.inventoryAdd(cmds[1], int(cmds[2]), int(cmds[3]))
-            elif cmds_count == 3:
-                tsto.inventoryAdd(cmds[1], int(cmds[2]))
-            elif cmds_count == 2:
-                tsto.inventoryAdd(cmds[1])
-        elif (cmds[0] == "ic"):
-            tsto.inventoryCount(int(cmds[1]), int(cmds[2]), int(cmds[3]))
-        elif (cmds[0] == "money"):
-            tsto.set_money(int(cmds[1]))
-        elif (cmds[0] == "spendable"):
-            tsto.spendableSet(tsto.arrSplit(cmds[1]), int(cmds[2]))
-        elif (cmds[0] == "qc"):
-            tsto.questComplete(tsto.arrSplit(cmds[1]))
-        elif (cmds[0] == "quests"):
-            tsto.questsShow()
-        elif (cmds[0] == "hurry"):
-            tsto.hurry()
-        elif (cmds[0] == "skins"):
-            tsto.skinsSet(cmds[1])
-        elif (cmds[0] == "astext"):
-            tsto.doSaveAsText()
-        elif (cmds[0] == "load"):
-            tsto.doFileOpen(cmds[1])
-        elif (cmds[0] == "save"):
-            tsto.doFileSave(cmds[1])
-        elif (cmds[0] == "std"):
-            tsto.standard(cmds[1], cmds[2])
-        elif (cmds[0] == "download"):
-            tsto.doLandDownload()
-        elif (cmds[0] == "protocurrency"):
-            tsto.doLoadCurrency()
-        elif (cmds[0] == "upload"):
-            tsto.doLandUpload()
-        elif (cmds[0] == "bm"):
-            tsto.buildings_move(int(cmds[1]), int(cmds[2]), int(cmds[3]), int(cmds[4]))
-        elif (cmds[0] == "uploadextra"):
-            tsto.doUploadExtraLandMessage()
-        elif (cmds[0] == "resetnotif"):
-            tsto.doResetNotifications()
-        elif (cmds[0] == "showtimes"):
-            tsto.showTimes()
-        elif (cmds[0] == "frienddrop"):
-            tsto.friendDrop(cmds[1])
-        elif (cmds[0] == "friends"):
-            tsto.friendsShow()
-        elif (cmds[0] == "friendsdrop"):
-            if cmds_count >= 2:
-                tsto.friendsDropNotActive(int(cmds[1]))
-            else:
-                tsto.friendsDropNotActive(90)
-        elif (cmds[0] == "donuts"):
-            tsto.donutsAdd(int(cmds[1]))
-        elif (cmds[0] == "setlevel"):
-            tsto.set_level(int(cmds[1]))
-        elif (cmds[0] == "login"):
-            if cmds_count >= 3:
-                tsto.doAuth(cmds[1], cmds[2])
-            elif cmds_count == 2:
-                tsto.doAuthWithCryptedToken(cmds[1])
-        elif (cmds[0] == "vs"):
-            tsto.varChange(cmds[1], int(cmds[2]))
-        elif (cmds[0] == "spendables"):
-            tsto.spendablesShow()
-        elif (cmds[0] == "vars"):
-            if cmds_count >= 2:
-                tsto.varsPrint(cmds[1])
-            else:
-                tsto.varsPrint(None)
-        elif (cmds[0] == "cleandebris"):
-            tsto.cleanDebris()
-        elif (cmds[0] == "cleanr"):
-            tsto.cleanR()
-        elif (cmds[0] == "config"):
-            tsto.configShow()
-        elif (cmds[0] == "tokenstore"):
-            tsto.tokenStore()
-        elif (cmds[0] == "tokenforget"):
-            tsto.tokenForget()
-        elif (cmds[0] == "tokenlogin"):
-            tsto.tokenLogin()
-        elif (cmds[0] == "prizeset"):
-            tsto.nextPrizeSet(int(cmds[1]), int(cmds[2]))
-        elif (cmds[0] == "quit"):
-            sys.exit(0)
-        elif (cmds[0] == "help"):
-            print("""
+    def doQuit(self):
+        sys.exit(0)
+
+    def doHelp(self):
+        print("""SUPPORTED COMMANDS
 login email pass     - login origin account
 download             - download LandMessage
 showtimes            - show some times variables from LandMessage
@@ -762,10 +691,66 @@ hurry                - done all jobs and rewards
 bm id x y flip       - set positions for all buildings with id
 cleanr               - clear roads, rivers, broadwalk
 cleandebris          - clean debris in subland 1 and 2
-std email pass       - execute std routines for acc
 help                 - this message
 quit                 - exit""")
+
+if __name__ == '__main__':
+    exit
+tsto = TSTO()
+cmdwarg = {
+    "vs": tsto.varChange,
+    "ia": tsto.inventoryAdd,
+    "ic": tsto.inventoryCount,
+    "qc": tsto.questComplete,
+    "bm": tsto.buildings_move,
+    "vars": tsto.varsPrint,
+    "load": tsto.doFileOpen,
+    "save": tsto.doFileSave,
+    "login": tsto.doAuth,
+    "skins": tsto.skinsSet,
+    "money": tsto.set_money,
+    "donuts": tsto.donutsAdd,
+    "setlevel": tsto.set_level,
+    "prizeset": tsto.nextPrizeSet,
+    "spendable": tsto.spendableSet,
+    "frienddrop": tsto.friendDrop,
+    "friendsdrop": tsto.friendsDropNotActive,
+}
+cmds = {
+    "quit": tsto.doQuit,
+    "help": tsto.doHelp,
+    "hurry": tsto.hurry,
+    "upload": tsto.doLandUpload,
+    "config": tsto.configShow,
+    "quests": tsto.questsShow,
+    "cleanr": tsto.cleanR,
+    "astext": tsto.doSaveAsText,
+    "friends": tsto.friendsShow,
+    "download": tsto.doLandDownload,
+    "showtimes": tsto.showTimes,
+    "resetnotif": tsto.doResetNotifications,
+    "spendables": tsto.spendablesShow,
+    "tokenlogin": tsto.tokenLogin,
+    "tokenstore": tsto.tokenStore,
+    "tokenforget": tsto.tokenForget,
+    "cleandebris": tsto.cleanDebris,
+    "uploadextra": tsto.doUploadExtraLandMessage,
+    "protocurrency": tsto.doLoadCurrency,
+}
+while True :
+    args = raw_input("tsto > ").split()
+    args_count = len(args)
+    if args_count == 0:
+        continue
+    try:
+        func = cmds.get(args[0])
+        if func is not None:
+            func()
         else:
-            print("WARN: unknown command")
+            func = cmdwarg.get(args[0])
+            if func is not None:
+                func(args)
+        if func is None:
+            print("ERR: unknown command '%s'.\nMaybe you should try 'help'." % (args[0]))
     except Exception as e:
         print(traceback.print_exc())
