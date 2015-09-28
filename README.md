@@ -36,7 +36,7 @@ Store your town status into ./land.backup file:
     save land.backup
     quit
 
-Add 100 squidport tiles(5000), 999 golden scratchers (44), 999 buddah (9):
+Add 100 squidport tiles(5000), 999 golden scratchers (44), 999 buddha (9):
 
     python tsto.py
     login email@host.com password
