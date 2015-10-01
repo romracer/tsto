@@ -587,7 +587,7 @@ innerLandData.creationTime: %s""" % (
             del self.mLandMessage.buildingData[idx]
 
     def varChange(self, args):
-        value = args[2]
+        value = int(args[2])
         for name in args[1].split(','):
             found = False
             for e in self.mLandMessage.specialEventsData.specialEvent:
