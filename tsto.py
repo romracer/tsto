@@ -587,25 +587,39 @@ innerLandData.creationTime: %s""" % (
             del self.mLandMessage.buildingData[idx]
 
     def varChange(self, args):
-        value = int(args[2])
+        value = args[2]
         for name in args[1].split(','):
             found = False
             for e in self.mLandMessage.specialEventsData.specialEvent:
                 for v in e.variables.variable:
                     if v.name == name:
                         found = True
-                        v.value = value
+                        v.value = int(value)
+                        break
+            if found == False:
+                for v in self.mLandMessage.objectVariables.variables.variable:
+                    if v.name == name:
+                        found = True
+                        v.value = str(value)
+                        break
             if found == False:
                 raise ValueError("ERR: can't found variable with name='%s'" % name)
 
     def varsPrint(self, args):
-        names = args[1]
+        names = None
+        if (len(args) > 1):
+            names = args[1]
         printAll = names == None
         if printAll == False: ns = names.split(',')
+        print("[specialEvent]")
         for e in self.mLandMessage.specialEventsData.specialEvent:
             for v in e.variables.variable:
                 if printAll == False and ns.count(v.name) == 0: continue
                 print("%s=%s" % (v.name, v.value))
+        print("[objectVariables]")
+        for v in self.mLandMessage.objectVariables.variables.variable:
+            if printAll == False and ns.count(v.name) == 0: continue
+            print("%s=%s" % (v.name, v.value))
 
 ### Operations with files ###
 
