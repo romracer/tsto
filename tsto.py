@@ -483,6 +483,16 @@ innerLandData.creationTime: %s""" % (
         self.mLandMessage.skinUnlocksData.skinUnlockLen   = len(data)
         self.mLandMessage.skinUnlocksData.skinReceivedLen = len(data)
 
+    def skinsAdd(self, args):
+        unlocked = self.mLandMessage.skinUnlocksData.skinUnlock
+        skins = self.arrSplit(unlocked)
+        toAdd = self.arrSplit(args[1])
+        for skinId in toAdd:
+            if skinId not in skins:
+               unlocked += "," + str(skinId)
+        args[1] = unlocked
+        self.skinsSet(args)
+
     def buildings_move(self, args):
         building = int(args[1])
         x = int(args[2])
@@ -701,7 +711,8 @@ ia ids type count=1  - add item(s) with id and type into inventory
 ic id type count     - set count item with id and type
 spendable id count   - set count spendable with id
 money count          - set money count
-skins 1,2,3          - set skins to (see: skinsmasterlist.xml)
+ss 1,2,3             - set skins to (see: skinsmasterlist.xml)
+sa 60,73             - append skins with ids 60 and 73 into unlocked
 setlevel level       - set current level (be careful)
 qc id                - complete quest with id
 quests               - show not completed quests
@@ -716,6 +727,8 @@ if __name__ == '__main__':
     exit
 tsto = TSTO()
 cmdwarg = {
+    "sa": tsto.skinsAdd,
+    "ss": tsto.skinsSet,
     "vs": tsto.varChange,
     "ia": tsto.inventoryAdd,
     "ic": tsto.inventoryCount,
@@ -725,7 +738,6 @@ cmdwarg = {
     "load": tsto.doFileOpen,
     "save": tsto.doFileSave,
     "login": tsto.doAuth,
-    "skins": tsto.skinsSet,
     "money": tsto.set_money,
     "donuts": tsto.donutsAdd,
     "setlevel": tsto.set_level,
