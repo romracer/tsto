@@ -541,7 +541,7 @@ innerLandData.creationTime: %s""" % (
             qst.questScriptState = 0
             qst.timesCompleted += 1
             # delete objective data
-            for i in range(len(qst.objectiveData)):
+            for i in reversed(range(len(qst.objectiveData))):
                 del qst.objectiveData[i]
 
     def questsShow(self):
