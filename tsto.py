@@ -27,8 +27,8 @@ URL_TNTNUCLEUS = 'nucleus.tnt-ea.com'
 CT_PROTOBUF  = 'application/x-protobuf'
 CT_JSON      = 'application/json'
 CT_XML       = 'application/xaml+xml'
-VERSION_LAND = '31'
-VERSION_APP  = '4.16.9'
+VERSION_LAND = '32'
+VERSION_APP  = '4.17.1'
 
 class TSTO:
     def __init__(self):

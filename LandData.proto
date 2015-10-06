@@ -167,6 +167,18 @@ message FriendData {
   optional SharedVariableSet sharedVariableSet = 12;
 }
 
+message PowerupMessage {
+ message PowerupData {
+  optional uint32 entityID = 1;
+  optional uint32 powerupTypeID = 2;
+  optional int64 timeBeganMS = 3;
+  optional int32 stateEnum = 4;
+  optional int64 timePausedMS = 5;
+ }
+
+ repeated PowerupData powerupData = 1;
+}
+
 message LandMessage {
  message EntityHeader {
   optional uint32 id = 1;
@@ -209,6 +221,7 @@ message LandMessage {
   optional int32 gambleOutcomeID = 29;
   optional string gambleItemType = 30;
   optional bool fullDLCCompleted = 31;
+  optional PowerupMessage powerupDataList = 32;
  }
 
  message InnerLandData {
@@ -1128,6 +1141,46 @@ message GetFriendDataResponse {
  }
 
  repeated FriendDataPair friendData = 1;
+}
+
+// //////////////////////////////////////////////////////////////////////////////////////// //
+
+message FriendInteractionParamSet {
+ message FriendInteractionParam {
+  optional string stringKey = 1;
+  optional string stringValue = 2;
+  optional int32 intKey = 3;
+  optional int32 intValue = 4;
+ }
+
+ repeated FriendInteractionParam params = 1;
+}
+
+message KinesisCurrencyDelta {
+ repeated CurrencyDelta currencyDelta = 1;
+ optional string userId = 2;
+ optional int64 time = 3;
+}
+
+message ProjectBoardParamSet {
+ message ProjectParam {
+  optional string name = 1;
+  optional int32 setID = 2;
+  optional CurrencySaveData cost = 3;
+  optional CurrencySaveData reward = 4;
+ }
+
+ optional int32 numCompleted = 1;
+ optional int64 startedTime = 2;
+ repeated ProjectParam params = 3;
+}
+
+message KinesisLandUpdateMessage {
+ optional LandMessage newLand = 1;
+ optional LandMessage oldLand = 2;
+ optional int64 updateTime = 3;
+ optional string clientVersion = 4;
+ optional string platform = 5;
 }
 
 // //////////////////////////////////////////////////////////////////////////////////////// //
