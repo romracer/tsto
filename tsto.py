@@ -450,11 +450,19 @@ innerLandData.creationTime: %s""" % (
             print("%d=%d" % (sp.type, sp.amount))
 
     def spendableSet(self, args):
-        types = self.arrSplit(args[1])
-        amount = int(args[2])
+        amount   = int(args[2])
+        types    = self.arrSplit(args[1])
+        notExist = types[:]
+        # set amount for exists spendables and
         for sp in self.mLandMessage.spendablesData.spendable:
             if sp.type in types:
                 sp.amount = amount
+                notExist.remove(sp.type)
+        # create not exists spendables
+        for sp in notExist:
+            sd = self.mLandMessage.spendablesData.spendable.add()
+            sd.type   = int(sp)
+            sd.amount = amount
 
     def configShow(self):
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
