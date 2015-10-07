@@ -18,6 +18,7 @@ import traceback
 import random
 import LandData_pb2
 import os.path
+from stat import S_ISREG, ST_CTIME, ST_MODE
 
 URL_SIMPSONS = 'prod.simpsons-ea.com'
 URL_OFRIENDS = 'm.friends.dm.origin.com'
@@ -686,6 +687,15 @@ innerLandData.creationTime: %s""" % (
         if encrToken != '':
             self.doAuthWithCryptedToken(encrToken)
 
+    def backupsShow(self):
+        self.checkLogined()
+        begining = self.mUid + '.'
+        entries  = (fn for fn in os.listdir('.') if fn.startswith(begining))
+        entries  = ((os.stat(path), path) for path in entries)
+        entries  = ((stat[ST_CTIME], path) for stat, path in entries if S_ISREG(stat[ST_MODE]))
+        for cdate, path in sorted(entries):
+            print ("%s | %s" % (time.ctime(cdate), os.path.basename(path)))
+
     def doQuit(self):
         sys.exit(0)
 
@@ -763,6 +773,7 @@ cmds = {
     "quests": tsto.questsShow,
     "cleanr": tsto.cleanR,
     "astext": tsto.doSaveAsText,
+    "backups": tsto.backupsShow,
     "friends": tsto.friendsShow,
     "download": tsto.doLandDownload,
     "showtimes": tsto.showTimes,
