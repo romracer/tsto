@@ -649,7 +649,7 @@ innerLandData.creationTime: %s""" % (
     def doSaveAsText(self):
         if self.mLandMessage.id == '':
             raise TypeError("ERR: LandMessage.id is empty!!!")
-        with open("%s.txt" % self.mLandMessage.id, "w") as f:
+        with open("dbg.%s.txt" % self.mLandMessage.id, "w") as f:
             f.write(str(self.mLandMessage))
 
     def doFileSave(self, args):
