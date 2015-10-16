@@ -572,6 +572,10 @@ innerLandData.creationTime: %s""" % (
 
         se.prizeDataSet.prizeData[0].nextPrize = nextPrize
 
+    def cleanPurchases(self):
+        for i in reversed(range(len(self.mLandMessage.purchases))):
+            del self.mLandMessage.purchases[i]
+
     def cleanR(self):
         data=''
         for i in range(16 * 13):
@@ -785,6 +789,7 @@ cmds = {
     "cleandebris": tsto.cleanDebris,
     "uploadextra": tsto.doUploadExtraLandMessage,
     "protocurrency": tsto.doLoadCurrency,
+    "cleanpurchases": tsto.cleanPurchases,
 }
 while True :
     args = raw_input("tsto > ").split()
