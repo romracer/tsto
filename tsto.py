@@ -104,7 +104,7 @@ class TSTO:
         password = args[2]
         data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
             , "/rest/token/%s/%s/" % (email, password))
-        data = json.JSONDecoder().decode(data);
+        data = json.JSONDecoder().decode(data)
         self.mUserId    = data["userId"]
         self.mEncrToken = data["encryptedToken"]
         self.doAuthWithToken(data["token"])
@@ -112,7 +112,7 @@ class TSTO:
     def doAuthWithCryptedToken(self, cryptedToken):
         data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
             , "/rest/token/%s/" % (cryptedToken))
-        data = json.JSONDecoder().decode(data);
+        data = json.JSONDecoder().decode(data)
         self.mUserId = data["userId"]
         self.mEncrToken = data["encryptedToken"]
         self.doAuthWithToken(data["token"])
@@ -124,7 +124,7 @@ class TSTO:
 
         data = self.doRequest("GET", CT_JSON, URL_TNTAUTH
             , "/rest/oauth/origin/%s/Simpsons-Tapped-Out/" % self.mToken)
-        data = json.JSONDecoder().decode(data);
+        data = json.JSONDecoder().decode(data)
         self.mCode  = data["code"]
         self.mTntId = data["tntId"]
         self.headers["mh_auth_method"]    = "tnt"
@@ -135,31 +135,31 @@ class TSTO:
             , "/mh/users?appVer=2.2.0&appLang=en&application=tnt&applicationUserId=%s" % self.mTntId, True)
         urm  = LandData_pb2.UsersResponseMessage()
         urm.ParseFromString(data)
-        self.mUid     = urm.user.userId;
-        self.mSession = urm.token.sessionKey;
-        self.headers["mh_uid"]         = self.mUid;
-        self.headers["mh_session_key"] = self.mSession;
+        self.mUid     = urm.user.userId
+        self.mSession = urm.token.sessionKey
+        self.headers["mh_uid"]         = self.mUid
+        self.headers["mh_session_key"] = self.mSession
 
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
                 , "/mh/games/bg_gameserver_plugin/checkToken/%s/protoWholeLandToken/" % (self.mUid), True)
         wltr = LandData_pb2.WholeLandTokenRequest()
         if self.protobufParse(wltr, data) == False:
-            wltr = LandData_pb2.WholeLandTokenRequest();
+            wltr = LandData_pb2.WholeLandTokenRequest()
             wltr.requestId = self.mTntId
             data = wltr.SerializeToString()
             data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
                 , "/mh/games/bg_gameserver_plugin/protoWholeLandToken/%s/" % self.mUid, True, data)
             wltr = LandData_pb2.WholeLandTokenRequest()
             wltr.ParseFromString(data)
-        self.mUpdateToken = wltr.requestId;
+        self.mUpdateToken = wltr.requestId
         self.headers["target_land_id"]    = self.mUid
         self.headers["land-update-token"] = self.mUpdateToken
-        self.mLogined = True;
+        self.mLogined = True
 
     def doLandDownload(self):
         self.checkLogined()
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
-                , "/mh/games/bg_gameserver_plugin/protoland/%s/" % self.mUid, True);
+                , "/mh/games/bg_gameserver_plugin/protoland/%s/" % self.mUid, True)
         self.mLandMessage = LandData_pb2.LandMessage()
         self.mLandMessage.ParseFromString(data)
         # make backup
@@ -184,12 +184,12 @@ class TSTO:
         g.close()
         data = out.getvalue()
         data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
-            , "/mh/games/bg_gameserver_plugin/protoland/%s/" % self.mUid, True, data, uncomressedLen);
+            , "/mh/games/bg_gameserver_plugin/protoland/%s/" % self.mUid, True, data, uncomressedLen)
 
     def doLoadCurrency(self):
         self.checkLogined()
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
-                , "/mh/games/bg_gameserver_plugin/protocurrency/%s/" % self.mUid, True);
+                , "/mh/games/bg_gameserver_plugin/protocurrency/%s/" % self.mUid, True)
         currdat = LandData_pb2.CurrencyData()
         currdat.ParseFromString(data)
         print(str(currdat))
@@ -213,7 +213,7 @@ class TSTO:
 
     def doResetNotifications(self):
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
-            , "/mh/games/bg_gameserver_plugin/event/%s/protoland/" % self.mUid, True);
+            , "/mh/games/bg_gameserver_plugin/event/%s/protoland/" % self.mUid, True)
         events = LandData_pb2.EventsMessage()
         events.ParseFromString(data)
         if self.protobufParse(events, data) == False:
@@ -241,7 +241,7 @@ class TSTO:
         fds = []
         for fd in friends.friendData:
             f = fd.friendData
-            fds.append("%s:%d:%s:%s:%s" % (
+            fds.append("%s|%d|%s|%s|%s" % (
                 time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)),
                 f.level,
                 fd.externalId,
@@ -267,7 +267,7 @@ class TSTO:
             raise TypeError("ERR: nothing found.")
 
         # resolve its index in current user land
-        friendIdx = -1;
+        friendIdx = -1
         for idx in range(len(self.mLandMessage.friendListData)):
             fld = self.mLandMessage.friendListData[idx]
             if fld.friendID == friendMyhemId:
@@ -307,18 +307,23 @@ class TSTO:
         
         # find what don't need to delete
         notDel=[]
+        delAll=False 
         for fd in friends.friendData:
             f = fd.friendData
             if (ts - f.lastPlayedTime) < crit:
                 notDel.append(fd.friendId)
                 continue
-            print("%s:%d:%s:%s:%s" % (
+            print("%s|%d|%s|%s|%s" % (
                 time.strftime("%Y%m%d%H%M", time.localtime(f.lastPlayedTime)),
                 f.level,
                 fd.externalId,
                 fd.friendId,
                 f.name))
-            if raw_input("Drop this friend (y/N) ").lower() == 'y':
+            # user is confirmed?
+            if delAll == False:
+                inp = raw_input("Drop this friend (Y/N/A) ").lower()
+                delAll = (inp == 'a')
+            if delAll or inp == 'y':
                 self.doRequest("GET", CT_JSON, URL_OFRIENDS
                     , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, fd.externalId)
                     , True)
@@ -415,14 +420,14 @@ innerLandData.creationTime: %s""" % (
             if it != -1:
                 self.mLandMessage.inventoryItemData[it].count = count
             else:
-                args[1] = str(itemid);
+                args[1] = str(itemid)
                 args[2] = itemtype
                 args[3] = count
                 self.inventoryAdd(args)
 
     def donutsAdd(self, args):
         amout = int(args[1])
-        elm = self.mExtraLandMessage;
+        elm = self.mExtraLandMessage
         if elm == None:
             elm = LandData_pb2.ExtraLandMessage()
             self.mExtraLandMessage = elm
@@ -443,7 +448,7 @@ innerLandData.creationTime: %s""" % (
     def spendablesShow(self):
         self.checkLogined()
         if (len(self.mLandMessage.spendablesData.spendable) == 0):
-            raise TypeError("ERR: Download land first.");
+            raise TypeError("ERR: Download land first.")
         donuts = self.doLoadCurrency()
         print("donuts=%s" % (donuts.vcBalance))
         print("money=%s" % (self.mLandMessage.userData.money))
@@ -468,12 +473,12 @@ innerLandData.creationTime: %s""" % (
     def configShow(self):
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/protoClientConfig"
-              "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e");
+              "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e")
         cliConf = LandData_pb2.ClientConfigResponse()
         cliConf.ParseFromString(data)
 
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
-            , "/mh/gameplayconfig");
+            , "/mh/gameplayconfig")
         gameConf = LandData_pb2.GameplayConfigResponse()
         gameConf.ParseFromString(data)
 
@@ -540,7 +545,7 @@ innerLandData.creationTime: %s""" % (
             if qst == None:
                 # then create new one
                 qst = self.mLandMessage.questData.add()
-                qst.questID   = id;
+                qst.questID = id
                 qst.timesCompleted = 0
                 qst.header.id = self.mLandMessage.innerLandData.nextInstanceID
                 self.mLandMessage.innerLandData.nextInstanceID = qst.header.id + 1
