@@ -99,6 +99,10 @@ class TSTO:
         if self.mLogined != True:
             raise TypeError("ERR: need to login before perform this action!!!")
 
+    def checkDownloaded(self):
+        if self.mLandMessage.id == '':
+            raise TypeError("ERR: LandMessage.id is empty!!!")
+
     def doAuth(self, args):
         email    = args[1]
         password = args[2]
@@ -170,8 +174,7 @@ class TSTO:
 
     def doLandUpload(self):
         self.checkLogined()
-        if self.mLandMessage.id == '':
-            raise TypeError("ERR: LandMessage.id is empty!!!")
+        self.checkDownloaded()
         # send extra message before landMessage if any
         self.doUploadExtraLandMessage()
         # store last played time and send GZipped Land itself
@@ -255,6 +258,8 @@ class TSTO:
     # drop single Origin friend by its id
 
     def friendDrop(self, args):
+        self.checkLogined()
+        self.checkDownloaded()
         friendOriginId = int(args[1])
         # resolve myhemId of Origin user
         friendMyhemId = ''
@@ -287,6 +292,8 @@ class TSTO:
     # drop friends that not playing more given days
 
     def friendsDropNotActive(self, args):
+        self.checkLogined()
+        self.checkDownloaded()
         days = 90
         if len(args) > 1:
             days = int(args[1])
@@ -656,8 +663,7 @@ innerLandData.creationTime: %s""" % (
 ### Operations with files ###
 
     def doSaveAsText(self):
-        if self.mLandMessage.id == '':
-            raise TypeError("ERR: LandMessage.id is empty!!!")
+        self.checkDownloaded()
         with open("dbg.%s.txt" % self.mLandMessage.id, "w") as f:
             f.write(str(self.mLandMessage))
 
