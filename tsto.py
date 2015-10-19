@@ -34,7 +34,7 @@ VERSION_APP  = '4.17.1'
 
 class TSTO:
     def __init__(self):
-        logging.basicConfig(level=logging.DEBUG)
+#        logging.basicConfig(level=logging.DEBUG)
         self.dataVerison                   = int(VERSION_LAND)
         self.mLogined                      = False
         self.mLandMessage                  = LandData_pb2.LandMessage()
@@ -113,7 +113,7 @@ class TSTO:
         email    = args[1]
         password = args[2]
         data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
-            , "/rest/token/%s/%s/" % (email, password))
+            , "/rest/token/%s/%s/" % (email, password), True)
         data = json.JSONDecoder().decode(data)
         self.mUserId    = data["userId"]
         self.mEncrToken = data["encryptedToken"]
@@ -121,7 +121,9 @@ class TSTO:
 
     def doAuthWithCryptedToken(self, cryptedToken):
         data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
-            , "/rest/token/%s/" % (cryptedToken))
+            , "/rest/token/validate", True, self.mToken)
+        data = self.doRequest("POST", CT_JSON, URL_TNTNUCLEUS
+            , "/rest/token/%s/" % (cryptedToken), True)
         data = json.JSONDecoder().decode(data)
         self.mUserId = data["userId"]
         self.mEncrToken = data["encryptedToken"]
@@ -133,7 +135,7 @@ class TSTO:
         self.headers["AuthToken"] = token
 
         data = self.doRequest("GET", CT_JSON, URL_TNTAUTH
-            , "/rest/oauth/origin/%s/Simpsons-Tapped-Out/" % self.mToken)
+            , "/rest/oauth/origin/%s/Simpsons-Tapped-Out/" % self.mToken, True)
         data = json.JSONDecoder().decode(data)
         self.mCode  = data["code"]
         self.mTntId = data["tntId"]
@@ -268,10 +270,6 @@ class TSTO:
             if found == False:
                 continue
 
-            # DEBUG
-            # if fd.friendId != '17887675992264730405705388413798673343':
-            #    continue
-
             # post events
             em.toPlayerId = fd.friendId
             packet = em.SerializeToString()
@@ -387,7 +385,7 @@ class TSTO:
 
         # delete
         self.doRequest("GET", CT_JSON, URL_OFRIENDS
-            , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, friendOriginId), True)
+            , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, friendOriginId))
         del self.mLandMessage.friendListData[friendIdx]
         self.mLandMessage.innerLandData.numSavedFriends = len(self.mLandMessage.friendListData)
 
@@ -811,17 +809,22 @@ innerLandData.creationTime: %s""" % (
     def tokenStore(self):
         self.checkLogined()
         with open(self.tokenPath(), 'w') as f:
-            f.write(self.mEncrToken)
+            f.write(self.mToken + '\n')
+            f.write(self.mEncrToken + '\n')
 
     def tokenForget(self):
         os.remove(self.tokenPath())
 
     def tokenLogin(self):
-        encrToken = ''
+        content = list()
         with open(self.tokenPath(), 'r') as f:
-            encrToken = f.read().replace('\n', '')
-        if encrToken != '':
-            self.doAuthWithCryptedToken(encrToken)
+            content = [x.strip('\n') for x in f.readlines()]
+        if len(content) < 2:
+            raise TypeError("ERR: wrong file format.")
+        else:
+            self.mToken = content[0]
+            self.mEncrToken = content[1]
+            self.doAuthWithCryptedToken(self.mEncrToken)
 
     def backupsShow(self):
         self.checkLogined()
