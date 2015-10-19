@@ -468,8 +468,31 @@ innerLandData.creationTime: %s""" % (
         # set amount for exists spendables and
         for sp in self.mLandMessage.spendablesData.spendable:
             if sp.type in types:
-                sp.amount = amount
                 notExist.remove(sp.type)
+                sp.amount = amount
+                for s in self.mLandMessage.friendData.spendable:
+                    if s.type == sp.type:
+                        s.amount = sp.amount
+        # create not exists spendables
+        for sp in notExist:
+            sd = self.mLandMessage.spendablesData.spendable.add()
+            sd.type   = int(sp)
+            sd.amount = amount
+
+    def spendableAdd(self, args):
+        amount   = int(args[2])
+        types    = self.arrSplit(args[1])
+        notExist = types[:]
+        # set amount for exists spendables and
+        for sp in self.mLandMessage.spendablesData.spendable:
+            if sp.type in types:
+                notExist.remove(sp.type)
+                sp.amount += amount
+                if sp.amount < 0:
+                    sp.amount = 0
+                for s in self.mLandMessage.friendData.spendable:
+                    if s.type == sp.type:
+                        s.amount = sp.amount
         # create not exists spendables
         for sp in notExist:
             sd = self.mLandMessage.spendablesData.spendable.add()
@@ -799,6 +822,7 @@ cmds = {
     "tokenforget": tsto.tokenForget,
     "cleandebris": tsto.cleanDebris,
     "uploadextra": tsto.doUploadExtraLandMessage,
+    "spendableadd": tsto.spendableAdd,
     "protocurrency": tsto.doLoadCurrency,
     "cleanpurchases": tsto.cleanPurchases,
 }
