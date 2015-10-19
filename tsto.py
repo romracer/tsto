@@ -388,10 +388,7 @@ innerLandData.creationTime: %s""" % (
                 if item.itemID == it and item.itemType == itemtype:
                     # item found, change its amount
                     found = True
-                    args[1] = it
-                    args[2] = itemtype
-                    args[3] = count
-                    self.inventoryCount(args)
+                    self.inventoryCount(('ic', it, itemtype, count))
                     break
             # already exists? then precess next item
             if found == True:
@@ -427,10 +424,7 @@ innerLandData.creationTime: %s""" % (
             if it != -1:
                 self.mLandMessage.inventoryItemData[it].count = count
             else:
-                args[1] = str(itemid)
-                args[2] = itemtype
-                args[3] = count
-                self.inventoryAdd(args)
+                self.inventoryAdd(('ia', str(itemid), itemtype, count))
 
     def donutsAdd(self, args):
         amout = int(args[1])
@@ -511,8 +505,7 @@ innerLandData.creationTime: %s""" % (
         for skinId in toAdd:
             if skinId not in skins:
                unlocked += "," + str(skinId)
-        args[1] = unlocked
-        self.skinsSet(args)
+        self.skinsSet(('ss', unlocked))
 
     def buildings_move(self, args):
         building = int(args[1])
