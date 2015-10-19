@@ -7,6 +7,7 @@ WARNING: absolutly no warranties. Use this script at own risk.
 
 __author__ = 'jsbot@ya.ru (Oleg Polivets)'
 
+import logging
 import requests
 import json
 import gzip
@@ -33,6 +34,7 @@ VERSION_APP  = '4.17.1'
 
 class TSTO:
     def __init__(self):
+        logging.basicConfig(level=logging.DEBUG)
         self.dataVerison                   = int(VERSION_LAND)
         self.mLogined                      = False
         self.mLandMessage                  = LandData_pb2.LandMessage()
@@ -48,12 +50,13 @@ class TSTO:
         self.headers["hw_model_id"]        = "0 0.0"
         self.headers["data_param_1"]       = "2633815347"
         self.mMhClientVersion              = "Android." + VERSION_APP
+        self.mSesSimpsons                  = requests.Session()
+        self.mSesOther                     = requests.Session()
 
 ### Network ###
 
     def doRequest(self, method, content_type, host, path, keep_alive=False, body=[], uncomressedLen=-1):
         url = ("https://%s%s" % (host, path)).encode('utf-8')
-        print(url)
 
         # filling headers for this request
         headers = self.headers.copy()
@@ -63,17 +66,19 @@ class TSTO:
             headers["Content-Length"]      = len(body)
         if keep_alive == True:
             headers["Connection"] = "Keep-Alive"
+            ssn = self.mSesSimpsons if host == URL_SIMPSONS else self.mSesOther
         else:
             headers["Connection"] = "Close"
+            ssn = requests
         headers["Content-Type"] = content_type
 
         # do request
         if method == "POST":
-            r = requests.post(url=url, headers=headers, verify=False, data=body)
+            r = ssn.post(url=url, headers=headers, verify=False, data=body)
         elif method == "GET":
-            r = requests.get(url=url, headers=headers, verify=False)
+            r = ssn.get(url=url, headers=headers, verify=False)
         elif method == "PUT":
-            r = requests.put(url=url, headers=headers, verify=False)
+            r = ssn.put(url=url, headers=headers, verify=False)
 
         # reading response
         data = r.content
@@ -200,7 +205,7 @@ class TSTO:
 
     def doDownloadFriendsData(self):
         data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
-            , "/mh/games/bg_gameserver_plugin/friendData?debug_mayhem_id=%s" % self.mUid)
+            , "/mh/games/bg_gameserver_plugin/friendData?debug_mayhem_id=%s" % self.mUid, True)
         fdresp = LandData_pb2.GetFriendDataResponse()
         fdresp.ParseFromString(data)
         return fdresp
@@ -474,12 +479,14 @@ innerLandData.creationTime: %s""" % (
     def configShow(self):
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/protoClientConfig"
-              "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e")
+              "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e"
+            , True)
         cliConf = LandData_pb2.ClientConfigResponse()
         cliConf.ParseFromString(data)
 
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
-            , "/mh/gameplayconfig")
+            , "/mh/gameplayconfig"
+            , True)
         gameConf = LandData_pb2.GameplayConfigResponse()
         gameConf.ParseFromString(data)
 
