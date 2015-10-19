@@ -64,6 +64,7 @@ class TSTO:
             headers["Content-Encoding"]    = "gzip"
             headers["Uncompressed-Length"] = uncomressedLen
             headers["Content-Length"]      = len(body)
+
         if keep_alive == True:
             headers["Connection"] = "Keep-Alive"
             ssn = self.mSesSimpsons if host == URL_SIMPSONS else self.mSesOther
@@ -172,10 +173,7 @@ class TSTO:
         self.mLandMessage = LandData_pb2.LandMessage()
         self.mLandMessage.ParseFromString(data)
         # make backup
-        args=[]
-        args.insert(0, "save")
-        args.insert(1, "%s.%f" % (self.mUid, time.time()))
-        self.doFileSave(args)
+        self.doFileSave(('save', "%s.%f" % (self.mUid, time.time())))
 
     def doLandUpload(self):
         self.checkLogined()
@@ -218,6 +216,106 @@ class TSTO:
         data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/extraLandUpdate/%s/protoland/" % self.mUid, True, data)
         self.mExtraLandMessage = None
+
+    def friendsTimChrSquish(self):
+        self.checkDownloaded()
+        se = self.getSpecialEvent(122000)
+        for timChar in se.timedCharacterDataSet.timedCharacterData:
+            if timChar.landOwner == self.mUid:
+                timChar.flag = 2
+
+    def friendsTimChrSpawn(self):
+        self.checkLogined()
+        self.checkDownloaded()
+
+        package = "THOH2015_Scripts"
+        script  = "SpawnFriendFormlessTerror_Act1"
+        eventType      = 11
+        spendableId    = 122009
+        specialEventId = 122000
+        charId         = 122001
+        lifeSpan       = 14400
+
+        # [0] download friendsData before
+        friends = self.doDownloadFriendsData()
+
+        # [1] prepare EventMessage
+        em = LandData_pb2.EventMessage()
+        em.fromPlayerId = self.mUid
+        em.eventType    = str(eventType)
+        ed = em.eventData
+        ed.requestTime    = int(time.time())
+        ed.requestType    = eventType
+        ed.displayNameLen = 0
+        psd = ed.playScriptData
+        psd.playForFriend = True
+        psd.nameLen       = len(script)
+        psd.name          = script
+        psd.packageLen    = len(package)
+        psd.package       = package
+
+        # and post it
+        spawns = dict()
+        for fd in friends.friendData:
+            # can we spawn characters in friend town?
+            found = False
+            for sp in fd.friendData.spendable:
+                if sp.type == spendableId:
+                    found = True
+                    break
+
+            # if not found - this user not participate in current event
+            if found == False:
+                continue
+
+            # DEBUG
+            # if fd.friendId != '17887675992264730405705388413798673343':
+            #    continue
+
+            # post events
+            em.toPlayerId = fd.friendId
+            packet = em.SerializeToString()
+            cnt    = 0
+            for i in range(0, 10):
+                data = self.doRequest("POST", CT_PROTOBUF, URL_SIMPSONS
+                    , "/mh/games/bg_gameserver_plugin/event/%s/protoland/" % self.mUid
+                    , True
+                    , packet)
+                if len(data) == 0 or 'error' in data:
+                    # <?xml version="1.0" encoding="UTF-8"?>
+                    # <error code="1" type="UNKNOWN_ERROR" severity="DEBUG"/>
+                    break
+                cnt += 1
+            spawns[em.toPlayerId] = cnt
+
+        # [2] TODO: extraLandUpdate send notifications here
+
+        # [3] now make changes in our LandMessage
+        totalSpawns = 0
+        se = self.getSpecialEvent(specialEventId)
+        se.updateTime = int(time.time())
+        for uid in spawns:
+            count = spawns[uid]
+            if count == 0: continue
+            totalSpawns += count
+            print ("%s %s" % (uid, count))
+            for i in range(0, count):
+                timChar = se.timedCharacterDataSet.timedCharacterData.add()
+                timChar.timedCharacterInstanceIDLen = 0
+                timChar.characterID = charId
+                timChar.subLandID = 1
+                timChar.characterOwnerLen = len(self.mUid)
+                timChar.characterOwner = self.mUid
+                timChar.landOwnerLen = len(uid)
+                timChar.landOwner = uid
+                timChar.timeCreated = int(time.time())
+                timChar.lifeSpan = lifeSpan
+                timChar.flag = 0
+
+        # [4] change event spendable
+        totalSpawns *= 10
+        print("+%s" % totalSpawns)
+        self.spendableAdd(('spendableadd', str(spendableId), totalSpawns))
 
     def doResetNotifications(self):
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
@@ -289,8 +387,7 @@ class TSTO:
 
         # delete
         self.doRequest("GET", CT_JSON, URL_OFRIENDS
-            , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, friendOriginId)
-            , True)
+            , "/friends/deleteFriend?nucleusId=%s&friendId=%s" % (self.mUserId, friendOriginId), True)
         del self.mLandMessage.friendListData[friendIdx]
         self.mLandMessage.innerLandData.numSavedFriends = len(self.mLandMessage.friendListData)
 
@@ -502,14 +599,12 @@ innerLandData.creationTime: %s""" % (
     def configShow(self):
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
             , "/mh/games/bg_gameserver_plugin/protoClientConfig"
-              "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e"
-            , True)
+              "/?id=ca0ddfef-a2c4-4a57-8021-27013137382e", True)
         cliConf = LandData_pb2.ClientConfigResponse()
         cliConf.ParseFromString(data)
 
         data = self.doRequest("GET", CT_PROTOBUF, URL_SIMPSONS
-            , "/mh/gameplayconfig"
-            , True)
+            , "/mh/gameplayconfig", True)
         gameConf = LandData_pb2.GameplayConfigResponse()
         gameConf.ParseFromString(data)
 
@@ -594,17 +689,19 @@ innerLandData.creationTime: %s""" % (
             if q.numObjectives > 0:
                 print("%s : %s : %s : %s" % (q.questState, q.timesCompleted, q.numObjectives, q.questID))
 
-    def nextPrizeSet(self, args):
-        specialEventId = int(args[1])
-        nextPrize = int(args[2])
-        se = None
+    def getSpecialEvent(self, specialEventId):
         for e in self.mLandMessage.specialEventsData.specialEvent:
             if e.id == specialEventId:
                 se = e
                 break
         if se == None:
             raise TypeError("ERR: specialEvent with given id not found.")
+        return se
 
+    def nextPrizeSet(self, args):
+        specialEventId = int(args[1])
+        nextPrize = int(args[2])
+        se = self.getSpecialEvent(specialEventId)
         se.prizeDataSet.prizeData[0].nextPrize = nextPrize
 
     def cleanPurchases(self):
@@ -706,6 +803,7 @@ innerLandData.creationTime: %s""" % (
             data = f.read()
         self.mLandMessage = LandData_pb2.LandMessage()
         self.mLandMessage.ParseFromString(data)
+        self.mUid = self.mLandMessage.id
 
     def tokenPath(self):
         return os.path.join(os.path.expanduser('~'), '.tsto.conf')
@@ -801,6 +899,7 @@ cmdwarg = {
     "spendable": tsto.spendableSet,
     "frienddrop": tsto.friendDrop,
     "friendsdrop": tsto.friendsDropNotActive,
+    "spendableadd": tsto.spendableAdd,
 }
 cmds = {
     "quit": tsto.doQuit,
@@ -822,7 +921,8 @@ cmds = {
     "tokenforget": tsto.tokenForget,
     "cleandebris": tsto.cleanDebris,
     "uploadextra": tsto.doUploadExtraLandMessage,
-    "spendableadd": tsto.spendableAdd,
+    "timchrspawn": tsto.friendsTimChrSpawn,
+    "timchrsquish": tsto.friendsTimChrSquish,
     "protocurrency": tsto.doLoadCurrency,
     "cleanpurchases": tsto.cleanPurchases,
 }
