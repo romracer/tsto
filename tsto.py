@@ -219,6 +219,11 @@ class TSTO:
             , "/mh/games/bg_gameserver_plugin/extraLandUpdate/%s/protoland/" % self.mUid, True, data)
         self.mExtraLandMessage = None
 
+    def getExtraLandMessage(self):
+        if self.mExtraLandMessage == None:
+            self.mExtraLandMessage = LandData_pb2.ExtraLandMessage()
+        return self.mExtraLandMessage
+
     def friendsTimChrSquish(self):
         self.checkDownloaded()
         se = self.getSpecialEvent(122000)
@@ -256,6 +261,8 @@ class TSTO:
         psd.packageLen    = len(package)
         psd.package       = package
 
+        elm = self.getExtraLandMessage()
+
         # and post it
         spawns = dict()
         for fd in friends.friendData:
@@ -270,6 +277,14 @@ class TSTO:
             if found == False:
                 continue
 
+            # add notifications
+            # pn = elm.pushNotification.add()
+            # pn.id = ""
+            # pn.toPlayerId   = fd.friendId
+            # pn.scheduledIn  = 100
+            # pn.templateName = "thesimpsonstappedout_push_thoh2015_formlessterrordeployed"
+            # pn.message      = "FRIEND=OLEG&custom_custom_sound=sfx_thoh_formless_terror_spawn_03.caf&custom_eamobile-song=sfx_thoh_formless_terror_spawn_03&custom_custom_locale=en"
+
             # post events
             em.toPlayerId = fd.friendId
             packet = em.SerializeToString()
@@ -279,14 +294,15 @@ class TSTO:
                     , "/mh/games/bg_gameserver_plugin/event/%s/protoland/" % self.mUid
                     , True
                     , packet)
-                if len(data) == 0 or 'error' in data:
+#                if len(data) == 0 or 'error' in data:
                     # <?xml version="1.0" encoding="UTF-8"?>
                     # <error code="1" type="UNKNOWN_ERROR" severity="DEBUG"/>
-                    break
+#                    break
                 cnt += 1
             spawns[em.toPlayerId] = cnt
 
         # [2] TODO: extraLandUpdate send notifications here
+        # self.doUploadExtraLandMessage()
 
         # [3] now make changes in our LandMessage
         totalSpawns = 0
@@ -785,23 +801,38 @@ innerLandData.creationTime: %s""" % (
         with open("dbg.%s.txt" % self.mLandMessage.id, "w") as f:
             f.write(str(self.mLandMessage))
 
-    def doFileSave(self, args):
-        fn = args[1]
+    def doSaveExtraAsText(self):
+        self.checkDownloaded()
+        with open("dbg.%sExtra.txt" % self.mLandMessage.id, "w") as f:
+            f.write(str(self.mLandMessageExtra))
+
+    def messageStoreToFile(self, fn, msg):
+        data = msg.SerializeToString()
         with open(fn, "wb") as f: 
-            data = self.mLandMessage.SerializeToString()
             f.write(struct.pack('i', int(time.time())))
             f.write(struct.pack('i', 0))
             f.write(struct.pack('i', len(data)))
             f.write(data)
 
-    def doFileOpen(self, args):
-        fn = args[1]
+    def messageLoadFromFile(self, fn, msg):
         with open(fn, "rb") as f:
             f.seek(0x0c)
             data = f.read()
-        self.mLandMessage = LandData_pb2.LandMessage()
-        self.mLandMessage.ParseFromString(data)
+        msg.ParseFromString(data)
+        return msg
+
+    def doFileSave(self, args):
+        self.messageStoreToFile(args[1], self.mLandMessage)
+
+    def doFileOpen(self, args):
+        self.mLandMessage = self.messageLoadFromFile(args[1], LandData_pb2.LandMessage())
         self.mUid = self.mLandMessage.id
+
+    def doFileSaveExtra(self, args):
+        self.messageStoreToFile(args[1], self.mLandMessageExtra)
+
+    def doFileOpenExtra(self, args):
+        self.mLandMessageExtra = self.messageLoadFromFile(args[1], LandData_pb2.ExtraLandMessage())
 
     def tokenPath(self):
         return os.path.join(os.path.expanduser('~'), '.tsto.conf')
@@ -900,6 +931,8 @@ cmdwarg = {
     "setlevel": tsto.set_level,
     "prizeset": tsto.nextPrizeSet,
     "spendable": tsto.spendableSet,
+    "loadextra": tsto.doFileOpenExtra,
+    "saveextra": tsto.doFileSaveExtra,
     "frienddrop": tsto.friendDrop,
     "friendsdrop": tsto.friendsDropNotActive,
     "spendableadd": tsto.spendableAdd,
@@ -924,6 +957,7 @@ cmds = {
     "tokenforget": tsto.tokenForget,
     "cleandebris": tsto.cleanDebris,
     "uploadextra": tsto.doUploadExtraLandMessage,
+    "astextextra": tsto.doSaveExtraAsText,
     "timchrspawn": tsto.friendsTimChrSpawn,
     "timchrsquish": tsto.friendsTimChrSquish,
     "protocurrency": tsto.doLoadCurrency,
