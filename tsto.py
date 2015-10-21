@@ -29,8 +29,9 @@ URL_TNTNUCLEUS = 'nucleus.tnt-ea.com'
 CT_PROTOBUF  = 'application/x-protobuf'
 CT_JSON      = 'application/json'
 CT_XML       = 'application/xaml+xml'
-VERSION_LAND = '32'
+ADB_SAVE_DIR = '/sdcard/Android/data/com.ea.game.simpsons4_row/files/save/'
 VERSION_APP  = '4.17.1'
+VERSION_LAND = '32'
 
 class TSTO:
     def __init__(self):
@@ -52,6 +53,7 @@ class TSTO:
         self.mMhClientVersion              = "Android." + VERSION_APP
         self.mSesSimpsons                  = requests.Session()
         self.mSesOther                     = requests.Session()
+        self.tokenLoadDefault()
 
 ### Network ###
 
@@ -338,9 +340,7 @@ class TSTO:
         events.ParseFromString(data)
         if self.protobufParse(events, data) == False:
             return
-        if self.mExtraLandMessage == None:
-            self.mExtraLandMessage = LandData_pb2.ExtraLandMessage()
-        extra = self.mExtraLandMessage
+        extra = self.getExtraLandMessage()
         alreadyDone = set()
         for ev in events.event:
             if ev.id in alreadyDone:
@@ -840,22 +840,48 @@ innerLandData.creationTime: %s""" % (
     def tokenStore(self):
         self.checkLogined()
         with open(self.tokenPath(), 'w') as f:
-            f.write(self.mToken + '\n')
+            f.write(self.mToken     + '\n')
             f.write(self.mEncrToken + '\n')
+            f.write(self.mUid       + '\n')
 
     def tokenForget(self):
         os.remove(self.tokenPath())
 
-    def tokenLogin(self):
+    def tokenLoadDefault(self):
         content = list()
         with open(self.tokenPath(), 'r') as f:
             content = [x.strip('\n') for x in f.readlines()]
-        if len(content) < 2:
+        if len(content) >= 3:
+            self.mToken     = content[0]
+            self.mEncrToken = content[1]
+            self.mUid       = content[3]
+            return True
+        return False
+
+    def tokenLogin(self):
+        if self.tokenLoadDefault():
             raise TypeError("ERR: wrong file format.")
         else:
-            self.mToken = content[0]
-            self.mEncrToken = content[1]
             self.doAuthWithCryptedToken(self.mEncrToken)
+
+    def doAdbPull(self):
+        files = os.popen('adb shell "ls %s"' % ADB_SAVE_DIR).read()
+        if self.mUid not in files:
+            raise TypeError("ERR: LandMessage file not found in save directory.")
+        os.popen('adb pull "%s%s"'      % (ADB_SAVE_DIR, self.mUid))
+        os.popen('adb pull "%s%sExtra"' % (ADB_SAVE_DIR, self.mUid))
+        self.doFileOpen(('load', self.mUid))
+        self.doFileOpenExtra(('loadextra', self.mUid + 'Extra'))
+    
+    def doAdbPush(self):
+        os.popen('adb shell "rm %s%sB"'      % (ADB_SAVE_DIR, self.mUid))
+        os.popen('adb shell "rm %s%sExtraB"' % (ADB_SAVE_DIR, self.mUid))
+        os.popen('adb shell "rm %sLogMetricsSave"'  % (ADB_SAVE_DIR))
+        os.popen('adb shell "rm %sLogMessagesSave"' % (ADB_SAVE_DIR))
+        self.doFileSave(('save', self.mUid))
+        self.doFileSaveExtra(('saveextra', self.mUid + 'Extra'))
+        os.popen('adb push "%s" "%s%s"'           % (self.mUid, ADB_SAVE_DIR, self.mUid))
+        os.popen('adb push "%sExtra" "%s%sExtra"' % (self.mUid, ADB_SAVE_DIR, self.mUid))
 
     def backupsShow(self):
         self.checkLogined()
@@ -946,6 +972,8 @@ cmds = {
     "quests": tsto.questsShow,
     "cleanr": tsto.cleanR,
     "astext": tsto.doSaveAsText,
+    "adbpull": tsto.doAdbPull,
+    "adbpush": tsto.doAdbPush,
     "backups": tsto.backupsShow,
     "friends": tsto.friendsShow,
     "download": tsto.doLandDownload,
