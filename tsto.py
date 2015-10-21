@@ -85,12 +85,12 @@ class TSTO:
         data = r.content
 
         if (len(data) == 0):
-            print("no content")
+            logging.debug("no content")
         else:
             if r.headers['Content-Type'] == 'application/x-protobuf':
-                print(r.headers['Content-Type'])
+                logging.debug(r.headers['Content-Type'])
             else:
-                print(data)
+                logging.debug(data)
         return data
 
     def protobufParse(self, msg, data):
@@ -167,6 +167,7 @@ class TSTO:
         self.headers["target_land_id"]    = self.mUid
         self.headers["land-update-token"] = self.mUpdateToken
         self.mLogined = True
+        print("OK")
 
     def doLandDownload(self):
         self.checkLogined()
@@ -238,10 +239,12 @@ class TSTO:
         package = "THOH2015_Scripts"
         script  = "SpawnFriendFormlessTerror_Act1"
         eventType      = 11
-        spendableId    = 122009
-        specialEventId = 122000
-        charId         = 122001
-        lifeSpan       = 14400
+        spendableId    = 122009   # THOH2015Score
+        specialEventId = 122000   # THOH2015
+        charId         = 122001   # Formless Terror
+        lifeSpan       = 240 * 60 # 240 minutes
+
+        print("Please wait while spawning timed characters in friends towns...")
 
         # [0] download friendsData before
         friends = self.doDownloadFriendsData()
@@ -261,7 +264,7 @@ class TSTO:
         psd.packageLen    = len(package)
         psd.package       = package
 
-        elm = self.getExtraLandMessage()
+        # elm = self.getExtraLandMessage()
 
         # and post it
         spawns = dict()
@@ -461,6 +464,8 @@ class TSTO:
             del self.mLandMessage.friendListData[i]
         self.mLandMessage.innerLandData.numSavedFriends = len(self.mLandMessage.friendListData)
 
+    # show some date/time info for this land
+
     def showTimes(self):
         tm = time.gmtime(self.mLandMessage.innerLandData.timeSpentPlaying)
         timeSpentPlaying = "%d year(s) %d month(s) %d days %d h %d m" % (1970 - tm.tm_year,
@@ -475,6 +480,7 @@ innerLandData.creationTime: %s""" % (
             time.ctime(self.mLandMessage.innerLandData.creationTime)))
 
 ### In-game items ###
+
     def arrSplit(self, arr):
         itms = []
         for it in arr.split(','):
@@ -544,10 +550,7 @@ innerLandData.creationTime: %s""" % (
 
     def donutsAdd(self, args):
         amout = int(args[1])
-        elm = self.mExtraLandMessage
-        if elm == None:
-            elm = LandData_pb2.ExtraLandMessage()
-            self.mExtraLandMessage = elm
+        elm = self.getExtraLandMessage()
         nextId = self.mLandMessage.innerLandData.nextCurrencyID
         sum = 0
         while sum < amount:
@@ -646,7 +649,7 @@ innerLandData.creationTime: %s""" % (
                unlocked += "," + str(skinId)
         self.skinsSet(('ss', unlocked))
 
-    def buildings_move(self, args):
+    def buildingsMove(self, args):
         building = int(args[1])
         x = int(args[2])
         y = int(args[3])
@@ -658,11 +661,11 @@ innerLandData.creationTime: %s""" % (
                 b.positionY = y
                 b.flipState = flip
 
-    def set_money(self, args):
+    def moneySet(self, args):
         amount = int(args[1])
         self.mLandMessage.userData.money = amount
 
-    def set_level(self, args):
+    def levelSet(self, args):
         level = int(args[1])
         self.mLandMessage.friendData.level = level
         self.mLandMessage.userData.level = level
@@ -701,7 +704,7 @@ innerLandData.creationTime: %s""" % (
         print("questState | timesCompleted | numObjectives | questID")
         for q in self.mLandMessage.questData:
             if q.numObjectives > 0:
-                print("%s : %s : %s : %s" % (q.questState, q.timesCompleted, q.numObjectives, q.questID))
+                print("%s | %s | %s | %s" % (q.questState, q.timesCompleted, q.numObjectives, q.questID))
 
     def getSpecialEvent(self, specialEventId):
         for e in self.mLandMessage.specialEventsData.specialEvent:
@@ -759,6 +762,8 @@ innerLandData.creationTime: %s""" % (
         for idx in idx2del:
             del self.mLandMessage.buildingData[idx]
 
+    # change value of given specialEvent or objectVariables variable
+
     def varChange(self, args):
         value = args[2]
         for name in args[1].split(','):
@@ -777,6 +782,8 @@ innerLandData.creationTime: %s""" % (
                         break
             if found == False:
                 raise ValueError("ERR: can't found variable with name='%s'" % name)
+
+    # print all land variables
 
     def varsPrint(self, args):
         names = None
@@ -921,14 +928,14 @@ cmdwarg = {
     "ia": tsto.inventoryAdd,
     "ic": tsto.inventoryCount,
     "qc": tsto.questComplete,
-    "bm": tsto.buildings_move,
+    "bm": tsto.buildingsMove,
     "vars": tsto.varsPrint,
     "load": tsto.doFileOpen,
     "save": tsto.doFileSave,
     "login": tsto.doAuth,
-    "money": tsto.set_money,
+    "money": tsto.moneySet,
     "donuts": tsto.donutsAdd,
-    "setlevel": tsto.set_level,
+    "setlevel": tsto.levelSet,
     "prizeset": tsto.nextPrizeSet,
     "spendable": tsto.spendableSet,
     "loadextra": tsto.doFileOpenExtra,
