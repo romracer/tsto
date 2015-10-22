@@ -861,7 +861,7 @@ innerLandData.creationTime: %s""" % (
         if len(content) >= 3:
             self.mToken     = content[0]
             self.mEncrToken = content[1]
-            self.mUid       = content[3]
+            self.mUid       = content[2]
             return True
         return False
 
@@ -875,20 +875,22 @@ innerLandData.creationTime: %s""" % (
         files = os.popen('adb shell "ls %s"' % ADB_SAVE_DIR).read()
         if self.mUid not in files:
             raise TypeError("ERR: LandMessage file not found in save directory.")
-        os.popen('adb pull "%s%s"'      % (ADB_SAVE_DIR, self.mUid))
-        os.popen('adb pull "%s%sExtra"' % (ADB_SAVE_DIR, self.mUid))
-        self.doFileOpen(('load', self.mUid))
-        self.doFileOpenExtra(('loadextra', self.mUid + 'Extra'))
+        fn = '%s%s' % (self.mUid, int(time.time()))
+        os.popen('adb pull "%s%s" %s'           % (ADB_SAVE_DIR, self.mUid, fn))
+        os.popen('adb pull "%s%sExtra" %sExtra' % (ADB_SAVE_DIR, self.mUid, fn))
+        self.doFileOpen(('load', fn))
+        self.doFileOpenExtra(('loadextra', fn + 'Extra'))
     
     def doAdbPush(self):
         os.popen('adb shell "rm %s%sB"'      % (ADB_SAVE_DIR, self.mUid))
         os.popen('adb shell "rm %s%sExtraB"' % (ADB_SAVE_DIR, self.mUid))
         os.popen('adb shell "rm %sLogMetricsSave"'  % (ADB_SAVE_DIR))
         os.popen('adb shell "rm %sLogMessagesSave"' % (ADB_SAVE_DIR))
-        self.doFileSave(('save', self.mUid))
-        self.doFileSaveExtra(('saveextra', self.mUid + 'Extra'))
-        os.popen('adb push "%s" "%s%s"'           % (self.mUid, ADB_SAVE_DIR, self.mUid))
-        os.popen('adb push "%sExtra" "%s%sExtra"' % (self.mUid, ADB_SAVE_DIR, self.mUid))
+        fn = '%s%s' % (self.mUid, int(time.time()))
+        self.doFileSave(('save', fn))
+        self.doFileSaveExtra(('saveextra', fn + 'Extra'))
+        os.popen('adb push "%s" "%s%s"'           % (fn, ADB_SAVE_DIR, self.mUid))
+        os.popen('adb push "%sExtra" "%s%sExtra"' % (fn, ADB_SAVE_DIR, self.mUid))
 
     def backupsShow(self):
         self.checkLogined()
@@ -923,6 +925,9 @@ tokenlogin           - login by token stored in file in home dir
 load filepath        - load LandMessage from local filepath
 save filepath        - save LandMessage to local filepath
 astext               - save LandMessage text representation into file
+
+adbpull              - pull/push LandMessage and ExtraLandMessage from
+adbpush                local device save path using Android Debug Bridge
 
 prizeset id number   - set current prize number for specialEvent with given id 
 vs name[,name] val   - set variable(s) to value
