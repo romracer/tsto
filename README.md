@@ -66,3 +66,5 @@ Set current level and FP level to given values:
     vs SocialLevel 20
     upload
     quit
+
+The script has a lot of things to do; just execute 'help' command and examine it output.
